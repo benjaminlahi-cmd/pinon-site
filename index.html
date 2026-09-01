@@ -1,0 +1,2913 @@
+<title>Piñon HRSN Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap">
+
+<style>
+/* Turquoise, white, black. Turquoise is the only hue that carries meaning;
+   status colours are held to the minimum needed to be legible, and the
+   100% FMAP mark is monochrome ink so it reads as a stamp, not a fourth hue. */
+:root{
+  color-scheme: light;
+  --ground:#FFFFFF; --surface:#FFFFFF; --surface-2:#F5F9F9; --surface-3:#EAF1F1;
+  --line:#DDE6E6; --line-strong:#B6C4C4;
+  --ink:#0A0F0F; --ink-2:#485454; --ink-3:#7C8989;
+  --accent:#0B7A76; --accent-2:#095F5C; --accent-bright:#14B3AC;
+  --accent-soft:#E4F4F3; --accent-line:#A8DCD8; --on-accent:#FFFFFF;
+  --good:#1E6B48; --good-soft:#E6F2EC; --good-line:#B4D6C4;
+  --warn:#8A5B00; --warn-soft:#FBF0DD; --warn-line:#E6CFA4;
+  --bad:#A32718;  --bad-soft:#FAE8E5;  --bad-line:#EFC2BA;
+  --info:#1F3A3D; --info-soft:#ECF2F2; --info-line:#C6D4D4;
+  --fmap:#0A0F0F; --fmap-soft:#EDF2F2; --fmap-line:#C6D2D2;
+  --rail-bg:#0A0F0F; --rail-ink:#EDF3F3; --rail-ink-2:#8A9A9A; --rail-line:#1E2828; --rail-active:#182121; --rail-hover:#1F2A2A;
+  --age-1:#5FC0B8; --age-2:#2BA69D; --age-3:#12817B; --age-4:#085954;
+  --bar-bg:#0A0F0F; --bar-ink:#F2F6F6;
+  --shadow:0 1px 2px rgba(10,15,15,.05), 0 10px 28px -14px rgba(10,15,15,.18);
+  --shadow-lg:0 2px 6px rgba(10,15,15,.06), 0 24px 60px -20px rgba(10,15,15,.28);
+  --veil:rgba(10,15,15,.5);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#0A0D0D; --surface:#121717; --surface-2:#171E1E; --surface-3:#1F2727;
+    --line:#273030; --line-strong:#3B4646;
+    --ink:#F1F6F6; --ink-2:#A2AEAE; --ink-3:#74807F;
+    --accent:#4FD1C7; --accent-2:#6FE0D7; --accent-bright:#5FDCD2;
+    --accent-soft:#0E2F2D; --accent-line:#1F504B; --on-accent:#04211F;
+    --good:#57B283; --good-soft:#122720; --good-line:#264A38;
+    --warn:#D7A94A; --warn-soft:#2A2413; --warn-line:#4C4020;
+    --bad:#E37A6B;  --bad-soft:#2C1A17;  --bad-line:#523029;
+    --info:#93B6B8; --info-soft:#182223; --info-line:#31403F;
+    --fmap:#F1F6F6; --fmap-soft:#222B2B; --fmap-line:#3B4646;
+    --rail-bg:#050808; --rail-ink:#E6EDED; --rail-ink-2:#7B8888; --rail-line:#161E1E; --rail-active:#111818; --rail-hover:#18201F;
+    --age-1:#2A6A64; --age-2:#3E9189; --age-3:#57B8AE; --age-4:#7FD8CE;
+    --bar-bg:#1F2727; --bar-ink:#F1F6F6;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.5), 0 24px 60px -20px rgba(0,0,0,.8);
+    --veil:rgba(0,0,0,.64);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#0A0D0D; --surface:#121717; --surface-2:#171E1E; --surface-3:#1F2727;
+  --line:#273030; --line-strong:#3B4646;
+  --ink:#F1F6F6; --ink-2:#A2AEAE; --ink-3:#74807F;
+  --accent:#4FD1C7; --accent-2:#6FE0D7; --accent-bright:#5FDCD2;
+  --accent-soft:#0E2F2D; --accent-line:#1F504B; --on-accent:#04211F;
+  --good:#57B283; --good-soft:#122720; --good-line:#264A38;
+  --warn:#D7A94A; --warn-soft:#2A2413; --warn-line:#4C4020;
+  --bad:#E37A6B;  --bad-soft:#2C1A17;  --bad-line:#523029;
+  --info:#93B6B8; --info-soft:#182223; --info-line:#31403F;
+  --fmap:#F1F6F6; --fmap-soft:#222B2B; --fmap-line:#3B4646;
+  --rail-bg:#050808; --rail-ink:#E6EDED; --rail-ink-2:#7B8888; --rail-line:#161E1E; --rail-active:#111818; --rail-hover:#18201F;
+  --age-1:#2A6A64; --age-2:#3E9189; --age-3:#57B8AE; --age-4:#7FD8CE;
+  --bar-bg:#1F2727; --bar-ink:#F1F6F6;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  --shadow-lg:0 2px 6px rgba(0,0,0,.5), 0 24px 60px -20px rgba(0,0,0,.8);
+  --veil:rgba(0,0,0,.64);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0; text-wrap:balance; font-weight:600}
+p{margin:0}
+button{font:inherit; color:inherit; cursor:pointer; background:none; border:none}
+a{color:var(--accent); text-decoration:none}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+.serif{font-family:Newsreader,Georgia,"Times New Roman",serif}
+.eyebrow{font-size:10.5px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3)}
+.muted{color:var(--ink-2)}
+.dim{color:var(--ink-3)}
+.s11{font-size:11.5px}
+.s12{font-size:12.5px}
+.b6{font-weight:600}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important; transition-duration:.01ms !important}}
+
+/* prototype notice — black strip, white type, turquoise bird */
+.protobar{
+  display:flex; align-items:center; gap:11px; padding:9px 26px;
+  background:var(--bar-bg); color:var(--bar-ink); font-size:12.5px; line-height:1.45;
+}
+.protobar .rr-mark{color:var(--accent-bright); flex:none}
+.protobar b{font-weight:600}
+.protobar .px{
+  margin-left:auto; flex:none; font-size:11.5px; font-weight:600; color:var(--bar-ink);
+  border:1px solid rgba(255,255,255,.28); border-radius:4px; padding:3px 9px; opacity:.85;
+}
+.protobar .px:hover{opacity:1; background:rgba(255,255,255,.1)}
+@media (max-width:700px){.protobar{padding:9px 14px; font-size:11.5px} .protobar .px{padding:2px 7px}}
+
+.shell{display:grid; grid-template-columns:232px 1fr; min-height:100vh}
+.rail{background:var(--rail-bg); color:var(--rail-ink); display:flex; flex-direction:column; position:sticky; top:0; height:100vh; border-right:1px solid var(--rail-line)}
+.brand{padding:19px 18px 15px; border-bottom:1px solid var(--rail-line)}
+.brand-mark{display:flex; align-items:center; gap:9px}
+.brand-name{font-family:Newsreader,Georgia,serif; font-size:21px; font-weight:500; letter-spacing:-.01em; line-height:1}
+.brand-sub{font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--rail-ink-2); margin-top:8px; font-weight:600}
+.nav{padding:10px 10px; flex:1; overflow-y:auto}
+.nav-group{font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--rail-ink-2); padding:14px 8px 6px; font-weight:600}
+.nav-item{display:flex; align-items:center; gap:10px; width:100%; text-align:left; padding:8px 9px; border-radius:5px; color:var(--rail-ink-2); font-size:13.5px; font-weight:500; transition:background .12s, color .12s}
+.nav-item:hover{background:var(--rail-hover); color:var(--rail-ink)}
+.nav-item[aria-current="page"]{background:var(--rail-active); color:var(--rail-ink)}
+.nav-item[aria-current="page"] .nav-ico{color:var(--accent)}
+.nav-ico{width:16px; height:16px; flex:none; color:var(--rail-ink-2)}
+.nav-badge{margin-left:auto; font-size:10.5px; font-weight:600; padding:1px 6px; border-radius:20px; background:var(--bad); color:#fff; font-family:"IBM Plex Mono",monospace}
+.nav-badge.q{background:var(--rail-hover); color:var(--rail-ink-2)}
+.rail-foot{border-top:1px solid var(--rail-line); padding:11px 10px; display:flex; flex-direction:column; gap:8px}
+.role-card{width:100%; display:flex; align-items:center; gap:10px; padding:9px; border-radius:6px; text-align:left; background:var(--rail-active)}
+.role-card:hover{background:var(--rail-hover)}
+.avatar{width:28px; height:28px; border-radius:50%; background:var(--accent); color:var(--on-accent); display:grid; place-items:center; font-size:11px; font-weight:700; flex:none; font-family:"IBM Plex Mono",monospace}
+.role-name{font-size:12.5px; font-weight:600; color:var(--rail-ink); line-height:1.25}
+.role-title{font-size:10.5px; color:var(--rail-ink-2); line-height:1.3}
+
+.main{min-width:0; display:flex; flex-direction:column}
+.topbar{display:flex; align-items:center; gap:14px; padding:0 26px; min-height:60px; border-bottom:1px solid var(--line); background:var(--surface); position:sticky; top:0; z-index:30}
+.crumb{font-family:Newsreader,Georgia,serif; font-size:22px; font-weight:500; letter-spacing:-.01em}
+.topbar-spacer{flex:1}
+.env-chip{display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:500; color:var(--ink-2); border:1px solid var(--line); border-radius:20px; padding:4px 11px 4px 9px; background:var(--surface-2)}
+.dot{width:6px; height:6px; border-radius:50%; background:var(--good); flex:none}
+.page{padding:22px 26px 72px; max-width:1460px; width:100%}
+
+.row{display:flex; align-items:center; gap:10px}
+.wrap{flex-wrap:wrap}
+.col{display:flex; flex-direction:column}
+.grid{display:grid; gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.split{display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr); gap:16px; align-items:start}
+.split-even{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:start}
+@media (max-width:1180px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))} .g3,.split,.g2,.split-even{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.shell{grid-template-columns:1fr} .rail{position:static; height:auto} .page{padding:16px 14px 60px} .topbar{padding:0 14px} .g4{grid-template-columns:minmax(0,1fr)}}
+
+.card{background:var(--surface); border:1px solid var(--line); border-radius:6px; box-shadow:var(--shadow)}
+.card-head{display:flex; align-items:center; gap:10px; padding:13px 16px; border-bottom:1px solid var(--line)}
+.card-head h3{font-size:13.5px; font-weight:600; letter-spacing:-.005em}
+.card-body{padding:16px}
+.card-foot{padding:11px 16px; border-top:1px solid var(--line); background:var(--surface-2); border-radius:0 0 5px 5px}
+.pad0{padding:0}
+
+.btn{display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line-strong); background:var(--surface); border-radius:5px; padding:7px 13px; font-size:13px; font-weight:500; transition:background .12s, border-color .12s; white-space:nowrap}
+.btn:hover{background:var(--surface-3); border-color:var(--ink-3)}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:var(--on-accent)}
+.btn.primary:hover{background:var(--accent-2); border-color:var(--accent-2)}
+.btn.sm{padding:4px 9px; font-size:12px; border-radius:4px}
+.btn.danger{color:var(--bad); border-color:var(--bad-line)}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+.btn-ghost{padding:6px 10px; border-radius:5px; font-size:12.5px; font-weight:500; color:var(--ink-2)}
+.btn-ghost:hover{background:var(--surface-3); color:var(--ink)}
+
+.pill{display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; border:1px solid transparent; white-space:nowrap}
+.pill .pd{width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}
+.p-good{background:var(--good-soft); color:var(--good); border-color:var(--good-line)}
+.p-warn{background:var(--warn-soft); color:var(--warn); border-color:var(--warn-line)}
+.p-bad{background:var(--bad-soft); color:var(--bad); border-color:var(--bad-line)}
+.p-info{background:var(--info-soft); color:var(--info); border-color:var(--info-line)}
+.p-neutral{background:var(--surface-3); color:var(--ink-2); border-color:var(--line)}
+.p-fmap{background:var(--fmap-soft); color:var(--fmap); border-color:var(--fmap-line)}
+.p-accent{background:var(--accent-soft); color:var(--accent); border-color:var(--accent-line)}
+
+table{width:100%; border-collapse:collapse; font-size:13px}
+.tbl-wrap{overflow-x:auto}
+th{text-align:left; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:600; padding:9px 12px; border-bottom:1px solid var(--line); white-space:nowrap; background:var(--surface-2)}
+td{padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tr.clickable{cursor:pointer}
+tr.clickable:hover td{background:var(--surface-2)}
+td.r,th.r{text-align:right}
+.tnum{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; font-size:12.5px}
+
+.stat{padding:14px 16px}
+.stat-label{font-size:10.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3)}
+.stat-value{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; font-size:26px; font-weight:500; letter-spacing:-.02em; margin-top:8px; line-height:1}
+.stat-note{font-size:11.5px; color:var(--ink-2); margin-top:7px}
+.stat-strip{border-left:3px solid var(--line)}
+.s-bad{border-left-color:var(--bad)}
+.s-warn{border-left-color:var(--warn)}
+.s-good{border-left-color:var(--good)}
+.s-accent{border-left-color:var(--accent)}
+.s-fmap{border-left-color:var(--fmap)}
+
+.field{display:flex; flex-direction:column; gap:5px}
+.field label{font-size:11.5px; font-weight:600; color:var(--ink-2)}
+input[type=text],input[type=date],input[type=number],select,textarea{font:inherit; font-size:13px; padding:7px 10px; border:1px solid var(--line-strong); border-radius:5px; background:var(--surface); color:var(--ink); width:100%}
+textarea{resize:vertical; min-height:62px}
+input:focus,select:focus,textarea:focus{outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
+.hint{font-size:11.5px; color:var(--ink-3)}
+
+.kv{display:grid; grid-template-columns:138px 1fr; gap:7px 14px; font-size:13px; align-items:baseline; margin:0}
+.kv dt{color:var(--ink-3); font-size:11.5px; font-weight:600}
+.kv dd{margin:0}
+
+.empty{padding:42px 20px; text-align:center; color:var(--ink-3); font-size:13px}
+.sep{height:1px; background:var(--line); margin:14px 0}
+.tabs{display:flex; gap:2px; border-bottom:1px solid var(--line); margin-bottom:16px; overflow-x:auto}
+.tab{padding:8px 13px; font-size:13px; font-weight:500; color:var(--ink-2); border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--accent); border-bottom-color:var(--accent)}
+
+.check{display:flex; gap:10px; padding:10px 12px; border:1px solid var(--line); border-radius:5px; background:var(--surface-2); align-items:flex-start}
+.check + .check{margin-top:8px}
+.check.err{background:var(--bad-soft); border-color:var(--bad-line)}
+.check.warnc{background:var(--warn-soft); border-color:var(--warn-line)}
+.check-ico{width:16px; height:16px; flex:none; margin-top:1px}
+.check-ttl{font-size:12.5px; font-weight:600}
+.check-msg{font-size:12px; color:var(--ink-2); margin-top:2px; line-height:1.45}
+.check-code{font-size:10.5px; letter-spacing:.05em; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; margin-top:4px}
+.doc-item{display:flex; align-items:center; gap:9px; padding:8px 0; border-bottom:1px dashed var(--line); font-size:13px}
+.doc-item:last-child{border-bottom:none}
+.tick{width:17px; height:17px; border-radius:4px; border:1px solid var(--line-strong); display:grid; place-items:center; flex:none; background:var(--surface); cursor:pointer}
+.tick.on{background:var(--good); border-color:var(--good); color:var(--surface)}
+
+.scrim{position:fixed; inset:0; background:var(--veil); z-index:60; opacity:0; pointer-events:none; transition:opacity .18s}
+.scrim.on{opacity:1; pointer-events:auto}
+.drawer{position:fixed; top:0; right:0; height:100vh; width:min(700px,96vw); background:var(--surface); border-left:1px solid var(--line); box-shadow:var(--shadow-lg); z-index:70; transform:translateX(103%); transition:transform .24s cubic-bezier(.32,.72,0,1); display:flex; flex-direction:column}
+.drawer.on{transform:translateX(0)}
+.drawer-head{display:flex; align-items:center; gap:10px; padding:14px 18px; border-bottom:1px solid var(--line)}
+.drawer-body{flex:1; overflow-y:auto; padding:16px 18px 44px}
+.wire{background:var(--surface-3); border:1px solid var(--line); border-radius:5px; overflow:hidden}
+.wire-head{display:flex; align-items:center; gap:8px; padding:8px 11px; border-bottom:1px solid var(--line); background:var(--surface-2)}
+.wire-body{padding:9px 0; font-family:"IBM Plex Mono",monospace; font-size:11.5px; line-height:1.7; overflow-x:auto}
+.seg{display:block; padding:1px 12px; white-space:pre; border-left:2px solid transparent}
+.seg:hover{background:var(--accent-soft); border-left-color:var(--accent)}
+.seg .sid{color:var(--accent); font-weight:600}
+.seg-note{display:none; padding:3px 12px 7px 24px; font-family:"IBM Plex Sans",sans-serif; font-size:11.5px; color:var(--ink-2); white-space:normal; line-height:1.5}
+.seg:hover + .seg-note{display:block}
+.wire + .wire{margin-top:14px}
+
+.chart svg{display:block; width:100%; height:auto; overflow:visible}
+.ax{font-size:10.5px; fill:var(--ink-3); font-family:"IBM Plex Sans",sans-serif}
+.axv{font-size:11px; fill:var(--ink-2); font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+.axl{font-size:11.5px; fill:var(--ink); font-family:"IBM Plex Sans",sans-serif}
+.gridline{stroke:var(--line); stroke-width:1}
+.bar{transition:opacity .12s; cursor:default}
+.bar:hover{opacity:.75}
+#tip{position:fixed; z-index:200; pointer-events:none; opacity:0; transition:opacity .1s; background:var(--ink); color:var(--ground); font-size:12px; padding:6px 9px; border-radius:4px; box-shadow:var(--shadow); white-space:nowrap; font-weight:500}
+#tip.on{opacity:1}
+#tip .tv{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+
+#toasts{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); z-index:300; display:flex; flex-direction:column; gap:8px; align-items:center}
+.toast{background:var(--ink); color:var(--ground); padding:9px 15px; border-radius:6px; font-size:13px; font-weight:500; box-shadow:var(--shadow-lg); display:flex; align-items:center; gap:9px; animation:rise .2s ease-out; max-width:min(520px,92vw)}
+@keyframes rise{from{transform:translateY(8px); opacity:0}}
+.toast .tdot{width:6px;height:6px;border-radius:50%;background:var(--accent); flex:none}
+
+.modal{position:fixed; inset:0; z-index:80; display:none; place-items:center; padding:20px; background:var(--veil)}
+.modal.on{display:grid}
+.modal-box{background:var(--surface); border:1px solid var(--line); border-radius:8px; box-shadow:var(--shadow-lg); width:min(760px,100%); max-height:88vh; display:flex; flex-direction:column; animation:rise .18s ease-out}
+.modal-head{display:flex; align-items:center; gap:10px; padding:15px 18px; border-bottom:1px solid var(--line)}
+.modal-body{padding:18px; overflow-y:auto}
+.modal-foot{padding:12px 18px; border-top:1px solid var(--line); display:flex; gap:9px; justify-content:flex-end; background:var(--surface-2); border-radius:0 0 7px 7px}
+
+.timeline{position:relative; padding-left:20px}
+.timeline::before{content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line)}
+.tl-item{position:relative; padding-bottom:14px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute; left:-19px; top:4px; width:9px; height:9px; border-radius:50%; background:var(--line-strong); border:2px solid var(--surface)}
+.tl-dot.on{background:var(--accent)}
+.tl-dot.bad{background:var(--bad)}
+.tl-t{font-size:12.5px; font-weight:600}
+.tl-m{font-size:11.5px; color:var(--ink-2); line-height:1.45}
+.tl-d{font-size:10.5px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; margin-top:1px}
+
+.banner{display:flex; gap:11px; padding:12px 14px; border-radius:6px; border:1px solid var(--accent-line); background:var(--accent-soft); align-items:flex-start}
+.b-warn{border-color:var(--warn-line); background:var(--warn-soft)}
+.b-bad{border-color:var(--bad-line); background:var(--bad-soft)}
+.b-fmap{border-color:var(--fmap-line); background:var(--fmap-soft)}
+.banner-t{font-size:12.5px; font-weight:600}
+.banner-m{font-size:12px; color:var(--ink-2); margin-top:3px; line-height:1.5}
+
+.selectable{border:1px solid var(--line); border-radius:5px; padding:10px 12px; display:flex; gap:10px; align-items:flex-start; cursor:pointer; background:var(--surface); text-align:left; width:100%}
+.selectable:hover{border-color:var(--accent-line); background:var(--surface-2)}
+.selectable.sel{border-color:var(--accent); background:var(--accent-soft)}
+.legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.swatch{width:10px; height:10px; border-radius:2px; flex:none}
+</style>
+
+<div class="protobar" id="protobar">
+  <svg class="rr-mark" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 11.4 2.4 3" stroke-width="2.6"/><path d="M10.1 12.2 4.8 2.5" stroke-width="1.3"/><ellipse cx="11.6" cy="12.6" rx="4.1" ry="3.1" transform="rotate(-22 11.6 12.6)" fill="currentColor" stroke="none"/><path d="M13.6 10.9 16.6 7.9" stroke-width="2.4"/><circle cx="17.3" cy="7.1" r="2.1" fill="currentColor" stroke="none"/><path d="M19 6.5 23.2 7.5 19 8.3Z" fill="currentColor" stroke="none"/><path d="M16.1 5.3 15.1 3.4M17.4 5 17.1 3M18.5 5.4 19.3 3.7" stroke-width="1.25"/><path d="M11.2 15.3 10.2 18.4 8.7 21" stroke-width="1.35"/><path d="M13.1 15.2 13.9 18.5 15.5 20.9" stroke-width="1.35"/><path d="M7.5 21.4 9.6 21M14.8 21.3 16.9 20.7" stroke-width="1.1"/></g></svg>
+  <span><b>Prototype.</b> Demonstration data only — every participant, dollar figure, and billing code here is a fictional placeholder, not a New Mexico fee schedule. Nothing on this page has been verified against NM Health Care Authority guidance or any plan contract.</span>
+  <button class="px" id="protoX">Dismiss</button>
+</div>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg class="rr-mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--accent-bright)"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 11.4 2.4 3" stroke-width="2.6"/><path d="M10.1 12.2 4.8 2.5" stroke-width="1.3"/><ellipse cx="11.6" cy="12.6" rx="4.1" ry="3.1" transform="rotate(-22 11.6 12.6)" fill="currentColor" stroke="none"/><path d="M13.6 10.9 16.6 7.9" stroke-width="2.4"/><circle cx="17.3" cy="7.1" r="2.1" fill="currentColor" stroke="none"/><path d="M19 6.5 23.2 7.5 19 8.3Z" fill="currentColor" stroke="none"/><path d="M16.1 5.3 15.1 3.4M17.4 5 17.1 3M18.5 5.4 19.3 3.7" stroke-width="1.25"/><path d="M11.2 15.3 10.2 18.4 8.7 21" stroke-width="1.35"/><path d="M13.1 15.2 13.9 18.5 15.5 20.9" stroke-width="1.35"/><path d="M7.5 21.4 9.6 21M14.8 21.3 16.9 20.7" stroke-width="1.1"/></g></svg>
+        <span class="brand-name">Piñon</span>
+      </div>
+      <div class="brand-sub">High Desert Wellness Collective</div>
+    </div>
+    <nav class="nav" id="nav" aria-label="Main"></nav>
+    <div class="rail-foot" id="railFoot"></div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <h1 class="crumb" id="crumb">Today</h1>
+      <div class="topbar-spacer"></div>
+      <div id="topActions" class="row"></div>
+      <div class="env-chip"><span class="dot"></span> NM Turquoise Care · Stedi sandbox</div>
+    </header>
+    <main class="page" id="page"></main>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer" aria-label="EDI transaction log" role="dialog" aria-modal="false">
+  <div class="drawer-head">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <h3 style="font-size:14px" id="drawerTitle">EDI wire log</h3>
+    <div class="topbar-spacer"></div>
+    <button class="btn-ghost" id="drawerClose" aria-label="Close wire log">Close</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <div class="modal-head"><h3 style="font-size:15px" id="modalTitle"></h3><div class="topbar-spacer"></div><button class="btn-ghost" id="modalX" aria-label="Close">Close</button></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<div id="tip" aria-hidden="true"></div>
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   Piñon — HRSN practice management prototype
+   New Mexico Turquoise Care. Demonstration data only.
+   Rates, codes and modifiers are prototype values and must be
+   verified against the current NM HCA fee schedule before use.
+   ============================================================ */
+
+const TODAY = "2026-09-01";
+const money = n => "$" + n.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
+const money0 = n => "$" + Math.round(n).toLocaleString("en-US");
+const dshort = s => { const [y,m,d] = s.split("-"); return `${+m}/${+d}/${y.slice(2)}`; };
+const dlong = s => { const [y,m,d] = s.split("-"); return `${["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+m]} ${+d}, ${y}`; };
+const days = (a,b) => Math.round((new Date(b) - new Date(a)) / 86400000);
+const age = dob => Math.floor(days(dob, TODAY) / 365.25);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const x12date = s => s.replace(/-/g, "");
+
+/* ---------- organization ---------- */
+const ORG = {
+  name: "High Desert Wellness Collective",
+  dba: "HDWC",
+  addr: "1420 Riverside Dr", city: "Española", state: "NM", zip: "87532",
+  npi: "1093847562", tin: "85-0442197", taxonomy: "251S00000X",
+  taxonomyName: "Community/Behavioral Health Agency",
+  medicaidId: "NM-CBO-778201",
+  sites: ["Española (main)", "Chimayó satellite", "Shiprock partner site"],
+  cca: {
+    partner: "Cottonwood Tribal Health Center (I/T/U)",
+    effective: "2025-10-01",
+    scope: "Care coordination agreement under CMS SHO #16-002 — supports 100% FMAP claiming for AI/AN members referred by the Center."
+  }
+};
+
+/* ---------- payers ---------- */
+const PAYERS = {
+  BCBSNM: {id:"BCBSNM", name:"Blue Cross and Blue Shield of New Mexico", short:"BCBSNM", line:"Turquoise Care", payerId:"00790", filingDays:90, avgPay:21, portal:"Availity", clearing:"Stedi Claims API", elig:"live", claims:"planned"},
+  PRES:   {id:"PRES", name:"Presbyterian Health Plan", short:"Presbyterian", line:"Turquoise Care", payerId:"PHP77", filingDays:90, avgPay:17, portal:"Presbyterian Provider Portal", clearing:"Stedi Claims API", elig:"live", claims:"planned"},
+  MOL:    {id:"MOL", name:"Molina Healthcare of New Mexico", short:"Molina NM", line:"Turquoise Care", payerId:"09824", filingDays:90, avgPay:27, portal:"Molina Provider Portal", clearing:"Stedi Claims API", elig:"live", claims:"planned"},
+  UHC:    {id:"UHC", name:"UnitedHealthcare Community Plan of New Mexico", short:"UHC Community", line:"Turquoise Care", payerId:"87726", filingDays:90, avgPay:19, portal:"UHC Provider Portal", clearing:"Stedi Claims API", elig:"live", claims:"planned"},
+  NMFFS:  {id:"NMFFS", name:"New Mexico Medicaid Fee-for-Service", short:"NM Medicaid FFS", line:"HCA fiscal agent", payerId:"NMHCA", filingDays:90, avgPay:33, portal:"NM Medicaid Portal", clearing:"Stedi Claims API", elig:"live", claims:"needs enrollment",
+           note:"AI/AN members may decline managed care enrollment. Their claims route here, not to an MCO."}
+};
+
+/* Stedi is the EDI gateway. Piñon never opens a socket to a plan — it calls
+   Stedi, which builds and parses the X12 shown throughout this prototype.
+   Eligibility is the transaction already in production use; claims submission
+   and remittance are the next phase.                                        */
+const STEDI = {
+  eligEndpoint: "POST /2024-04-01/change/medicalnetwork/eligibility/v3",
+  claimEndpoint: "POST /2024-04-01/change/medicalnetwork/professionalclaims/v3/submission",
+  statusEndpoint: "POST /2024-04-01/change/medicalnetwork/claimstatus/v2",
+  senderId: "HDWC" + ORG.npi,
+  env: "sandbox",
+  transactions: [
+    {t:"270 / 271", n:"Eligibility and benefit inquiry", status:"live", note:"Already used in bulk against Oregon Medicaid. The same call works against the four Turquoise Care plans and NM fee-for-service by swapping the trading partner ID."},
+    {t:"837P", n:"Professional claim submission", status:"planned", note:"Piñon builds the claim and the scrub record today; Stedi would take the JSON and emit the X12. This is the next transaction to turn on."},
+    {t:"277CA", n:"Claim acknowledgement", status:"planned", note:"Tells you within a day whether the file was even readable — a different and faster failure than a denial."},
+    {t:"835", n:"Electronic remittance advice", status:"planned", note:"Posts payments back against the exact service record using the line control number Piñon writes into REF*6R."},
+    {t:"278", n:"Prior authorization request", status:"not started", note:"Authorizations are requested in each plan's portal today. Six of the twelve catalog services need one, so this is where the next hour of manual work goes."},
+    {t:"834", n:"Enrollment roster ingestion", status:"not started", note:"Would let Piñon learn about a plan change before a claim denies for it, instead of after."}
+  ]
+};
+
+/* ---------- rendering practitioners ---------- */
+const STAFF = {
+  ktsosie:  {id:"ktsosie", name:"Kayla Tsosie", cred:"CHW", role:"Community Health Worker", npi:"1922334455", taxonomy:"172V00000X", tribalCred:null},
+  aruiz:    {id:"aruiz", name:"Ana Ruiz", cred:"RDN", role:"Registered Dietitian Nutritionist", npi:"1477889900", taxonomy:"133V00000X", tribalCred:null},
+  dhalwood: {id:"dhalwood", name:"Denise Halwood", cred:"LMSW", role:"Housing Navigator", npi:"1588990011", taxonomy:"1041C0700X", tribalCred:null},
+  fnaranjo: {id:"fnaranjo", name:"Frank Naranjo", cred:"THP", role:"Traditional Healing Practitioner", npi:null, taxonomy:null,
+             tribalCred:{issuer:"Cottonwood Tribal Health Center", ref:"THP-2025-014", expires:"2027-03-31"}},
+  tmarquez: {id:"tmarquez", name:"Teo Marquez", cred:"EAS", role:"Equine-Assisted Services Specialist", npi:null, taxonomy:"225X00000X", tribalCred:null},
+  mvigil:   {id:"mvigil", name:"Marisol Vigil", cred:"MPH", role:"Program Director", npi:null, taxonomy:null, tribalCred:null}
+};
+
+/* ---------- documentation requirement definitions ---------- */
+const DOCDEF = {
+  screen:   "HRSN screening completed within 12 months",
+  zdx:      "Health-related social need diagnosis (Z-code) recorded",
+  careplan: "Care plan entry naming this service",
+  referral: "Referral from PCP, MCO care manager, or I/T/U",
+  auth:     "Prior authorization number on file",
+  delivery: "Delivery confirmation or member signature",
+  receipt:  "Vendor invoice or itemized receipt",
+  note:     "Signed encounter note",
+  attest:   "Rendering practitioner attestation",
+  tribcred: "Tribal credentialing letter on file",
+  triplog:  "Trip log with origin, destination, and mileage",
+  consent:  "Member consent for traditional healing practice",
+  lease:    "Lease or landlord agreement",
+  photo:    "Photo of goods delivered"
+};
+
+/* ---------- HRSN benefit catalog ---------- */
+const CATALOG = [
+  {code:"S9977", mod:"U1", name:"Produce prescription box, weekly", cat:"Nutrition", unit:"box", rate:52.00,
+   domain:"food", auth:"after", authAfter:12, limit:{n:26, per:"rolling 12 months"}, pos:"99",
+   docs:["screen","zdx","careplan","delivery","receipt"], who:["ktsosie","aruiz"],
+   desc:"Weekly box of fresh produce sourced from regional growers, delivered or picked up at a site."},
+  {code:"S5170", mod:"", name:"Home-delivered medically tailored meal", cat:"Nutrition", unit:"meal", rate:12.75,
+   domain:"food", auth:"required", limit:{n:504, per:"rolling 12 months"}, pos:"12",
+   docs:["screen","zdx","careplan","auth","referral","delivery"], who:["aruiz","ktsosie"],
+   desc:"Meal designed by an RDN for a documented diet-sensitive condition. Requires clinical referral."},
+  {code:"S9470", mod:"", name:"Nutrition counseling, individual", cat:"Nutrition", unit:"visit", rate:68.00,
+   domain:"food", auth:"none", limit:{n:12, per:"rolling 12 months"}, pos:"11",
+   docs:["screen","zdx","note","attest"], who:["aruiz"],
+   desc:"Individual counseling by a registered dietitian, 30 minutes."},
+  {code:"G0136", mod:"", name:"HRSN risk assessment, 5–15 min", cat:"Screening", unit:"assessment", rate:18.66,
+   domain:"any", auth:"none", limit:{n:2, per:"rolling 12 months"}, pos:"11",
+   docs:["screen","note"], who:["ktsosie","dhalwood","aruiz"],
+   desc:"Standardized social-need screening. The upstream event that makes everything else billable."},
+  {code:"G0019", mod:"", name:"Community health integration, first 60 min", cat:"Care coordination", unit:"month", rate:79.24,
+   domain:"any", auth:"none", limit:{n:12, per:"rolling 12 months"}, pos:"11",
+   docs:["screen","zdx","careplan","note","attest"], who:["ktsosie"],
+   desc:"Monthly community health worker services addressing a documented unmet social need."},
+  {code:"T1016", mod:"", name:"Targeted case management, 15 min", cat:"Care coordination", unit:"15 min", rate:22.50,
+   domain:"any", auth:"none", limit:{n:96, per:"rolling 12 months"}, pos:"99",
+   docs:["careplan","note","attest"], who:["ktsosie","dhalwood"],
+   desc:"Assessment, planning, referral, and monitoring in 15-minute increments."},
+  {code:"H0044", mod:"", name:"Housing tenancy sustaining services, monthly", cat:"Housing", unit:"month", rate:410.00,
+   domain:"housing", auth:"required", limit:{n:6, per:"rolling 12 months"}, pos:"12",
+   docs:["screen","zdx","careplan","auth","lease","note"], who:["dhalwood"],
+   desc:"Ongoing supports that keep a member housed: landlord mediation, recertification, crisis response."},
+  {code:"T2038", mod:"", name:"Community transition — deposit and setup", cat:"Housing", unit:"transition", rate:1850.00,
+   domain:"housing", auth:"required", limit:{n:1, per:"lifetime, per transition event"}, pos:"12",
+   docs:["screen","zdx","careplan","auth","lease","receipt"], who:["dhalwood"],
+   desc:"One-time security deposit, utility connection, and essential household goods."},
+  {code:"S8940", mod:"", name:"Equine-assisted therapeutic session", cat:"Behavioral", unit:"session", rate:95.00,
+   domain:"behavioral", auth:"required", limit:{n:24, per:"rolling 12 months"}, pos:"99",
+   docs:["screen","zdx","careplan","auth","referral","note","attest"], who:["tmarquez"],
+   desc:"Structured session with a credentialed equine specialist and a behavioral health co-facilitator."},
+  {code:"T1015", mod:"U7", name:"Traditional healing encounter, individual", cat:"Traditional practices", unit:"encounter", rate:146.00,
+   domain:"any", auth:"none", limit:{n:24, per:"rolling 12 months"}, pos:"99", tribal:true,
+   docs:["consent","careplan","note","tribcred"], who:["fnaranjo"],
+   desc:"Encounter with a practitioner credentialed by a tribal health program. Modifier U7 is a state-assigned local modifier in this prototype."},
+  {code:"T1015", mod:"U8", name:"Traditional healing, group practice", cat:"Traditional practices", unit:"encounter", rate:62.00,
+   domain:"any", auth:"none", limit:{n:36, per:"rolling 12 months"}, pos:"99", tribal:true,
+   docs:["consent","careplan","note","tribcred"], who:["fnaranjo"],
+   desc:"Group practice such as a talking circle, billed per participating member."},
+  {code:"T2003", mod:"", name:"Non-emergency transport, per trip", cat:"Transportation", unit:"trip", rate:34.00,
+   domain:"transport", auth:"none", limit:{n:48, per:"rolling 12 months"}, pos:"99",
+   docs:["careplan","triplog"], who:["ktsosie"],
+   desc:"Round trip to a covered HRSN service or medical appointment."}
+];
+const cat = (code, mod) => CATALOG.find(c => c.code === code && c.mod === (mod || "")) || CATALOG.find(c => c.code === code);
+const catKey = c => c.code + (c.mod ? "-" + c.mod : "");
+
+/* ---------- Z-codes ---------- */
+const ZCODES = {
+  "Z59.41":"Food insecurity",
+  "Z59.48":"Other specified lack of adequate food",
+  "Z59.00":"Homelessness, unspecified",
+  "Z59.1":"Inadequate housing",
+  "Z59.81":"Housing instability, housed",
+  "Z59.86":"Financial insecurity",
+  "Z59.82":"Transportation insecurity",
+  "Z60.2":"Problems related to living alone",
+  "Z63.4":"Disappearance or death of family member",
+  "Z55.0":"Illiteracy and low-level literacy"
+};
+const DOMAIN_Z = {
+  food:["Z59.41","Z59.48"],
+  housing:["Z59.00","Z59.1","Z59.81"],
+  transport:["Z59.82"],
+  behavioral:["Z60.2","Z63.4","Z59.86"],
+  any:Object.keys(ZCODES)
+};
+
+/* ---------- members ---------- */
+const MEMBERS = [
+  {id:"M01", first:"Loretta", last:"Yazzie", dob:"1958-04-12", mid:"NM4471822301", sex:"F", phone:"(505) 555-0142",
+   city:"Shiprock", county:"San Juan", tribe:"Navajo Nation", aiAn:true, lang:"Diné bizaad / English",
+   payer:"NMFFS", plan:"Fee-for-service", eff:"2019-01-01", thru:null, mcExempt:true,
+   ituReferral:"Cottonwood Tribal Health Center", pcp:"Cottonwood Tribal Health Center",
+   screening:"2026-03-18", needs:["Z59.41","Z59.82"],
+   note:"Declined managed care enrollment. Type 2 diabetes; travels 41 miles each way for dialysis-adjacent care."},
+
+  {id:"M02", first:"Marcus", last:"Trujillo", dob:"1991-11-02", mid:"NM5590114402", sex:"M", phone:"(505) 555-0177",
+   city:"Española", county:"Rio Arriba", tribe:null, aiAn:false, lang:"English",
+   payer:"BCBSNM", plan:"Turquoise Care", eff:"2024-07-01", thru:null, mcExempt:false,
+   ituReferral:null, pcp:"El Centro Family Health",
+   screening:"2026-05-06", needs:["Z59.81","Z59.86"],
+   note:"Housing instability after a rent increase. Working with the housing navigator on a transition."},
+
+  {id:"M03", first:"Delfina", last:"Naranjo", dob:"1967-06-25", mid:"NM3320887705", sex:"F", phone:"(505) 555-0193",
+   city:"Española", county:"Rio Arriba", tribe:"Santa Clara Pueblo", aiAn:true, lang:"English",
+   payer:"PRES", plan:"Turquoise Care", eff:"2024-07-01", thru:null, mcExempt:false,
+   ituReferral:"Cottonwood Tribal Health Center", pcp:"Santa Clara Health Center",
+   screening:"2026-02-11", needs:["Z59.41"],
+   note:"Enrolled in managed care by choice. Produce prescription plus traditional healing on the same care plan."},
+
+  {id:"M04", first:"Bennie", last:"Kaye", dob:"1974-09-30", mid:"NM7781200904", sex:"M", phone:"(505) 555-0119",
+   city:"Zuni", county:"McKinley", tribe:"Zuni Pueblo", aiAn:true, lang:"Shiwiʼma / English",
+   payer:"NMFFS", plan:"Fee-for-service", eff:"2021-05-01", thru:null, mcExempt:true,
+   ituReferral:"Cottonwood Tribal Health Center", pcp:"IHS Zuni Comprehensive Health Center",
+   screening:"2025-06-02", needs:["Z59.41","Z60.2"],
+   note:"HRSN screening is past 12 months — needs to be redone before the next claim goes out."},
+
+  {id:"M05", first:"Rosalie", last:"Martinez", dob:"1949-02-17", mid:"NM1145600807", sex:"F", phone:"(505) 555-0158",
+   city:"Chimayó", county:"Rio Arriba", tribe:null, aiAn:false, lang:"Spanish / English",
+   payer:"MOL", plan:"Turquoise Care", eff:"2024-07-01", thru:null, mcExempt:false,
+   ituReferral:null, pcp:"Las Clínicas del Norte",
+   screening:"2026-04-22", needs:["Z59.41","Z59.82"],
+   note:"Congestive heart failure. Medically tailored meals authorized through October."},
+
+  {id:"M06", first:"Anthony", last:"Vigil", dob:"1988-01-08", mid:"NM6602391108", sex:"M", phone:"(505) 555-0166",
+   city:"Ohkay Owingeh", county:"Rio Arriba", tribe:"Ohkay Owingeh", aiAn:true, lang:"English",
+   payer:"UHC", plan:"Turquoise Care", eff:"2025-01-01", thru:null, mcExempt:false,
+   ituReferral:"Cottonwood Tribal Health Center", pcp:"Cottonwood Tribal Health Center",
+   screening:"2026-06-30", needs:["Z60.2","Z63.4"],
+   note:"Equine-assisted sessions authorized. Also attends the monthly talking circle."},
+
+  {id:"M07", first:"Priscilla", last:"Chino", dob:"1996-07-14", mid:"NM8834502203", sex:"F", phone:"(575) 555-0131",
+   city:"Mescalero", county:"Otero", tribe:"Mescalero Apache Tribe", aiAn:true, lang:"English",
+   payer:"PRES", plan:"Turquoise Care", eff:"2024-07-01", thru:null, mcExempt:false,
+   ituReferral:"Cottonwood Tribal Health Center", pcp:"Mescalero Service Unit",
+   screening:"2026-07-09", needs:["Z59.41","Z59.82"],
+   note:"Postpartum. Produce prescription and transportation to well-child visits."},
+
+  {id:"M08", first:"Eugene", last:"Sandoval", dob:"1962-12-03", mid:"NM2298744106", sex:"M", phone:"(505) 555-0184",
+   city:"Española", county:"Rio Arriba", tribe:null, aiAn:false, lang:"English",
+   payer:"BCBSNM", plan:"Turquoise Care", eff:"2024-07-01", thru:null, mcExempt:false,
+   ituReferral:null, pcp:"El Centro Family Health",
+   screening:"2026-01-15", needs:["Z59.00"],
+   note:"Transitioned from unsheltered homelessness in June. Tenancy sustaining services active."},
+
+  {id:"M09", first:"Tessa", last:"Begay", dob:"2001-03-21", mid:"NM9917633002", sex:"F", phone:"(505) 555-0126",
+   city:"Farmington", county:"San Juan", tribe:"Navajo Nation", aiAn:true, lang:"English",
+   payer:"MOL", plan:"Turquoise Care", eff:"2025-08-01", thru:null, mcExempt:false,
+   ituReferral:"Cottonwood Tribal Health Center", pcp:"Northern Navajo Medical Center",
+   screening:"2026-05-28", needs:["Z59.41","Z59.86"],
+   note:"Student. Produce prescription plus monthly community health integration."},
+
+  {id:"M10", first:"Ruben", last:"Ortega", dob:"1955-08-19", mid:"NM4406721509", sex:"M", phone:"(505) 555-0148",
+   city:"Alcalde", county:"Rio Arriba", tribe:null, aiAn:false, lang:"Spanish",
+   payer:"UHC", plan:"Turquoise Care", eff:"2024-07-01", thru:null, mcExempt:false,
+   ituReferral:null, pcp:"Las Clínicas del Norte",
+   screening:"2026-06-11", needs:["Z59.82","Z59.41"],
+   note:"No vehicle. Relies on transport benefit for dialysis and grocery access."},
+
+  {id:"M11", first:"Marlene", last:"Vicenti", dob:"1979-05-27", mid:"NM5563310704", sex:"F", phone:"(575) 555-0173",
+   city:"Dulce", county:"Rio Arriba", tribe:"Jicarilla Apache Nation", aiAn:true, lang:"English",
+   payer:"NMFFS", plan:"Fee-for-service", eff:"2020-09-01", thru:null, mcExempt:true,
+   ituReferral:"Cottonwood Tribal Health Center", pcp:"Jicarilla Service Unit",
+   screening:"2026-04-03", needs:["Z59.41","Z60.2"],
+   note:"Declined managed care. Traditional healing encounters billed to FFS."},
+
+  {id:"M12", first:"Cheryl", last:"Duran", dob:"1984-10-11", mid:"NM3348920601", sex:"F", phone:"(505) 555-0107",
+   city:"Velarde", county:"Rio Arriba", tribe:null, aiAn:false, lang:"English",
+   payer:"PRES", plan:"Turquoise Care", eff:"2024-07-01", thru:"2026-07-31", mcExempt:false,
+   ituReferral:null, pcp:"El Centro Family Health",
+   screening:"2026-03-02", needs:["Z59.41"],
+   note:"Coverage terminated July 31 for an unreturned renewal packet. Two August boxes were delivered anyway."}
+];
+const mem = id => MEMBERS.find(m => m.id === id);
+const mname = m => `${m.first} ${m.last}`;
+
+/* ---------- prior authorizations ---------- */
+const AUTHS = [
+  {id:"AU-88401", member:"M05", payer:"MOL",  code:"S5170", mod:"", num:"MOL-2026-441209", units:180, used:132, from:"2026-05-01", to:"2026-10-31", status:"active"},
+  {id:"AU-88402", member:"M06", payer:"UHC",  code:"S8940", mod:"", num:"UHC-A-7730912", units:12, used:9, from:"2026-04-01", to:"2026-09-30", status:"active"},
+  {id:"AU-88403", member:"M08", payer:"BCBSNM", code:"H0044", mod:"", num:"BC-TSS-556140", units:6, used:3, from:"2026-06-01", to:"2026-11-30", status:"active"},
+  {id:"AU-88404", member:"M02", payer:"BCBSNM", code:"T2038", mod:"", num:"BC-CT-556311", units:1, used:0, from:"2026-08-15", to:"2026-11-14", status:"active"},
+  {id:"AU-88405", member:"M03", payer:"PRES", code:"S9977", mod:"U1", num:"PHP-PR-220884", units:26, used:19, from:"2026-01-05", to:"2026-12-31", status:"active"},
+  {id:"AU-88406", member:"M06", payer:"UHC",  code:"S8940", mod:"", num:null, units:0, used:0, from:"2026-10-01", to:"2027-03-31", status:"needed"}
+];
+const authFor = (memberId, code, mod, dos) => AUTHS.find(a =>
+  a.member === memberId && a.code === code && (a.mod || "") === (mod || "") &&
+  a.status === "active" && dos >= a.from && dos <= a.to);
+
+/* ---------- delivered services ---------- */
+const SERVICES = [];
+function S(o){
+  const c = cat(o.code, o.mod);
+  o.mod = o.mod || "";
+  o.rate = c.rate;
+  o.amount = +(c.rate * o.units).toFixed(2);
+  o.docs = c.docs.filter(d => !(o.missing || []).includes(d));
+  o.claim = o.claim || null;
+  o.site = o.site || "Española (main)";
+  o.itu = !!o.itu;
+  SERVICES.push(o);
+}
+
+/* --- billed and paid --- */
+S({id:"SV-2601", member:"M03", code:"S9977", mod:"U1", dos:"2026-07-06", units:1, staff:"ktsosie", itu:true,  claim:"CLM-2026-0411"});
+S({id:"SV-2602", member:"M03", code:"S9977", mod:"U1", dos:"2026-07-13", units:1, staff:"ktsosie", itu:true,  claim:"CLM-2026-0411"});
+S({id:"SV-2603", member:"M03", code:"S9977", mod:"U1", dos:"2026-07-20", units:1, staff:"ktsosie", itu:true,  claim:"CLM-2026-0411"});
+S({id:"SV-2604", member:"M03", code:"S9977", mod:"U1", dos:"2026-07-27", units:1, staff:"ktsosie", itu:true,  claim:"CLM-2026-0411"});
+S({id:"SV-2605", member:"M05", code:"S5170", mod:"",   dos:"2026-07-31", units:44, staff:"aruiz",  claim:"CLM-2026-0412"});
+S({id:"SV-2606", member:"M08", code:"H0044", mod:"",   dos:"2026-07-31", units:1, staff:"dhalwood", claim:"CLM-2026-0413"});
+S({id:"SV-2607", member:"M09", code:"G0019", mod:"",   dos:"2026-07-31", units:1, staff:"ktsosie", itu:true, claim:"CLM-2026-0414"});
+S({id:"SV-2608", member:"M09", code:"S9977", mod:"U1", dos:"2026-07-09", units:4, staff:"ktsosie", itu:true, claim:"CLM-2026-0414"});
+S({id:"SV-2609", member:"M11", code:"T1015", mod:"U7", dos:"2026-07-15", units:1, staff:"fnaranjo", itu:true, site:"Shiprock partner site", claim:"CLM-2026-0415"});
+S({id:"SV-2610", member:"M01", code:"T2003", mod:"",   dos:"2026-07-10", units:6, staff:"ktsosie", itu:true, claim:"CLM-2026-0416"});
+S({id:"SV-2611", member:"M01", code:"S9977", mod:"U1", dos:"2026-07-06", units:4, staff:"ktsosie", itu:true, claim:"CLM-2026-0416"});
+
+/* --- denied --- */
+S({id:"SV-2620", member:"M06", code:"S8940", mod:"", dos:"2026-06-18", units:3, staff:"tmarquez", itu:true, claim:"CLM-2026-0398", missing:["auth"]});
+S({id:"SV-2621", member:"M12", code:"S9977", mod:"U1", dos:"2026-08-04", units:1, staff:"ktsosie", claim:"CLM-2026-0421"});
+S({id:"SV-2622", member:"M12", code:"S9977", mod:"U1", dos:"2026-08-11", units:1, staff:"ktsosie", claim:"CLM-2026-0421"});
+S({id:"SV-2623", member:"M07", code:"T2003", mod:"", dos:"2026-05-12", units:8, staff:"ktsosie", itu:true, claim:"CLM-2026-0362"});
+S({id:"SV-2624", member:"M04", code:"S9977", mod:"U1", dos:"2026-06-08", units:4, staff:"ktsosie", itu:true, claim:"CLM-2026-0389", missing:["screen"]});
+
+/* --- submitted, awaiting adjudication --- */
+S({id:"SV-2630", member:"M05", code:"S5170", mod:"", dos:"2026-08-31", units:41, staff:"aruiz", claim:"CLM-2026-0432"});
+S({id:"SV-2631", member:"M08", code:"H0044", mod:"", dos:"2026-08-31", units:1, staff:"dhalwood", claim:"CLM-2026-0433"});
+S({id:"SV-2632", member:"M03", code:"S9977", mod:"U1", dos:"2026-08-03", units:1, staff:"ktsosie", itu:true, claim:"CLM-2026-0434"});
+S({id:"SV-2633", member:"M03", code:"S9977", mod:"U1", dos:"2026-08-10", units:1, staff:"ktsosie", itu:true, claim:"CLM-2026-0434"});
+S({id:"SV-2634", member:"M03", code:"T1015", mod:"U7", dos:"2026-08-12", units:1, staff:"fnaranjo", itu:true, claim:"CLM-2026-0434"});
+S({id:"SV-2635", member:"M06", code:"S8940", mod:"", dos:"2026-08-06", units:2, staff:"tmarquez", itu:true, claim:"CLM-2026-0435"});
+S({id:"SV-2636", member:"M06", code:"T1015", mod:"U8", dos:"2026-08-20", units:1, staff:"fnaranjo", itu:true, claim:"CLM-2026-0435"});
+S({id:"SV-2637", member:"M10", code:"T2003", mod:"", dos:"2026-08-14", units:9, staff:"ktsosie", claim:"CLM-2026-0436"});
+S({id:"SV-2638", member:"M09", code:"G0019", mod:"", dos:"2026-08-31", units:1, staff:"ktsosie", itu:true, claim:"CLM-2026-0437"});
+
+/* --- unbilled: sitting in the work queue --- */
+S({id:"SV-2650", member:"M07", code:"S9977", mod:"U1", dos:"2026-08-17", units:2, staff:"ktsosie", itu:true});
+S({id:"SV-2651", member:"M07", code:"T2003", mod:"", dos:"2026-08-19", units:4, staff:"ktsosie", itu:true});
+S({id:"SV-2652", member:"M11", code:"T1015", mod:"U7", dos:"2026-08-19", units:1, staff:"fnaranjo", itu:true, site:"Shiprock partner site"});
+S({id:"SV-2653", member:"M11", code:"T1016", mod:"", dos:"2026-08-21", units:3, staff:"ktsosie", itu:true});
+S({id:"SV-2654", member:"M01", code:"S9977", mod:"U1", dos:"2026-08-10", units:4, staff:"ktsosie", itu:true});
+S({id:"SV-2655", member:"M01", code:"T2003", mod:"", dos:"2026-08-13", units:6, staff:"ktsosie", itu:true, missing:["triplog"]});
+S({id:"SV-2656", member:"M02", code:"T1016", mod:"", dos:"2026-08-24", units:6, staff:"dhalwood"});
+S({id:"SV-2657", member:"M02", code:"T2038", mod:"", dos:"2026-08-26", units:1, staff:"dhalwood", missing:["lease","receipt"]});
+S({id:"SV-2658", member:"M04", code:"S9977", mod:"U1", dos:"2026-08-05", units:4, staff:"ktsosie", itu:true, missing:["screen"]});
+S({id:"SV-2659", member:"M10", code:"S9977", mod:"U1", dos:"2026-08-24", units:1, staff:"ktsosie"});
+S({id:"SV-2660", member:"M08", code:"T1016", mod:"", dos:"2026-08-27", units:4, staff:"dhalwood"});
+S({id:"SV-2661", member:"M06", code:"S8940", mod:"", dos:"2026-08-27", units:1, staff:"tmarquez", itu:true});
+S({id:"SV-2662", member:"M09", code:"S9977", mod:"U1", dos:"2026-08-24", units:1, staff:"ktsosie", itu:true});
+S({id:"SV-2663", member:"M05", code:"S9470", mod:"", dos:"2026-08-28", units:1, staff:"aruiz"});
+S({id:"SV-2664", member:"M12", code:"G0136", mod:"", dos:"2026-08-28", units:1, staff:"ktsosie"});
+
+const svcById = id => SERVICES.find(s => s.id === id);
+
+/* ---------- denial reason reference ---------- */
+const CARC = {
+  "197":{carc:"CO-197", rarc:"N54", text:"Precertification / authorization absent", fix:"Request a retro-authorization from the plan, then resubmit as a corrected claim (frequency code 7)."},
+  "16": {carc:"CO-16",  rarc:"N290", text:"Claim lacks information — rendering provider identifier missing or invalid", fix:"Add the rendering provider NPI and taxonomy in loop 2310B, then resubmit."},
+  "29": {carc:"CO-29",  rarc:"N211", text:"Time limit for filing has expired", fix:"Appeal with proof of timely filing, or write the balance off. Prevention is the real fix."},
+  "96": {carc:"CO-96",  rarc:"N425", text:"Non-covered charge — service not in the member's benefit package", fix:"Confirm the HRSN benefit on the 271 before delivery. Rebill only if eligibility shows the benefit was active."},
+  "27": {carc:"CO-27",  rarc:"N30",  text:"Expenses incurred after coverage terminated", fix:"Re-verify eligibility. If the member was retro-reinstated, resubmit; otherwise route to the community-funded pool."},
+  "151":{carc:"CO-151", rarc:"N362", text:"Information submitted does not support this many services", fix:"Benefit limit exceeded. Split the claim to the units still available, or request a limit exception."},
+  "B7": {carc:"CO-B7",  rarc:"N570", text:"Provider not certified for this procedure on this date of service", fix:"Confirm the practitioner's credential and effective date with the plan's provider enrollment team."},
+  "18": {carc:"CO-18",  rarc:"N522", text:"Exact duplicate claim or service", fix:"Void the duplicate. Check the original claim's status before resubmitting anything."}
+};
+
+/* ---------- claims ---------- */
+const CLAIMS = [];
+function C(o){
+  o.lines = o.svc.map(id => svcById(id));
+  o.member = o.lines[0].member;
+  o.total = +o.lines.reduce((t,s) => t + s.amount, 0).toFixed(2);
+  o.dosFrom = o.lines.map(s => s.dos).sort()[0];
+  o.dosTo = o.lines.map(s => s.dos).sort().slice(-1)[0];
+  o.paidAmt = o.paidAmt === undefined ? (o.status === "paid" ? o.total : 0) : o.paidAmt;
+  CLAIMS.push(o);
+}
+
+C({id:"CLM-2026-0411", payer:"PRES", svc:["SV-2601","SV-2602","SV-2603","SV-2604"], status:"paid", submitted:"2026-08-03", acked:"2026-08-04", paidDate:"2026-08-19", trace:"EFT 8841207734"});
+C({id:"CLM-2026-0412", payer:"MOL",  svc:["SV-2605"], status:"paid", submitted:"2026-08-03", acked:"2026-08-05", paidDate:"2026-08-28", trace:"EFT 2290551188"});
+C({id:"CLM-2026-0413", payer:"BCBSNM", svc:["SV-2606"], status:"paid", submitted:"2026-08-03", acked:"2026-08-04", paidDate:"2026-08-21", trace:"EFT 7714002391"});
+C({id:"CLM-2026-0414", payer:"MOL",  svc:["SV-2607","SV-2608"], status:"paid", submitted:"2026-08-03", acked:"2026-08-05", paidDate:"2026-08-30", trace:"EFT 2290551204"});
+C({id:"CLM-2026-0415", payer:"NMFFS", svc:["SV-2609"], status:"paid", submitted:"2026-07-28", acked:"2026-07-30", paidDate:"2026-08-27", trace:"EFT NM-4471902"});
+C({id:"CLM-2026-0416", payer:"NMFFS", svc:["SV-2610","SV-2611"], status:"paid", submitted:"2026-07-28", acked:"2026-07-30", paidDate:"2026-08-27", trace:"EFT NM-4471903"});
+
+C({id:"CLM-2026-0398", payer:"UHC", svc:["SV-2620"], status:"denied", submitted:"2026-07-02", acked:"2026-07-03", paidDate:"2026-07-21", paidAmt:0, deny:"197"});
+C({id:"CLM-2026-0421", payer:"PRES", svc:["SV-2621","SV-2622"], status:"denied", submitted:"2026-08-17", acked:"2026-08-18", paidDate:"2026-08-29", paidAmt:0, deny:"27"});
+C({id:"CLM-2026-0362", payer:"PRES", svc:["SV-2623"], status:"denied", submitted:"2026-08-24", acked:"2026-08-25", paidDate:"2026-08-31", paidAmt:0, deny:"29"});
+C({id:"CLM-2026-0389", payer:"NMFFS", svc:["SV-2624"], status:"appealed", submitted:"2026-07-14", acked:"2026-07-16", paidDate:"2026-08-04", paidAmt:0, deny:"96", appealed:"2026-08-12"});
+
+C({id:"CLM-2026-0432", payer:"MOL",  svc:["SV-2630"], status:"ack", submitted:"2026-09-01", acked:"2026-09-01"});
+C({id:"CLM-2026-0433", payer:"BCBSNM", svc:["SV-2631"], status:"ack", submitted:"2026-09-01", acked:"2026-09-01"});
+C({id:"CLM-2026-0434", payer:"PRES", svc:["SV-2632","SV-2633","SV-2634"], status:"ack", submitted:"2026-08-24", acked:"2026-08-25"});
+C({id:"CLM-2026-0435", payer:"UHC",  svc:["SV-2635","SV-2636"], status:"submitted", submitted:"2026-08-27"});
+C({id:"CLM-2026-0436", payer:"UHC",  svc:["SV-2637"], status:"ack", submitted:"2026-08-18", acked:"2026-08-19"});
+C({id:"CLM-2026-0437", payer:"MOL",  svc:["SV-2638"], status:"submitted", submitted:"2026-09-01"});
+
+const claimById = id => CLAIMS.find(c => c.id === id);
+let CLAIM_SEQ = 438;
+
+/* ---------- trailing-12-month aggregates (closed periods) ---------- */
+const DENIALS_12M = [
+  {key:"197", n:34, dollars:18420},
+  {key:"16",  n:26, dollars:9310},
+  {key:"27",  n:19, dollars:6640},
+  {key:"96",  n:14, dollars:11880},
+  {key:"151", n:11, dollars:4275},
+  {key:"29",  n:8,  dollars:7120},
+  {key:"B7",  n:5,  dollars:2190},
+  {key:"18",  n:3,  dollars:790}
+];
+const REVENUE_12M = [
+  {cat:"Nutrition", paid:214860},
+  {cat:"Housing", paid:139400},
+  {cat:"Care coordination", paid:86215},
+  {cat:"Traditional practices", paid:61320},
+  {cat:"Transportation", paid:24310},
+  {cat:"Behavioral", paid:19570},
+  {cat:"Screening", paid:6412}
+];
+
+/* ============================================================
+   ENGINE
+   ============================================================ */
+
+/* ---------- benefit usage (rolling 12 months) ---------- */
+function unitsUsed(memberId, code, mod){
+  return SERVICES
+    .filter(s => s.member === memberId && s.code === code && s.mod === (mod || "") && days(s.dos, TODAY) <= 365)
+    .reduce((t,s) => t + s.units, 0);
+}
+
+/* ---------- eligibility ---------- */
+const ELIG = {};   // memberId -> last 271 result
+function seedElig(memberId, checkedOn){
+  const r = runEligibility(memberId, TODAY, true);
+  r.checkedOn = checkedOn;
+  ELIG[memberId] = r;
+}
+
+function runEligibility(memberId, asOf, quiet){
+  const m = mem(memberId);
+  const terminated = m.thru && asOf > m.thru;
+  const payer = PAYERS[m.payer];
+  const benefits = CATALOG
+    .filter(c => !c.tribal || m.aiAn)
+    .map(c => {
+      const used = unitsUsed(memberId, c.code, c.mod);
+      return {key:catKey(c), name:c.name, cat:c.cat, limit:c.limit, used,
+              remaining:Math.max(0, c.limit.n - used), auth:c.auth};
+    });
+  const res = {
+    member: memberId,
+    asOf,
+    checkedOn: asOf,
+    active: !terminated,
+    payer: m.payer,
+    payerName: payer.name,
+    plan: m.plan,
+    effective: m.eff,
+    thru: m.thru,
+    mcExempt: m.mcExempt,
+    aiAn: m.aiAn,
+    tribe: m.tribe,
+    costShare: 0,
+    costShareBasis: m.aiAn
+      ? "AI/AN member — exempt from Medicaid premiums and cost sharing (42 CFR 447.56(a)(1)(x))."
+      : "No cost sharing applies to HRSN benefits under the 1115 demonstration.",
+    hrsnPackage: ["Food and nutrition", "Housing supports", "Transportation", "Care coordination"]
+      .concat(m.aiAn ? ["Traditional healing practices"] : []),
+    benefits,
+    trace: "271-" + memberId + "-" + x12date(asOf)
+  };
+  res.x12_270 = build270(m, asOf);
+  res.x12_271 = build271(m, res);
+  if (!quiet) {
+    ELIG[memberId] = res;
+    logEdi("270", "out", payer.short, `Eligibility inquiry — ${mname(m)}`, res.x12_270);
+    logEdi("271", "in", payer.short, `Eligibility response — ${mname(m)}`, res.x12_271);
+  }
+  return res;
+}
+
+/* ---------- 100% FMAP ---------- */
+function fmapFor(service){
+  const m = mem(service.member);
+  if (!m.aiAn) return {ok:false, basis:"Member is not AI/AN. Standard federal match applies."};
+  if (!service.itu) return {ok:false, basis:"No I/T/U facility or care coordination linkage recorded for this encounter."};
+  if (service.site === "Shiprock partner site")
+    return {ok:true, basis:"Received through an I/T/U facility. Qualifies for 100% federal match."};
+  if (service.dos < ORG.cca.effective)
+    return {ok:false, basis:`Encounter predates the care coordination agreement (effective ${dlong(ORG.cca.effective)}).`};
+  return {ok:true, basis:`Received through a written care coordination agreement with ${ORG.cca.partner} (CMS SHO #16-002). Qualifies for 100% federal match.`};
+}
+const claimFmap = c => c.lines.every(l => fmapFor(l).ok) ? "full" : (c.lines.some(l => fmapFor(l).ok) ? "partial" : "none");
+
+/* ---------- claim scrubber ---------- */
+function scrub(payerId, serviceIds, submitDate){
+  const lines = serviceIds.map(svcById);
+  const out = [];
+  if (!lines.length) return out;
+  const m = mem(lines[0].member);
+  const payer = PAYERS[payerId];
+  const sub = submitDate || TODAY;
+  const push = (level, id, title, msg, code, fix) => out.push({level, id, title, msg, code, fix});
+
+  /* one member per claim */
+  if (new Set(lines.map(l => l.member)).size > 1)
+    push("err","MBR-01","More than one member on the claim","A professional claim carries a single subscriber. Split these lines.","837P loop 2000B",null);
+
+  /* coverage active on every date of service */
+  const outside = lines.filter(l => l.dos < m.eff || (m.thru && l.dos > m.thru));
+  if (outside.length)
+    push("err","ELIG-01","Coverage was not active on the date of service",
+      `${outside.length} line${outside.length>1?"s":""} fall outside the member's coverage span (${dlong(m.eff)}${m.thru ? " – " + dlong(m.thru) : " – open"}). ${outside.map(l=>l.id).join(", ")}.`,
+      "Denies as CO-27", "Re-verify eligibility. If the member was retro-reinstated, the span will update and this clears.");
+  else
+    push("ok","ELIG-01","Coverage active on every date of service", `${dlong(m.eff)}${m.thru ? " – " + dlong(m.thru) : " – open"}.`, null, null);
+
+  /* payer routing */
+  const correct = m.payer;
+  if (payerId !== correct)
+    push("err","ELIG-02","Claim is routed to the wrong payer",
+      `${mname(m)} is covered by ${PAYERS[correct].short}${m.mcExempt ? " — this member declined managed care enrollment, so HRSN claims go to fee-for-service, not an MCO" : ""}. You selected ${payer.short}.`,
+      "Denies as CO-109", `Change the destination payer to ${PAYERS[correct].short}.`);
+  else if (m.mcExempt)
+    push("ok","ELIG-02","Routing confirmed — fee-for-service",
+      `${mname(m)} is AI/AN and declined managed care enrollment, so this claim goes to ${payer.short} rather than an MCO.`, null, null);
+  else
+    push("ok","ELIG-02","Routing confirmed", `${payer.name} · ${payer.line}.`, null, null);
+
+  /* freshness of the eligibility check */
+  const e = ELIG[m.id];
+  if (!e)
+    push("warn","ELIG-03","No eligibility check on file","Run a 270 before submitting. Unverified coverage is the single most common cause of avoidable denials.","270/271","Open the member and run an eligibility check.");
+  else if (days(e.checkedOn, sub) > 30)
+    push("warn","ELIG-03","Eligibility check is stale",`Last verified ${dlong(e.checkedOn)}, ${days(e.checkedOn, sub)} days ago. Coverage can change mid-month.`,"270/271","Re-run the eligibility check.");
+  else
+    push("ok","ELIG-03","Eligibility verified recently",`Checked ${dlong(e.checkedOn)}.`,null,null);
+
+  /* HRSN screening currency */
+  const oldest = lines.map(l => l.dos).sort()[0];
+  if (days(m.screening, oldest) > 365)
+    push("err","SCR-01","HRSN screening is out of date",
+      `Screening on file is dated ${dlong(m.screening)} — ${Math.floor(days(m.screening, oldest)/30)} months before the earliest date of service. The demonstration requires a screening within 12 months.`,
+      "Denies as CO-96 / N425","Complete a G0136 HRSN risk assessment, then rebuild the claim.");
+  else
+    push("ok","SCR-01","HRSN screening current",`Screened ${dlong(m.screening)}.`,null,null);
+
+  /* Z-code support */
+  lines.forEach(l => {
+    const c = cat(l.code, l.mod);
+    if (c.domain === "any") return;
+    const ok = (DOMAIN_Z[c.domain] || []).some(z => m.needs.includes(z));
+    if (!ok) push("err","DX-01",`No qualifying diagnosis for ${c.name}`,
+      `${c.name} requires a documented ${c.domain} need. ${mname(m)} has ${m.needs.map(z=>z).join(", ") || "no Z-codes"} on file.`,
+      "Denies as CO-11","Record the Z-code on the member's problem list, then rebuild.");
+  });
+  if (!out.some(o => o.id === "DX-01"))
+    push("ok","DX-01","Diagnosis pointers supported",`${m.needs.map(z => `${z} ${ZCODES[z]}`).join("; ")}.`,null,null);
+
+  /* documentation */
+  const docGaps = [];
+  lines.forEach(l => {
+    const c = cat(l.code, l.mod);
+    c.docs.forEach(d => { if (!l.docs.includes(d)) docGaps.push({line:l, doc:d}); });
+  });
+  if (docGaps.length)
+    push("err","DOC-01",`${docGaps.length} required document${docGaps.length>1?"s":""} missing`,
+      docGaps.map(g => `${g.line.id} — ${DOCDEF[g.doc]}`).join(" · "),
+      "Denies as CO-16 / N706","Attach the documents on the service record. The claim unblocks automatically.");
+  else
+    push("ok","DOC-01","Documentation complete","Every required attachment is present on all service lines.",null,null);
+
+  /* prior authorization */
+  const authProblems = [];
+  lines.forEach(l => {
+    const c = cat(l.code, l.mod);
+    if (c.auth === "none") return;
+    const a = authFor(m.id, l.code, l.mod, l.dos);
+    if (c.auth === "after") {
+      const used = unitsUsed(m.id, l.code, l.mod);
+      if (used > c.authAfter && !a) authProblems.push(`${l.id} — ${c.name} passes ${c.authAfter} ${c.unit}s without an authorization (${used} delivered).`);
+      return;
+    }
+    if (!a) authProblems.push(`${l.id} — ${c.name} requires prior authorization and none is on file for ${dlong(l.dos)}.`);
+    else if (a.used + l.units > a.units) authProblems.push(`${l.id} — authorization ${a.num} has ${a.units - a.used} of ${a.units} ${c.unit}s left; this line bills ${l.units}.`);
+  });
+  if (authProblems.length)
+    push("err","AUTH-01","Authorization problem", authProblems.join(" · "), "Denies as CO-197 / N54","Request the authorization or a retro-auth from the plan before submitting.");
+  else
+    push("ok","AUTH-01","Authorizations in order","Every line that needs prior authorization has a valid one with units remaining.",null,null);
+
+  /* benefit limits */
+  const limitProblems = [];
+  lines.forEach(l => {
+    const c = cat(l.code, l.mod);
+    const used = unitsUsed(m.id, l.code, l.mod);
+    if (used > c.limit.n) limitProblems.push(`${c.name}: ${used} of ${c.limit.n} ${c.unit}s used in the ${c.limit.per}.`);
+  });
+  if (limitProblems.length)
+    push("warn","LIM-01","Benefit limit reached", limitProblems.join(" · "), "Denies as CO-151 / N362","Split the claim to the units still available, or request a limit exception.");
+  else
+    push("ok","LIM-01","Within benefit limits","No line exceeds its rolling limit.",null,null);
+
+  /* rendering provider identity */
+  const prvProblems = [];
+  lines.forEach(l => {
+    const st = STAFF[l.staff];
+    const c = cat(l.code, l.mod);
+    if (c.tribal) {
+      if (!st.tribalCred) prvProblems.push(`${l.id} — ${st.name} has no tribal credentialing letter on file.`);
+      else if (st.tribalCred.expires < l.dos) prvProblems.push(`${l.id} — ${st.name}'s tribal credential expired ${dlong(st.tribalCred.expires)}.`);
+      return;
+    }
+    if (!st.npi) prvProblems.push(`${l.id} — ${st.name} (${st.cred}) has no NPI recorded.`);
+    else if (!st.taxonomy) prvProblems.push(`${l.id} — ${st.name} has no taxonomy code recorded.`);
+  });
+  if (prvProblems.length)
+    push("err","PRV-01","Rendering provider identifiers incomplete", prvProblems.join(" · "), "Denies as CO-16 / N290","Add the NPI and taxonomy under Practitioners, or bill under the group NPI if the plan allows it.");
+  else if (lines.some(l => cat(l.code,l.mod).tribal))
+    push("ok","PRV-01","Traditional practitioner credential verified",
+      `${STAFF[lines.find(l=>cat(l.code,l.mod).tribal).staff].name} — credential ${STAFF[lines.find(l=>cat(l.code,l.mod).tribal).staff].tribalCred.ref}, issued by ${STAFF[lines.find(l=>cat(l.code,l.mod).tribal).staff].tribalCred.issuer}. Billed under the group NPI with modifier U7.`,null,null);
+  else
+    push("ok","PRV-01","Rendering providers identified","NPI and taxonomy present on every line.",null,null);
+
+  /* timely filing */
+  const late = lines.filter(l => days(l.dos, sub) > payer.filingDays);
+  const closest = Math.max(...lines.map(l => days(l.dos, sub)));
+  if (late.length)
+    push("err","TF-01","Past the timely filing deadline",
+      `${payer.short} allows ${payer.filingDays} days. ${late.map(l => `${l.id} is ${days(l.dos, sub)} days old`).join(", ")}.`,
+      "Denies as CO-29 / N211","Submit anyway with a timely-filing appeal, or write the balance to the community-funded pool.");
+  else
+    push(closest > payer.filingDays - 15 ? "warn" : "ok","TF-01",
+      closest > payer.filingDays - 15 ? "Filing window closing" : "Within the filing window",
+      `Oldest line is ${closest} days old. ${payer.short} allows ${payer.filingDays}.`, null,
+      closest > payer.filingDays - 15 ? "Submit today." : null);
+
+  /* duplicates */
+  const dupes = [];
+  lines.forEach(l => {
+    const prior = SERVICES.find(s => s !== l && s.claim && s.member === l.member && s.code === l.code && s.mod === l.mod && s.dos === l.dos);
+    if (prior) dupes.push(`${l.id} duplicates ${prior.id} on claim ${prior.claim}.`);
+  });
+  if (dupes.length) push("err","DUP-01","Possible duplicate service", dupes.join(" · "), "Denies as CO-18 / N522","Remove the duplicate line or void the earlier claim.");
+  else push("ok","DUP-01","No duplicates found","No line matches a service already billed for this member on the same date.",null,null);
+
+  /* cost sharing */
+  if (m.aiAn) push("ok","CS-01","Cost sharing suppressed","AI/AN member — no copay, coinsurance, or deductible may be applied. Patient responsibility is set to zero on every line.",null,null);
+
+  /* 100% FMAP */
+  const fm = lines.map(l => fmapFor(l));
+  if (fm.every(f => f.ok) && m.aiAn)
+    push("fmap","FMAP-01","Qualifies for 100% federal match",
+      fm[0].basis + " Modifier UD is appended and the claim is tagged for the tribal reconciliation file.",
+      "SHO #16-002",null);
+  else if (m.aiAn && fm.some(f => f.ok))
+    push("warn","FMAP-01","Only part of this claim qualifies for 100% federal match",
+      "Split the qualifying lines onto their own claim so the state can identify them in the reconciliation file.","SHO #16-002",
+      "Move the non-qualifying lines to a separate claim.");
+  else if (m.aiAn)
+    push("warn","FMAP-01","AI/AN member, but no I/T/U linkage recorded",
+      fm[0].basis + " Without it the state claims the ordinary match rate and loses the difference.","SHO #16-002",
+      "Record the referring I/T/U on the service, if one applies.");
+
+  return out;
+}
+const scrubBlocks = f => f.some(x => x.level === "err");
+
+/* ---------- edi log ---------- */
+const EDILOG = [];
+let EDI_SEQ = 4400;
+function logEdi(type, dir, partner, subject, segs){
+  EDILOG.unshift({id:"EDI-" + (++EDI_SEQ), type, dir, partner, subject, segs, at:TODAY});
+  return EDILOG[0];
+}
+const sg = (id, line, note) => ({id, line, note});
+
+/* ---------- X12 builders ---------- */
+function isaFor(payer, ctrl){
+  return sg("ISA", `ISA*00*          *00*          *ZZ*HDWC${ORG.npi}*ZZ*${(payer.payerId+"               ").slice(0,15)}*260901*1042*^*00501*${String(ctrl).padStart(9,"0")}*0*P*:~`,
+    "Interchange envelope. Sender is this organization, receiver is the plan. The 'P' near the end marks production; a 'T' would mark a test file.");
+}
+
+function build270(m, asOf){
+  const p = PAYERS[m.payer];
+  return [
+    isaFor(p, 2701),
+    sg("GS", `GS*HS*${ORG.npi}*${p.payerId}*${x12date(asOf)}*1042*2701*X*005010X279A1~`, "Functional group. HS identifies an eligibility inquiry; 005010X279A1 is the HIPAA implementation guide for 270/271."),
+    sg("ST", "ST*270*0001*005010X279A1~", "Start of the transaction set."),
+    sg("BHT", `BHT*0022*13*ELG${m.id}*${x12date(asOf)}*1042~`, "Beginning of hierarchical transaction. 13 means a request."),
+    sg("HL", "HL*1**20*1~", "Information source — the payer."),
+    sg("NM1", `NM1*PR*2*${p.name.toUpperCase()}*****PI*${p.payerId}~`, "Names the plan being asked."),
+    sg("HL", "HL*2*1*21*1~", "Information receiver — this organization."),
+    sg("NM1", `NM1*1P*2*${ORG.name.toUpperCase()}*****XX*${ORG.npi}~`, "Provider making the inquiry, identified by group NPI."),
+    sg("HL", "HL*3*2*22*0~", "Subscriber level."),
+    sg("TRN", `TRN*1*ELG${m.id}${x12date(asOf)}*9${ORG.tin.replace("-","")}~`, "Trace number. The plan echoes it back on the 271 so the response can be matched to this request."),
+    sg("NM1", `NM1*IL*1*${m.last.toUpperCase()}*${m.first.toUpperCase()}****MI*${m.mid}~`, "The member, identified by Medicaid ID."),
+    sg("DMG", `DMG*D8*${x12date(m.dob)}*${m.sex}~`, "Date of birth and sex, used by the plan to confirm the match."),
+    sg("DTP", `DTP*291*D8*${x12date(asOf)}~`, "The date coverage is being checked for."),
+    sg("EQ", "EQ*30~", "Service type 30 — health benefit plan coverage. HRSN benefits have no standard service-type code, so the package comes back in free-form MSG segments."),
+    sg("SE", "SE*13*0001~", "Segment count and control number."),
+    sg("GE", "GE*1*2701~", "Functional group trailer."),
+    sg("IEA", "IEA*1*000002701~", "Interchange trailer.")
+  ];
+}
+
+function build271(m, res){
+  const p = PAYERS[m.payer];
+  const segs = [
+    isaFor(p, 2711),
+    sg("GS", `GS*HB*${p.payerId}*${ORG.npi}*${x12date(res.asOf)}*1042*2711*X*005010X279A1~`, "HB identifies an eligibility response."),
+    sg("ST", "ST*271*0001*005010X279A1~", null),
+    sg("BHT", `BHT*0022*11*ELG${m.id}*${x12date(res.asOf)}*1042~`, "11 means a response to the earlier request."),
+    sg("HL", "HL*1**20*1~", null),
+    sg("NM1", `NM1*PR*2*${p.name.toUpperCase()}*****PI*${p.payerId}~`, null),
+    sg("HL", "HL*2*1*21*1~", null),
+    sg("NM1", `NM1*1P*2*${ORG.name.toUpperCase()}*****XX*${ORG.npi}~`, null),
+    sg("HL", "HL*3*2*22*0~", null),
+    sg("TRN", `TRN*2*ELG${m.id}${x12date(res.asOf)}*9${ORG.tin.replace("-","")}~`, "Trace number echoed from the request."),
+    sg("NM1", `NM1*IL*1*${m.last.toUpperCase()}*${m.first.toUpperCase()}****MI*${m.mid}~`, null),
+    sg("DMG", `DMG*D8*${x12date(m.dob)}*${m.sex}~`, null)
+  ];
+  if (res.active) {
+    segs.push(sg("EB", `EB*1*IND*30**${m.plan.toUpperCase()}~`, "EB*1 — active coverage. This is the segment the whole inquiry exists to get."));
+    segs.push(sg("DTP", `DTP*346*D8*${x12date(m.eff)}~`, "Coverage effective date."));
+    if (m.thru) segs.push(sg("DTP", `DTP*347*D8*${x12date(m.thru)}~`, "Coverage end date. Any service after this date will deny as CO-27."));
+    segs.push(sg("EB", "EB*B**30***29*0*****Y~", "Patient responsibility. Zero here is what tells the biller not to collect anything at the door."));
+  } else {
+    segs.push(sg("EB", "EB*6*IND*30~", "EB*6 — inactive. Coverage has ended; do not deliver billable services against it."));
+    segs.push(sg("DTP", `DTP*347*D8*${x12date(m.thru)}~`, "The date coverage ended."));
+  }
+  segs.push(sg("MSG", `MSG*MANAGED CARE ENROLLMENT: ${m.mcExempt ? "EXEMPT - AI/AN DECLINED MCO. ROUTE CLAIMS TO NM MEDICAID FFS" : PAYERS[m.payer].short.toUpperCase()}~`,
+    m.mcExempt
+      ? "This is the routing instruction that decides where the claim goes. AI/AN members may decline managed care; their claims belong at fee-for-service, and sending them to an MCO produces a denial that looks like a coding error but is not."
+      : "Confirms which managed care plan owns this member this month. Assignment can change at the start of any month."));
+  if (m.aiAn) segs.push(sg("MSG", `MSG*AI/AN INDICATOR: Y - COST SHARING PROHIBITED PER 42 CFR 447.56~`,
+    "Marks the member as American Indian / Alaska Native. It suppresses cost sharing and is the trigger to test each service for the 100% federal match."));
+  segs.push(sg("MSG", `MSG*HRSN PACKAGE ACTIVE: ${res.hrsnPackage.map(h => h.toUpperCase()).join(" | ")}~`,
+    "The 1115 benefit package, returned as free text because X12 has no standard service-type code for health-related social needs. Piñon parses it into the benefit table on the left."));
+  res.benefits.filter(b => b.used > 0).slice(0,4).forEach(b => {
+    segs.push(sg("MSG", `MSG*LIMIT ${b.key}: ${b.used} OF ${b.limit.n} USED, ${b.remaining} REMAINING~`,
+      `Running total against the ${b.limit.per} limit for ${b.name}. Crossing it produces a CO-151 denial.`));
+  });
+  segs.push(sg("SE", `SE*${segs.length + 3}*0001~`, null));
+  segs.push(sg("GE", "GE*1*2711~", null));
+  segs.push(sg("IEA", "IEA*1*000002711~", null));
+  return segs;
+}
+
+/* ---------- Stedi API layer ----------
+   What Piñon actually sends and receives. Stedi turns this JSON into the
+   X12 above, and turns the plan's X12 answer back into JSON.               */
+function stediEligCall(m, res){
+  const p = PAYERS[m.payer];
+  const req = {
+    tradingPartnerServiceId: p.payerId,
+    provider: {organizationName: ORG.name, npi: ORG.npi},
+    subscriber: {memberId: m.mid, firstName: m.first, lastName: m.last, dateOfBirth: x12date(m.dob)},
+    encounter: {serviceTypeCodes: ["30"], dateOfService: x12date(res.asOf)}
+  };
+  const resp = {
+    meta: {senderId: STEDI.senderId, traceId: res.trace, applicationMode: STEDI.env},
+    subscriber: {memberId: m.mid, firstName: m.first, lastName: m.last},
+    planStatus: [{
+      statusCode: res.active ? "1" : "6",
+      status: res.active ? "Active Coverage" : "Inactive",
+      planDetails: m.plan.toUpperCase(),
+      serviceTypeCodes: ["30"]
+    }],
+    planDateInformation: Object.assign({eligibilityBegin: x12date(m.eff)}, m.thru ? {eligibilityEnd: x12date(m.thru)} : {}),
+    benefitsInformation: [
+      {code: "B", name: "Co-Payment", benefitAmount: "0", inPlanNetworkIndicator: "Y"},
+      {code: res.active ? "1" : "6", name: res.active ? "Active Coverage" : "Inactive",
+       additionalInformation: [
+         {description: `MANAGED CARE ENROLLMENT: ${m.mcExempt ? "EXEMPT - ROUTE TO NM MEDICAID FFS" : p.short.toUpperCase()}`}
+       ].concat(m.aiAn ? [{description: "AI/AN INDICATOR: Y - COST SHARING PROHIBITED"}] : [])
+        .concat([{description: `HRSN PACKAGE ACTIVE: ${res.hrsnPackage.map(h => h.toUpperCase()).join(" | ")}`}])}
+    ],
+    x12: res.x12_271.slice(0,3).map(s => s.line).join("") + " …"
+  };
+  return {
+    req: {label: STEDI.eligEndpoint, body: req,
+      note:"One call per participant, or a batch of them. The trading partner ID is the only thing that differs between BCBSNM, Presbyterian, Molina, UHC and fee-for-service — which is what makes bulk verification across five payers a single loop rather than five integrations."},
+    resp: {label: "200 OK", body: resp,
+      note:"Piñon reads three things out of this and acts on all of them: whether coverage is active, which plan the claim must go to, and whether the AI/AN indicator is set. The raw X12 comes back on the same response, which is what the wire log below is showing you."}
+  };
+}
+
+function build837P(claim){
+  const m = mem(claim.member);
+  const p = PAYERS[claim.payer];
+  const ctrl = claim.id.replace(/\D/g, "").slice(-6);
+  const fmap = claimFmap(claim) === "full";
+  const segs = [
+    isaFor(p, ctrl),
+    sg("GS", `GS*HC*${ORG.npi}*${p.payerId}*${x12date(claim.submitted || TODAY)}*1042*${ctrl}*X*005010X222A1~`, "HC identifies a health care claim. 005010X222A1 is the professional claim implementation guide — the 837P."),
+    sg("ST", `ST*837*0001*005010X222A1~`, null),
+    sg("BHT", `BHT*0019*00*${claim.id.replace(/-/g,"")}*${x12date(claim.submitted || TODAY)}*1042*CH~`, "CH marks this as a chargeable claim rather than a report-only encounter."),
+    sg("NM1", `NM1*41*2*${ORG.name.toUpperCase()}*****46*${ORG.npi}~`, "Submitter."),
+    sg("PER", `PER*IC*BILLING OFFICE*TE*5055550100~`, "Who the plan calls when something is wrong with the file."),
+    sg("NM1", `NM1*40*2*${p.name.toUpperCase()}*****46*${p.payerId}~`, "Receiver — the destination plan. Getting this wrong is the routing failure the scrubber checks for."),
+    sg("HL", "HL*1**20*1~", "Billing provider hierarchical level."),
+    sg("NM1", `NM1*85*2*${ORG.name.toUpperCase()}*****XX*${ORG.npi}~`, "Billing provider, identified by group NPI."),
+    sg("N3", `N3*${ORG.addr.toUpperCase()}~`, null),
+    sg("N4", `N4*${ORG.city.toUpperCase().replace("Ñ","N")}*${ORG.state}*${ORG.zip}~`, null),
+    sg("REF", `REF*EI*${ORG.tin.replace("-","")}~`, "Employer identification number."),
+    sg("PRV", `PRV*BI*PXC*${ORG.taxonomy}~`, `Billing taxonomy — ${ORG.taxonomyName}. Plans use it to confirm the organization is enrolled for this benefit.`),
+    sg("HL", "HL*2*1*22*0~", "Subscriber level."),
+    sg("SBR", `SBR*P*18*******MC~`, "P — primary. 18 — the subscriber is the patient. MC — Medicaid."),
+    sg("NM1", `NM1*IL*1*${m.last.toUpperCase()}*${m.first.toUpperCase()}****MI*${m.mid}~`, null),
+    sg("N3", `N3*ADDRESS ON FILE~`, null),
+    sg("N4", `N4*${m.city.toUpperCase().replace("Ó","O").replace("Ñ","N")}*NM*87532~`, null),
+    sg("DMG", `DMG*D8*${x12date(m.dob)}*${m.sex}~`, null),
+    sg("NM1", `NM1*PR*2*${p.name.toUpperCase()}*****PI*${p.payerId}~`, null),
+    sg("CLM", `CLM*${claim.id.replace(/-/g,"")}*${claim.total.toFixed(2)}***${cat(claim.lines[0].code, claim.lines[0].mod).pos}:B:1*Y*A*Y*Y~`,
+      "The claim header: patient control number, total charge, place of service, and the assignment and release-of-information flags."),
+    sg("HI", `HI*ABK:${(m.needs[0]||"Z5941").replace(".","")}~`,
+      `Principal diagnosis — ${m.needs[0]} ${ZCODES[m.needs[0]] || ""}. On an HRSN claim the Z-code is the whole justification, not a formality.`)
+  ];
+  if (fmap) segs.push(sg("REF", `REF*G1*${ORG.cca.partner.toUpperCase().slice(0,30)}~`,
+    "Care coordination agreement reference. This is what lets the state identify the claim as eligible for 100% federal match in its tribal reconciliation file."));
+  claim.lines.forEach((l, i) => {
+    const c = cat(l.code, l.mod);
+    const mods = [l.mod, fmap ? "UD" : ""].filter(Boolean).join(":");
+    segs.push(sg("LX", `LX*${i+1}~`, i === 0 ? "Service line counter. Each delivered service becomes one LX block." : null));
+    segs.push(sg("SV1", `SV1*HC:${l.code}${mods ? ":" + mods : ""}*${l.amount.toFixed(2)}*UN*${l.units}***1~`,
+      `${c.name} — ${l.units} ${c.unit}${l.units>1?"s":""} at ${money(c.rate)}.${l.mod ? " Modifier " + l.mod + " is a state-assigned local modifier in this prototype." : ""}${fmap ? " Modifier UD marks the 100% federal match." : ""}`));
+    segs.push(sg("DTP", `DTP*472*D8*${x12date(l.dos)}~`, i === 0 ? "Date of service for this line." : null));
+    segs.push(sg("REF", `REF*6R*${l.id}~`, i === 0 ? "Line item control number — how Piñon matches the 835 payment back to this exact service record." : null));
+    const st = STAFF[l.staff];
+    if (st.npi) segs.push(sg("NM1", `NM1*82*1*${st.name.split(" ")[1].toUpperCase()}*${st.name.split(" ")[0].toUpperCase()}****XX*${st.npi}~`,
+      i === 0 ? "Rendering provider. A missing or wrong identifier here is the CO-16 denial." : null));
+  });
+  segs.push(sg("SE", `SE*${segs.length + 3}*0001~`, "Segment count. If it disagrees with the actual count the clearinghouse rejects the whole file."));
+  segs.push(sg("GE", `GE*1*${ctrl}~`, null));
+  segs.push(sg("IEA", `IEA*1*${String(ctrl).padStart(9,"0")}~`, null));
+  return segs;
+}
+
+function build277CA(claim){
+  const p = PAYERS[claim.payer];
+  return [
+    sg("ST", "ST*277*0001*005010X214~", "277CA — the claim acknowledgement. It says the file was readable, not that anyone will pay."),
+    sg("BHT", `BHT*0085*08*277CA${claim.id.replace(/\D/g,"")}*${x12date(claim.acked || TODAY)}*1042*TH~`, null),
+    sg("NM1", `NM1*PR*2*${p.name.toUpperCase()}*****PI*${p.payerId}~`, null),
+    sg("NM1", `NM1*41*2*${ORG.name.toUpperCase()}*****46*${ORG.npi}~`, null),
+    sg("STC", `STC*A1:19:PR*${x12date(claim.acked || TODAY)}*WQ*${claim.total.toFixed(2)}~`,
+      "A1 — accepted for adjudication. A4 here would mean rejected at the front door, which is a different problem from a denial and gets fixed faster."),
+    sg("REF", `REF*1K*${claim.id}~`, "The plan's internal claim number. Quote this on every phone call about the claim."),
+    sg("DTP", `DTP*472*RD8*${x12date(claim.dosFrom)}-${x12date(claim.dosTo)}~`, "Date-of-service span covered by the claim."),
+    sg("SE", "SE*8*0001~", null)
+  ];
+}
+
+function build835(claim){
+  const p = PAYERS[claim.payer];
+  const denied = claim.status === "denied" || claim.status === "appealed";
+  const d = denied ? CARC[claim.deny] : null;
+  const segs = [
+    sg("ST", "ST*835*0001~", "835 — the electronic remittance advice. This is the transaction that tells you whether the work got paid."),
+    sg("BPR", `BPR*${denied ? "H" : "I"}*${claim.paidAmt.toFixed(2)}*C*ACH*CCP*01*021000021*DA*98765432*${ORG.tin.replace("-","")}**01*021000021*DA*11223344*${x12date(claim.paidDate || TODAY)}~`,
+      denied ? "H — notification only, no money moves." : "I — remittance with payment. The dollar figure right after BPR is what actually landed in the account."),
+    sg("TRN", `TRN*1*${(claim.trace || "NOPAY" + claim.id.replace(/\D/g,"")).replace(/\D/g,"")}*1${ORG.tin.replace("-","")}~`, "Reassociation trace number — how the deposit in the bank statement gets matched to this remittance."),
+    sg("DTM", `DTM*405*${x12date(claim.paidDate || TODAY)}~`, "Production date."),
+    sg("N1", `N1*PR*${p.name.toUpperCase()}~`, null),
+    sg("N1", `N1*PE*${ORG.name.toUpperCase()}*XX*${ORG.npi}~`, null),
+    sg("LX", "LX*1~", null),
+    sg("CLP", `CLP*${claim.id.replace(/-/g,"")}*${denied ? "4" : "1"}*${claim.total.toFixed(2)}*${claim.paidAmt.toFixed(2)}*0*MC*${claim.id.replace(/-/g,"")}*11~`,
+      denied ? "Status 4 — denied. Charge, paid, and patient-responsibility amounts follow." : "Status 1 — processed as primary and paid in full."),
+    sg("NM1", `NM1*QC*1*${mem(claim.member).last.toUpperCase()}*${mem(claim.member).first.toUpperCase()}****MI*${mem(claim.member).mid}~`, null)
+  ];
+  claim.lines.forEach(l => {
+    const c = cat(l.code, l.mod);
+    segs.push(sg("SVC", `SVC*HC:${l.code}${l.mod ? ":" + l.mod : ""}*${l.amount.toFixed(2)}*${denied ? "0.00" : l.amount.toFixed(2)}**${l.units}~`,
+      `${c.name} — billed ${money(l.amount)}, paid ${denied ? money(0) : money(l.amount)}.`));
+    segs.push(sg("DTM", `DTM*472*${x12date(l.dos)}~`, null));
+    if (denied) segs.push(sg("CAS", `CAS*CO*${d.carc.split("-")[1]}*${l.amount.toFixed(2)}~`,
+      `Claim adjustment: ${d.carc} — ${d.text}. CO means contractual, so the member cannot be billed for it.`));
+    segs.push(sg("REF", `REF*6R*${l.id}~`, "Line control number, echoed back. Piñon uses it to post the payment against the right service record automatically."));
+  });
+  if (denied) segs.push(sg("LQ", `LQ*HE*${d.rarc}~`, `Remark code ${d.rarc} — the plan's narrative explanation, which is usually more actionable than the CARC.`));
+  segs.push(sg("SE", `SE*${segs.length + 1}*0001~`, null));
+  return segs;
+}
+
+/* ============================================================
+   UI PRIMITIVES
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const ICON = {
+  today:'<path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+  people:'<circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 19c.6-3 2.8-4.6 5.5-4.6S13.9 16 14.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.5 18.6c-.2-1.4-.7-2.6-1.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  shield:'<path d="M12 3.2 19 6v5.4c0 4-2.9 7.3-7 9.4-4.1-2.1-7-5.4-7-9.4V6l7-2.8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m9.2 12 2 2 3.6-3.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+  service:'<rect x="4" y="4.5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 9.5h8M8 13h8M8 16.2h4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  claim:'<path d="M6 3.5h9l4 4v13H6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14.5 3.5v4.5H19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 13.5h6M9 16.8h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  chart:'<path d="M4 20V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4 20h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="7.5" y="12" width="3" height="5" rx="1" stroke="currentColor" stroke-width="1.4"/><rect x="13" y="8" width="3" height="9" rx="1" stroke="currentColor" stroke-width="1.4"/>',
+  rules:'<path d="M5 6.5h14M5 12h14M5 17.5h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="6.5" r="1.9" fill="currentColor"/><circle cx="15" cy="12" r="1.9" fill="currentColor"/><circle cx="8" cy="17.5" r="1.9" fill="currentColor"/>',
+  wire:'<path d="M4 7h16M4 12h10M4 17h13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+  fmap:'<path d="M12 3.5 4.5 7v5c0 4.2 3 7.7 7.5 9.5 4.5-1.8 7.5-5.3 7.5-9.5V7L12 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 9v6M9 12h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+  help:'<circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M9.8 9.6a2.3 2.3 0 1 1 3 2.2c-.5.2-.8.7-.8 1.3v.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="16.4" r=".9" fill="currentColor"/>',
+  check:'<path d="m4.5 12.5 4.5 4.5 10.5-11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  alert:'<path d="M12 4.5 21 20H3l9-15.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17" r="1" fill="currentColor"/>'
+};
+const ico = (k, cls, sz) => `<svg class="${cls||""}" width="${sz||16}" height="${sz||16}" viewBox="0 0 24 24" fill="none" aria-hidden="true">${ICON[k]}</svg>`;
+
+/* Greater roadrunner — New Mexico's state bird, and the closest thing this
+   program has to a mascot: it covers ground on foot and rarely flies. */
+const RR = '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'
+  + '<path d="M9.2 11.4 2.4 3" stroke-width="2.6"/><path d="M10.1 12.2 4.8 2.5" stroke-width="1.3"/>'
+  + '<ellipse cx="11.6" cy="12.6" rx="4.1" ry="3.1" transform="rotate(-22 11.6 12.6)" fill="currentColor" stroke="none"/>'
+  + '<path d="M13.6 10.9 16.6 7.9" stroke-width="2.4"/><circle cx="17.3" cy="7.1" r="2.1" fill="currentColor" stroke="none"/>'
+  + '<path d="M19 6.5 23.2 7.5 19 8.3Z" fill="currentColor" stroke="none"/>'
+  + '<path d="M16.1 5.3 15.1 3.4M17.4 5 17.1 3M18.5 5.4 19.3 3.7" stroke-width="1.25"/>'
+  + '<path d="M11.2 15.3 10.2 18.4 8.7 21" stroke-width="1.35"/><path d="M13.1 15.2 13.9 18.5 15.5 20.9" stroke-width="1.35"/>'
+  + '<path d="M7.5 21.4 9.6 21M14.8 21.3 16.9 20.7" stroke-width="1.1"/></g>';
+const rr = (size, style) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true" style="${style||""}">${RR}</svg>`;
+
+function toast(msg, ms){
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.innerHTML = `<span class="tdot"></span><span>${esc(msg)}</span>`;
+  $("#toasts").appendChild(el);
+  setTimeout(() => el.remove(), ms || 3600);
+}
+
+let modalConfirm = null;
+function openModal(title, body, buttons){
+  $("#modalTitle").textContent = title;
+  $("#modalBody").innerHTML = body;
+  $("#modalFoot").innerHTML = (buttons || [{label:"Close", act:"close"}])
+    .map((b,i) => `<button class="btn ${b.kind||""}" data-mb="${i}">${esc(b.label)}</button>`).join("");
+  modalConfirm = buttons || [{label:"Close", act:"close"}];
+  $("#modal").classList.add("on");
+}
+function closeModal(){ $("#modal").classList.remove("on"); }
+$("#modalX").onclick = closeModal;
+$("#modalFoot").addEventListener("click", e => {
+  const b = e.target.closest("[data-mb]"); if (!b) return;
+  const spec = modalConfirm[+b.dataset.mb];
+  if (spec.run) spec.run();
+  if (spec.act !== "keep") closeModal();
+});
+$("#modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
+
+function renderWire(w){
+  return `<div class="wire">
+    <div class="wire-head">
+      <span class="pill ${w.dir==="out"?"p-accent":"p-info"}">${w.dir==="out"?"outbound":"inbound"}</span>
+      <span class="mono s11 b6">${esc(w.type)}</span>
+      <span class="s11 dim">${esc(w.partner)}</span>
+      <span class="topbar-spacer"></span>
+      <span class="s11 dim">${esc(w.subject)}</span>
+    </div>
+    <div class="wire-body">${w.segs.map(s =>
+      `<span class="seg"><span class="sid">${esc(s.id)}</span>${esc(s.line.slice(s.id.length))}</span>${
+        s.note ? `<div class="seg-note">${esc(s.note)}</div>` : ""}`).join("")}</div>
+  </div>`;
+}
+function renderJsonWire(w){
+  return `<div class="wire">
+    <div class="wire-head">
+      <span class="pill ${w.dir==="out"?"p-accent":"p-info"}">${w.dir==="out"?"request":"response"}</span>
+      <span class="mono s11 b6">Stedi</span>
+      <span class="topbar-spacer"></span>
+      <span class="mono s11 dim">${esc(w.label)}</span>
+    </div>
+    <div class="wire-body" style="padding:12px"><pre style="margin:0;white-space:pre-wrap;word-break:break-word">${esc(JSON.stringify(w.body, null, 2))}</pre></div>
+    ${w.note ? `<div class="card-foot s11 muted" style="line-height:1.55">${esc(w.note)}</div>` : ""}
+  </div>`;
+}
+
+function openDrawer(title, wires){
+  $("#drawerTitle").textContent = title;
+  $("#drawerBody").innerHTML = wires.length
+    ? `<p class="s11 dim" style="margin-bottom:12px">Hover any X12 segment for a plain-language explanation.</p>`
+      + wires.map(w => w.body ? renderJsonWire(w) : renderWire(w)).join("")
+    : `<div class="empty">Nothing on the wire yet.</div>`;
+  $("#drawer").classList.add("on"); $("#scrim").classList.add("on");
+}
+function closeDrawer(){ $("#drawer").classList.remove("on"); $("#scrim").classList.remove("on"); }
+$("#drawerClose").onclick = closeDrawer;
+$("#scrim").onclick = closeDrawer;
+document.addEventListener("keydown", e => { if (e.key === "Escape"){ closeDrawer(); closeModal(); } });
+
+/* ---------- chart tooltip ---------- */
+const tipEl = $("#tip");
+function bindTips(root){
+  root.querySelectorAll("[data-tip]").forEach(el => {
+    el.addEventListener("mouseenter", () => { tipEl.innerHTML = el.dataset.tip; tipEl.classList.add("on"); });
+    el.addEventListener("mousemove", e => {
+      tipEl.style.left = Math.min(e.clientX + 14, window.innerWidth - tipEl.offsetWidth - 10) + "px";
+      tipEl.style.top = (e.clientY - 34) + "px";
+    });
+    el.addEventListener("mouseleave", () => tipEl.classList.remove("on"));
+  });
+}
+
+/* ---------- charts ----------
+   Every chart here encodes magnitude with a single hue, or an ordered
+   bucket with one ordinal ramp. No categorical palette is in play, so
+   colour never has to carry identity on its own.                       */
+
+function barsH(rows, opts){
+  const o = Object.assign({w:520, rowH:30, pad:8, label:180, fmt:v => v.toLocaleString(), color:"var(--accent)"}, opts || {});
+  const max = Math.max(...rows.map(r => r.v)) || 1;
+  const plotW = o.w - o.label - 74;
+  const h = rows.length * o.rowH + o.pad * 2;
+  const bars = rows.map((r,i) => {
+    const y = o.pad + i * o.rowH;
+    const bw = Math.max(2, (r.v / max) * plotW);
+    return `<text class="axl" x="0" y="${y+14}" dominant-baseline="middle">${esc(r.k)}</text>
+      <rect class="bar" x="${o.label}" y="${y+4}" width="${bw}" height="16" rx="3"
+            fill="${r.color || o.color}" data-tip="${esc(r.k)} &middot; <span class='tv'>${esc(o.fmt(r.v))}</span>${r.sub ? " &middot; " + esc(r.sub) : ""}"/>
+      <text class="axv" x="${o.label + bw + 8}" y="${y+14}" dominant-baseline="middle">${esc(o.fmt(r.v))}</text>`;
+  }).join("");
+  return `<div class="chart"><svg viewBox="0 0 ${o.w} ${h}" role="img" aria-label="${esc(o.aria||"bar chart")}">
+    ${bars}</svg></div>`;
+}
+
+function barsV(rows, opts){
+  const o = Object.assign({w:520, h:190, fmt:v => v.toLocaleString()}, opts || {});
+  const max = Math.max(...rows.map(r => r.v)) || 1;
+  const n = rows.length, gap = 14, left = 6, right = 6;
+  const bw = (o.w - left - right - gap * (n - 1)) / n;
+  const base = o.h - 40, top = 26;
+  const grid = [0, .5, 1].map(f => {
+    const y = base - f * (base - top);
+    return `<line class="gridline" x1="0" y1="${y}" x2="${o.w}" y2="${y}"/>`;
+  }).join("");
+  const bars = rows.map((r,i) => {
+    const x = left + i * (bw + gap);
+    const bh = Math.max(3, (r.v / max) * (base - top));
+    return `<rect class="bar" x="${x}" y="${base - bh}" width="${bw}" height="${bh}" rx="4" fill="${r.color}"
+              data-tip="${esc(r.k)} &middot; <span class='tv'>${esc(o.fmt(r.v))}</span>${r.sub ? " &middot; " + esc(r.sub) : ""}"/>
+      <text class="axv" x="${x + bw/2}" y="${base - bh - 8}" text-anchor="middle">${esc(o.fmt(r.v))}</text>
+      <text class="ax" x="${x + bw/2}" y="${base + 16}" text-anchor="middle">${esc(r.k)}</text>
+      <text class="ax" x="${x + bw/2}" y="${base + 30}" text-anchor="middle">${esc(r.sub || "")}</text>`;
+  }).join("");
+  return `<div class="chart"><svg viewBox="0 0 ${o.w} ${o.h}" role="img" aria-label="${esc(o.aria||"bar chart")}">
+    ${grid}<line class="gridline" x1="0" y1="${base}" x2="${o.w}" y2="${base}"/>${bars}</svg></div>`;
+}
+
+/* ---------- shared render bits ---------- */
+const STATUS_PILL = {
+  draft:    ["p-neutral","Draft"],
+  ready:    ["p-accent","Ready to send"],
+  submitted:["p-info","Submitted"],
+  ack:      ["p-info","Accepted 277CA"],
+  paid:     ["p-good","Paid"],
+  denied:   ["p-bad","Denied"],
+  appealed: ["p-warn","Appealed"]
+};
+const statusPill = s => `<span class="pill ${STATUS_PILL[s][0]}"><span class="pd"></span>${STATUS_PILL[s][1]}</span>`;
+const fmapPill = c => {
+  const f = claimFmap(c);
+  if (f === "full") return `<span class="pill p-fmap">100% FMAP</span>`;
+  if (f === "partial") return `<span class="pill p-warn">FMAP split</span>`;
+  return "";
+};
+function memberChip(m){
+  return `<span class="row" style="gap:7px">
+    <span class="avatar" style="width:22px;height:22px;font-size:9px">${m.first[0]}${m.last[0]}</span>
+    <span><span class="b6">${esc(mname(m))}</span>${m.aiAn ? ` <span class="pill p-fmap" style="font-size:10px">AI/AN</span>` : ""}</span></span>`;
+}
+const payerPill = id => `<span class="pill ${id==="NMFFS"?"p-neutral":"p-info"}">${esc(PAYERS[id].short)}</span>`;
+
+/* ---------- role + routing ---------- */
+let ROLE = "provider";
+const USERS = {
+  provider: {name:"Kayla Tsosie", title:"Community Health Worker", init:"KT", staff:"ktsosie"},
+  admin:    {name:"Marisol Vigil", title:"Program Director", init:"MV", staff:"mvigil"}
+};
+const NAVDEF = {
+  provider: [
+    {g:"Scope"},
+    {r:"stories", t:"User stories", i:"rules"},
+    {g:"Practice"},
+    {r:"today", t:"My day", i:"today"},
+    {r:"members", t:"Participants", i:"people"},
+    {r:"eligibility", t:"Eligibility", i:"shield"},
+    {r:"services", t:"Services", i:"service"},
+    {g:"Revenue"},
+    {r:"claims", t:"Claims", i:"claim"}
+  ],
+  admin: [
+    {g:"Scope"},
+    {r:"stories", t:"User stories", i:"rules"},
+    {g:"Program"},
+    {r:"today", t:"Overview", i:"today"},
+    {r:"members", t:"Participants", i:"people"},
+    {r:"services", t:"Services", i:"service"},
+    {g:"Revenue"},
+    {r:"claims", t:"Claims", i:"claim"},
+    {r:"reports", t:"Reports", i:"chart"},
+    {r:"fmap", t:"Tribal FMAP", i:"fmap"},
+    {g:"Configuration"},
+    {r:"rules", t:"Benefits & payers", i:"rules"},
+    {r:"edi", t:"EDI wire log", i:"wire"}
+  ]
+};
+let route = {name:"stories", arg:null};
+
+function go(name, arg){ route = {name, arg}; render(); window.scrollTo(0,0); }
+function setRole(r){
+  ROLE = r;
+  if (!NAVDEF[ROLE].some(n => n.r === route.name)) route = {name:"today", arg:null};
+  render();
+  toast(r === "admin" ? "Switched to Marisol Vigil — Program Director" : "Switched to Kayla Tsosie — Community Health Worker");
+}
+
+/* work queues used by nav badges and the dashboards */
+const unbilled = () => SERVICES.filter(s => !s.claim);
+const blocked = () => unbilled().filter(s => cat(s.code,s.mod).docs.some(d => !s.docs.includes(d)));
+const denied = () => CLAIMS.filter(c => c.status === "denied");
+const outstanding = () => CLAIMS.filter(c => ["submitted","ack"].includes(c.status));
+const arTotal = () => outstanding().reduce((t,c) => t + c.total, 0);
+const unbilledTotal = () => unbilled().reduce((t,s) => t + s.amount, 0);
+
+/* ============================================================
+   VIEWS
+   ============================================================ */
+const SEL = new Set();
+let FILTER = {members:"", services:"all", claims:"all"};
+
+/* ---------- my day / overview ---------- */
+function viewToday(){
+  return ROLE === "provider" ? todayProvider() : todayAdmin();
+}
+
+function todayProvider(){
+  const blk = blocked();
+  const stale = MEMBERS.filter(m => !ELIG[m.id] || days(ELIG[m.id].checkedOn, TODAY) > 30);
+  const mine = SERVICES.filter(s => s.staff === "ktsosie");
+  const recent = mine.slice().sort((a,b) => b.dos.localeCompare(a.dos)).slice(0,6);
+  const den = denied();
+
+  return `
+  <div class="grid g4" style="margin-bottom:16px">
+    ${stat("Ready to bill", money0(unbilled().filter(s => !blk.includes(s)).reduce((t,s)=>t+s.amount,0)),
+      `${unbilled().length - blk.length} services cleared`, "s-accent")}
+    ${stat("Held for documents", money0(blk.reduce((t,s)=>t+s.amount,0)), `${blk.length} services blocked`, "s-warn")}
+    ${stat("Eligibility to re-check", stale.length, "Verified more than 30 days ago", stale.length ? "s-warn" : "s-good")}
+    ${stat("Denials to work", den.length, money0(den.reduce((t,c)=>t+c.total,0)) + " at risk", den.length ? "s-bad" : "s-good")}
+  </div>
+
+  ${blk.length ? `<div class="banner b-warn" style="margin-bottom:16px">
+    ${ico("alert","",18)}
+    <div><div class="banner-t">${blk.length} delivered services cannot be billed yet</div>
+    <div class="banner-m">Every one of them is a document away from ${money(blk.reduce((t,s)=>t+s.amount,0))} in revenue. Attach what is missing and the claim builder unblocks on its own.</div></div>
+  </div>` : ""}
+
+  <div class="split">
+    <div class="card">
+      <div class="card-head"><h3>Held for documents</h3><span class="topbar-spacer"></span>
+        <button class="btn sm" data-act="goservices">Open services</button></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Participant</th><th>Service</th><th>Date</th><th>Missing</th><th class="r">Amount</th></tr></thead>
+        <tbody>${blk.map(s => {
+          const c = cat(s.code, s.mod), m = mem(s.member);
+          const miss = c.docs.filter(d => !s.docs.includes(d));
+          return `<tr class="clickable" data-act="service" data-id="${s.id}">
+            <td>${memberChip(m)}</td>
+            <td><div class="b6 s12">${esc(c.name)}</div><div class="mono s11 dim">${esc(catKey(c))}</div></td>
+            <td class="tnum">${dshort(s.dos)}</td>
+            <td>${miss.map(d => `<div class="s11" style="color:var(--warn)">${esc(DOCDEF[d])}</div>`).join("")}</td>
+            <td class="r tnum">${money(s.amount)}</td></tr>`;
+        }).join("") || `<tr><td colspan="5" class="empty">Nothing is held. Everything delivered is billable.</td></tr>`}</tbody>
+      </table></div>
+    </div>
+
+    <div class="col" style="gap:16px">
+      <div class="card">
+        <div class="card-head"><h3>Start something</h3></div>
+        <div class="card-body col" style="gap:8px">
+          <button class="btn" data-act="newservice" style="justify-content:flex-start">${ico("service")} Log a delivered service</button>
+          <button class="btn" data-act="goelig" style="justify-content:flex-start">${ico("shield")} Check eligibility</button>
+          <button class="btn primary" data-act="gobuild" style="justify-content:flex-start">${ico("claim")} Build a claim</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>My recent services</h3></div>
+        <div class="card-body col" style="gap:0">
+          ${recent.map(s => {
+            const c = cat(s.code, s.mod), m = mem(s.member);
+            return `<div class="doc-item"><div style="flex:1">
+              <div class="b6 s12">${esc(mname(m))} · ${esc(c.name)}</div>
+              <div class="s11 dim mono">${dshort(s.dos)} · ${s.units} ${esc(c.unit)}${s.units>1?"s":""} · ${money(s.amount)}</div>
+            </div>${s.claim ? `<span class="pill p-neutral">billed</span>` : `<span class="pill p-accent">unbilled</span>`}</div>`;
+          }).join("")}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function todayAdmin(){
+  const den = denied();
+  const paid = CLAIMS.filter(c => c.status === "paid");
+  const adjudicated = CLAIMS.filter(c => ["paid","denied","appealed"].includes(c.status));
+  const denialRate = Math.round(den.length / adjudicated.length * 100);
+  const avgPay = Math.round(paid.reduce((t,c) => t + days(c.submitted, c.paidDate), 0) / paid.length);
+  const fmapPaid = paid.filter(c => claimFmap(c) === "full").reduce((t,c) => t + c.paidAmt, 0);
+  const byPayer = Object.keys(PAYERS).map(p => ({
+    k: PAYERS[p].short,
+    v: CLAIMS.filter(c => c.payer === p && ["submitted","ack"].includes(c.status)).reduce((t,c) => t + c.total, 0),
+    sub: CLAIMS.filter(c => c.payer === p && ["submitted","ack"].includes(c.status)).length + " claims"
+  })).filter(r => r.v > 0).sort((a,b) => b.v - a.v);
+
+  return `
+  <div class="grid g4" style="margin-bottom:16px">
+    ${stat("Outstanding A/R", money0(arTotal()), `${outstanding().length} claims awaiting adjudication`, "s-accent")}
+    ${stat("Unbilled revenue", money0(unbilledTotal()), `${unbilled().length} delivered services not yet on a claim`, "s-warn")}
+    ${stat("Denial rate", denialRate + "%", `${den.length} of ${adjudicated.length} adjudicated claims`, denialRate > 15 ? "s-bad" : "s-good")}
+    ${stat("100% FMAP paid", money0(fmapPaid), "Claims the state can draw at full federal match", "s-fmap")}
+  </div>
+
+  <div class="banner b-fmap" style="margin-bottom:16px">
+    ${ico("fmap","",18)}
+    <div><div class="banner-t">Care coordination agreement with ${esc(ORG.cca.partner)} is active</div>
+    <div class="banner-m">${esc(ORG.cca.scope)} Effective ${dlong(ORG.cca.effective)}. Every AI/AN encounter referred under it is tagged automatically and reported in the tribal reconciliation file.</div></div>
+  </div>
+
+  <div class="split">
+    <div class="col" style="gap:16px">
+      <div class="card">
+        <div class="card-head"><h3>Outstanding A/R by plan</h3><span class="topbar-spacer"></span>
+          <span class="s11 dim">${money(arTotal())} total</span></div>
+        <div class="card-body">${barsH(byPayer, {w:560, label:150, fmt:money0, aria:"Outstanding accounts receivable by plan"})}</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Needs a decision</h3></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Claim</th><th>Participant</th><th>Plan</th><th>Problem</th><th class="r">Amount</th></tr></thead>
+          <tbody>${den.concat(CLAIMS.filter(c => c.status === "appealed")).map(c => `
+            <tr class="clickable" data-act="claim" data-id="${c.id}">
+              <td class="mono s11">${esc(c.id)}</td>
+              <td class="s12">${esc(mname(mem(c.member)))}</td>
+              <td>${payerPill(c.payer)}</td>
+              <td><div class="s12 b6">${esc(CARC[c.deny].carc)} · ${esc(CARC[c.deny].text)}</div></td>
+              <td class="r tnum">${money(c.total)}</td></tr>`).join("")}
+          </tbody></table></div>
+      </div>
+    </div>
+    <div class="col" style="gap:16px">
+      ${stat("Average days to payment", avgPay + " days", "From 837P submission to 835 remittance", "s-good", true)}
+      <div class="card">
+        <div class="card-head"><h3>Program at a glance</h3></div>
+        <div class="card-body">
+          <dl class="kv">
+            <dt>Participants</dt><dd class="tnum">${MEMBERS.length} enrolled · ${MEMBERS.filter(m=>m.aiAn).length} AI/AN</dd>
+            <dt>Sovereign nations</dt><dd>${[...new Set(MEMBERS.filter(m=>m.tribe).map(m=>m.tribe))].length} represented</dd>
+            <dt>Managed care exempt</dt><dd class="tnum">${MEMBERS.filter(m=>m.mcExempt).length} billing fee-for-service</dd>
+            <dt>Services delivered</dt><dd class="tnum">${SERVICES.length} in the current period</dd>
+            <dt>Benefit catalog</dt><dd class="tnum">${CATALOG.length} covered HRSN services</dd>
+            <dt>Practitioners</dt><dd class="tnum">${Object.keys(STAFF).length - 1} rendering</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Sites</h3></div>
+        <div class="card-body col" style="gap:0">
+          ${ORG.sites.map(s => `<div class="doc-item"><span class="s12">${esc(s)}</span>
+            <span class="topbar-spacer"></span>
+            <span class="tnum s11 dim">${SERVICES.filter(x => x.site === s).length} services</span></div>`).join("")}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function stat(label, value, note, strip, card){
+  return `<div class="card stat stat-strip ${strip||""}">
+    <div class="stat-label">${esc(label)}</div>
+    <div class="stat-value">${esc(String(value))}</div>
+    <div class="stat-note">${esc(note)}</div></div>`;
+}
+
+/* ---------- participants ---------- */
+function viewMembers(){
+  const q = FILTER.members.toLowerCase();
+  const rows = MEMBERS.filter(m =>
+    !q || mname(m).toLowerCase().includes(q) || m.mid.toLowerCase().includes(q) ||
+    (m.tribe||"").toLowerCase().includes(q) || m.city.toLowerCase().includes(q));
+  return `
+  <div class="row wrap" style="margin-bottom:14px">
+    <input type="text" id="mfilter" placeholder="Search by name, Medicaid ID, nation, or town" value="${esc(FILTER.members)}" style="max-width:360px">
+    <span class="topbar-spacer"></span>
+    <span class="s11 dim">${rows.length} of ${MEMBERS.length} participants</span>
+    <button class="btn sm" data-act="batchelig">${ico("shield","",14)} Verify all</button>
+  </div>
+  <div class="card"><div class="tbl-wrap"><table>
+    <thead><tr>
+      <th>Participant</th><th>Medicaid ID</th><th>Nation</th><th>Coverage</th>
+      <th>Needs</th><th>Last verified</th><th class="r">Unbilled</th></tr></thead>
+    <tbody>${rows.map(m => {
+      const e = ELIG[m.id];
+      const ub = SERVICES.filter(s => s.member === m.id && !s.claim).reduce((t,s) => t + s.amount, 0);
+      const stale = !e || days(e.checkedOn, TODAY) > 30;
+      return `<tr class="clickable" data-act="member" data-id="${m.id}">
+        <td><div class="row" style="gap:9px">
+          <span class="avatar">${m.first[0]}${m.last[0]}</span>
+          <span><div class="b6">${esc(mname(m))}</div>
+          <div class="s11 dim">${age(m.dob)} · ${esc(m.city)}</div></span></div></td>
+        <td class="tnum">${esc(m.mid)}</td>
+        <td>${m.tribe ? `<span class="pill p-fmap">${esc(m.tribe)}</span>` : `<span class="s11 dim">—</span>`}</td>
+        <td>${payerPill(m.payer)}${m.thru ? ` <span class="pill p-bad">ended ${dshort(m.thru)}</span>` : ""}
+            ${m.mcExempt ? `<div class="s11 dim" style="margin-top:3px">MCO-exempt by choice</div>` : ""}</td>
+        <td>${m.needs.map(z => `<span class="mono s11 dim" style="display:block">${esc(z)}</span>`).join("")}</td>
+        <td>${e ? `<span class="s12 ${stale?"":""}" style="color:${stale?"var(--warn)":"var(--ink-2)"}">${dshort(e.checkedOn)}</span>` : `<span class="pill p-warn">never</span>`}</td>
+        <td class="r tnum">${ub ? money(ub) : `<span class="dim">—</span>`}</td></tr>`;
+    }).join("")}</tbody></table></div></div>`;
+}
+
+/* ---------- participant detail ---------- */
+function viewMember(id){
+  const m = mem(id);
+  const e = ELIG[m.id];
+  const svcs = SERVICES.filter(s => s.member === id).sort((a,b) => b.dos.localeCompare(a.dos));
+  const clms = CLAIMS.filter(c => c.member === id).sort((a,b) => (b.submitted||"").localeCompare(a.submitted||""));
+  const auths = AUTHS.filter(a => a.member === id);
+  const ub = svcs.filter(s => !s.claim);
+
+  return `
+  <button class="btn-ghost" data-act="gomembers" style="margin-bottom:12px">← All participants</button>
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-body row wrap" style="gap:18px">
+      <span class="avatar" style="width:52px;height:52px;font-size:18px">${m.first[0]}${m.last[0]}</span>
+      <div style="flex:1;min-width:220px">
+        <h2 class="serif" style="font-size:26px;font-weight:500;letter-spacing:-.01em">${esc(mname(m))}</h2>
+        <div class="s12 muted" style="margin-top:4px">${age(m.dob)} years · ${esc(m.city)}, ${esc(m.county)} County · ${esc(m.lang)}</div>
+        <div class="row wrap" style="margin-top:9px;gap:6px">
+          ${m.tribe ? `<span class="pill p-fmap">${esc(m.tribe)}</span>` : ""}
+          ${payerPill(m.payer)}
+          ${m.mcExempt ? `<span class="pill p-neutral">Managed care exempt</span>` : ""}
+          ${m.thru ? `<span class="pill p-bad">Coverage ended ${dshort(m.thru)}</span>` : `<span class="pill p-good"><span class="pd"></span>Coverage active</span>`}
+        </div>
+      </div>
+      <div class="col" style="gap:7px">
+        <button class="btn primary" data-act="elig" data-id="${m.id}">${ico("shield","",15)} Check eligibility</button>
+        <button class="btn" data-act="newservice" data-id="${m.id}">${ico("service","",15)} Log a service</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="split">
+    <div class="col" style="gap:16px">
+      ${e ? eligPanel(e) : `<div class="card"><div class="card-body banner b-warn">${ico("alert","",18)}
+        <div><div class="banner-t">No eligibility check on file</div>
+        <div class="banner-m">Run a 270 before delivering anything billable. Unverified coverage is the most common cause of avoidable denials in this program.</div></div></div></div>`}
+
+      <div class="card">
+        <div class="card-head"><h3>Services</h3><span class="topbar-spacer"></span>
+          ${ub.length ? `<span class="pill p-accent">${ub.length} unbilled · ${money(ub.reduce((t,s)=>t+s.amount,0))}</span>` : ""}</div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Date</th><th>Service</th><th>Rendered by</th><th>Status</th><th class="r">Amount</th></tr></thead>
+          <tbody>${svcs.map(s => {
+            const c = cat(s.code, s.mod), miss = c.docs.filter(d => !s.docs.includes(d));
+            return `<tr class="clickable" data-act="service" data-id="${s.id}">
+              <td class="tnum">${dshort(s.dos)}</td>
+              <td><div class="b6 s12">${esc(c.name)}</div>
+                  <div class="mono s11 dim">${esc(catKey(c))} · ${s.units} ${esc(c.unit)}${s.units>1?"s":""}</div></td>
+              <td class="s12">${esc(STAFF[s.staff].name)}<div class="s11 dim">${esc(STAFF[s.staff].cred)}</div></td>
+              <td>${s.claim ? `<span class="pill p-neutral">${esc(s.claim)}</span>`
+                    : miss.length ? `<span class="pill p-warn">${miss.length} doc${miss.length>1?"s":""} missing</span>`
+                    : `<span class="pill p-accent">ready</span>`}
+                  ${fmapFor(s).ok ? `<span class="pill p-fmap" style="margin-left:4px">FMAP</span>` : ""}</td>
+              <td class="r tnum">${money(s.amount)}</td></tr>`;
+          }).join("") || `<tr><td colspan="5" class="empty">No services recorded.</td></tr>`}</tbody>
+        </table></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Claims</h3></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Claim</th><th>Plan</th><th>Dates of service</th><th>Status</th><th class="r">Billed</th><th class="r">Paid</th></tr></thead>
+          <tbody>${clms.map(c => `<tr class="clickable" data-act="claim" data-id="${c.id}">
+            <td class="mono s11">${esc(c.id)}</td><td>${payerPill(c.payer)}</td>
+            <td class="tnum s11">${dshort(c.dosFrom)}${c.dosTo!==c.dosFrom?" – "+dshort(c.dosTo):""}</td>
+            <td>${statusPill(c.status)} ${fmapPill(c)}</td>
+            <td class="r tnum">${money(c.total)}</td>
+            <td class="r tnum">${c.paidAmt ? money(c.paidAmt) : `<span class="dim">—</span>`}</td></tr>`).join("")
+            || `<tr><td colspan="6" class="empty">No claims yet.</td></tr>`}</tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <div class="col" style="gap:16px">
+      <div class="card">
+        <div class="card-head"><h3>Record</h3></div>
+        <div class="card-body"><dl class="kv">
+          <dt>Medicaid ID</dt><dd class="tnum">${esc(m.mid)}</dd>
+          <dt>Date of birth</dt><dd class="tnum">${dshort(m.dob)}</dd>
+          <dt>Phone</dt><dd class="tnum">${esc(m.phone)}</dd>
+          <dt>Primary care</dt><dd>${esc(m.pcp)}</dd>
+          <dt>Referring I/T/U</dt><dd>${m.ituReferral ? esc(m.ituReferral) : `<span class="dim">None on file</span>`}</dd>
+          <dt>Coverage span</dt><dd class="tnum">${dshort(m.eff)} – ${m.thru ? dshort(m.thru) : "open"}</dd>
+          <dt>HRSN screening</dt><dd class="tnum">${dshort(m.screening)}
+            ${days(m.screening, TODAY) > 365 ? `<span class="pill p-bad" style="margin-left:5px">expired</span>` : ""}</dd>
+        </dl></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Documented needs</h3></div>
+        <div class="card-body col" style="gap:0">
+          ${m.needs.map(z => `<div class="doc-item"><span class="mono s11 b6" style="color:var(--accent)">${esc(z)}</span>
+            <span class="s12">${esc(ZCODES[z])}</span></div>`).join("")}
+        </div>
+        <div class="card-foot s11 dim">These Z-codes are what makes an HRSN service payable. A claim without one denies as CO-11.</div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Authorizations</h3></div>
+        <div class="card-body col" style="gap:10px">
+          ${auths.length ? auths.map(a => {
+            const c = cat(a.code, a.mod);
+            const pct = a.units ? Math.round(a.used / a.units * 100) : 0;
+            return `<div>
+              <div class="row"><span class="s12 b6">${esc(c.name)}</span><span class="topbar-spacer"></span>
+                <span class="pill ${a.status==="active"?"p-good":"p-warn"}">${esc(a.status)}</span></div>
+              <div class="mono s11 dim">${a.num ? esc(a.num) : "not yet requested"} · ${dshort(a.from)} – ${dshort(a.to)}</div>
+              ${a.units ? `<div style="margin-top:6px;height:5px;border-radius:3px;background:var(--surface-3);overflow:hidden">
+                <div style="height:100%;width:${pct}%;background:var(--accent)"></div></div>
+                <div class="s11 dim" style="margin-top:4px">${a.used} of ${a.units} ${esc(c.unit)}s used</div>` : ""}
+            </div>`;
+          }).join("") : `<span class="s12 dim">None on file.</span>`}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Care team note</h3></div>
+        <div class="card-body s12 muted" style="line-height:1.6">${esc(m.note)}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function eligPanel(e){
+  const m = mem(e.member);
+  const used = e.benefits.filter(b => b.used > 0);
+  return `<div class="card">
+    <div class="card-head">
+      ${ico("shield","",16)}<h3>Eligibility — verified ${dlong(e.checkedOn)}</h3>
+      <span class="topbar-spacer"></span>
+      <button class="btn sm" data-act="wire270" data-id="${m.id}">View 270 / 271</button>
+    </div>
+    <div class="card-body">
+      <div class="row wrap" style="gap:8px;margin-bottom:14px">
+        ${e.active ? `<span class="pill p-good"><span class="pd"></span>Active coverage</span>`
+                   : `<span class="pill p-bad"><span class="pd"></span>Coverage terminated ${dshort(e.thru)}</span>`}
+        ${payerPill(e.payer)}
+        <span class="pill p-neutral">Cost share ${money(e.costShare)}</span>
+        ${e.aiAn ? `<span class="pill p-fmap">AI/AN indicator</span>` : ""}
+      </div>
+      ${e.mcExempt ? `<div class="banner" style="margin-bottom:14px">${ico("alert","",17)}
+        <div><div class="banner-t">Claims route to fee-for-service, not an MCO</div>
+        <div class="banner-m">${esc(mname(m))} is AI/AN and declined managed care enrollment. Sending this member's claims to a Turquoise Care plan produces a denial that reads like a coding error. Piñon locks the destination payer to ${esc(PAYERS.NMFFS.short)}.</div></div></div>` : ""}
+      ${!e.active ? `<div class="banner b-bad" style="margin-bottom:14px">${ico("alert","",17)}
+        <div><div class="banner-t">Do not deliver billable services against this coverage</div>
+        <div class="banner-m">Anything dated after ${dlong(e.thru)} denies as CO-27. Route the participant to renewal support, and move already-delivered services to the community-funded pool.</div></div></div>` : ""}
+      <div class="eyebrow" style="margin-bottom:8px">HRSN package returned by the plan</div>
+      <div class="row wrap" style="gap:6px;margin-bottom:16px">
+        ${e.hrsnPackage.map(h => `<span class="pill p-accent">${esc(h)}</span>`).join("")}
+      </div>
+      ${used.length ? `<div class="eyebrow" style="margin-bottom:8px">Benefit limits in use</div>
+      <div class="col" style="gap:9px">${used.map(b => {
+        const pct = Math.min(100, Math.round(b.used / b.limit.n * 100));
+        const hot = pct >= 80;
+        return `<div>
+          <div class="row"><span class="s12">${esc(b.name)}</span><span class="topbar-spacer"></span>
+            <span class="tnum s11 ${hot?"":"dim"}" style="${hot?"color:var(--warn)":""}">${b.used} / ${b.limit.n}</span></div>
+          <div style="margin-top:5px;height:5px;border-radius:3px;background:var(--surface-3);overflow:hidden">
+            <div style="height:100%;width:${pct}%;background:${hot?"var(--warn)":"var(--accent)"}"></div></div>
+          <div class="s11 dim" style="margin-top:3px">${esc(b.limit.per)}</div></div>`;
+      }).join("")}</div>` : ""}
+    </div>
+  </div>`;
+}
+
+/* ---------- eligibility desk ---------- */
+function viewEligibility(){
+  const rows = MEMBERS.map(m => ({m, e:ELIG[m.id]}));
+  const never = rows.filter(r => !r.e).length;
+  const stale = rows.filter(r => r.e && days(r.e.checkedOn, TODAY) > 30).length;
+  return `
+  <div class="grid g3" style="margin-bottom:16px">
+    ${stat("Verified in the last 30 days", rows.length - never - stale, "Safe to bill against", "s-good")}
+    ${stat("Stale verifications", stale, "Coverage can change at the start of any month", stale ? "s-warn" : "s-good")}
+    ${stat("Never verified", never, "Deliver nothing billable until these are checked", never ? "s-bad" : "s-good")}
+  </div>
+  <div class="row" style="margin-bottom:14px">
+    <div class="s12 muted">A 270 inquiry goes out, the plan answers with a 271. Piñon reads the answer and decides where the claim will go.</div>
+    <span class="topbar-spacer"></span>
+    <button class="btn primary" data-act="batchelig">${ico("shield","",15)} Verify all ${MEMBERS.length}</button>
+  </div>
+  <div class="card"><div class="tbl-wrap"><table>
+    <thead><tr><th>Participant</th><th>Last checked</th><th>Result</th><th>Claims route to</th><th>Cost share</th><th class="r"></th></tr></thead>
+    <tbody>${rows.map(({m,e}) => `<tr>
+      <td>${memberChip(m)}<div class="mono s11 dim" style="margin-left:29px">${esc(m.mid)}</div></td>
+      <td class="tnum s12">${e ? dshort(e.checkedOn) : `<span class="dim">never</span>`}</td>
+      <td>${e ? (e.active ? `<span class="pill p-good"><span class="pd"></span>Active</span>`
+                          : `<span class="pill p-bad"><span class="pd"></span>Terminated ${dshort(e.thru)}</span>`)
+              : `<span class="pill p-neutral">unknown</span>`}</td>
+      <td>${e ? `${payerPill(e.payer)}${e.mcExempt ? `<div class="s11 dim" style="margin-top:3px">MCO declined — FFS</div>` : ""}` : `<span class="dim s11">—</span>`}</td>
+      <td class="tnum s12">${e ? money(e.costShare) : `<span class="dim">—</span>`}</td>
+      <td class="r"><button class="btn sm" data-act="elig" data-id="${m.id}">Check</button>
+        ${e ? `<button class="btn sm" data-act="wire270" data-id="${m.id}">X12</button>` : ""}</td>
+    </tr>`).join("")}</tbody>
+  </table></div></div>`;
+}
+
+/* ---------- services ---------- */
+function viewServices(){
+  const f = FILTER.services;
+  const all = SERVICES.slice().sort((a,b) => b.dos.localeCompare(a.dos));
+  const rows = all.filter(s => {
+    const miss = cat(s.code,s.mod).docs.some(d => !s.docs.includes(d));
+    if (f === "unbilled") return !s.claim;
+    if (f === "held") return !s.claim && miss;
+    if (f === "ready") return !s.claim && !miss;
+    if (f === "billed") return !!s.claim;
+    return true;
+  });
+  const counts = {
+    all: all.length,
+    unbilled: all.filter(s => !s.claim).length,
+    ready: all.filter(s => !s.claim && !cat(s.code,s.mod).docs.some(d => !s.docs.includes(d))).length,
+    held: blocked().length,
+    billed: all.filter(s => s.claim).length
+  };
+  const selRows = [...SEL].map(svcById).filter(Boolean);
+  const selTotal = selRows.reduce((t,s) => t + s.amount, 0);
+  const selMembers = new Set(selRows.map(s => s.member));
+
+  return `
+  <div class="row wrap" style="margin-bottom:14px">
+    <div class="tabs" style="margin:0;border:none">
+      ${[["all","Everything"],["ready","Ready to bill"],["held","Held for documents"],["unbilled","All unbilled"],["billed","Billed"]]
+        .map(([k,l]) => `<button class="tab" role="tab" aria-selected="${f===k}" data-act="svcfilter" data-f="${k}">${l} <span class="dim tnum">${counts[k]}</span></button>`).join("")}
+    </div>
+    <span class="topbar-spacer"></span>
+    <button class="btn primary" data-act="newservice">${ico("service","",15)} Log a service</button>
+  </div>
+
+  <div class="card"><div class="tbl-wrap"><table>
+    <thead><tr>
+      <th style="width:34px"></th><th>Date</th><th>Participant</th><th>Service</th>
+      <th>Rendered by</th><th>Documentation</th><th>Match</th><th class="r">Amount</th></tr></thead>
+    <tbody>${rows.map(s => {
+      const c = cat(s.code, s.mod), m = mem(s.member);
+      const miss = c.docs.filter(d => !s.docs.includes(d));
+      const selectable = !s.claim && !miss.length;
+      const fm = fmapFor(s);
+      return `<tr class="${selectable?"":""}">
+        <td>${selectable
+          ? `<input type="checkbox" data-act="sel" data-id="${s.id}" ${SEL.has(s.id)?"checked":""} aria-label="Select ${esc(s.id)}" style="width:auto">`
+          : `<span class="dim">·</span>`}</td>
+        <td class="tnum">${dshort(s.dos)}</td>
+        <td class="clickable" data-act="member" data-id="${m.id}">${memberChip(m)}</td>
+        <td class="clickable" data-act="service" data-id="${s.id}">
+          <div class="b6 s12">${esc(c.name)}</div>
+          <div class="mono s11 dim">${esc(catKey(c))} · ${s.units} ${esc(c.unit)}${s.units>1?"s":""} @ ${money(c.rate)}</div></td>
+        <td class="s12">${esc(STAFF[s.staff].name)}<div class="s11 dim">${esc(STAFF[s.staff].role)}</div></td>
+        <td>${s.claim ? `<span class="pill p-neutral">on ${esc(s.claim)}</span>`
+              : miss.length ? `<button class="pill p-warn" data-act="service" data-id="${s.id}">${miss.length} missing — fix</button>`
+              : `<span class="pill p-good"><span class="pd"></span>complete</span>`}</td>
+        <td>${fm.ok ? `<span class="pill p-fmap">100%</span>` : `<span class="s11 dim">standard</span>`}</td>
+        <td class="r tnum">${money(s.amount)}</td></tr>`;
+    }).join("") || `<tr><td colspan="8" class="empty">Nothing here.</td></tr>`}</tbody>
+  </table></div>
+  ${SEL.size ? `<div class="card-foot row">
+    <span class="s12 b6">${SEL.size} service${SEL.size>1?"s":""} selected · <span class="tnum">${money(selTotal)}</span></span>
+    ${selMembers.size > 1 ? `<span class="pill p-bad">${selMembers.size} different participants — a claim carries one</span>` : ""}
+    <span class="topbar-spacer"></span>
+    <button class="btn sm" data-act="clearsel">Clear</button>
+    <button class="btn sm primary" data-act="gobuild" ${selMembers.size > 1 ? "disabled" : ""}>Build claim →</button>
+  </div>` : ""}
+  </div>`;
+}
+
+function serviceModal(id){
+  const s = svcById(id), c = cat(s.code, s.mod), m = mem(s.member), fm = fmapFor(s);
+  const body = `
+    <div class="row wrap" style="gap:8px;margin-bottom:14px">
+      <span class="pill p-accent">${esc(catKey(c))}</span>
+      <span class="pill p-neutral">${esc(c.cat)}</span>
+      ${fm.ok ? `<span class="pill p-fmap">100% FMAP</span>` : ""}
+      ${s.claim ? `<span class="pill p-neutral">billed on ${esc(s.claim)}</span>` : `<span class="pill p-accent">unbilled</span>`}
+    </div>
+    <p class="s12 muted" style="margin-bottom:16px;line-height:1.6">${esc(c.desc)}</p>
+    <dl class="kv" style="margin-bottom:18px">
+      <dt>Participant</dt><dd>${esc(mname(m))} · <span class="mono s11">${esc(m.mid)}</span></dd>
+      <dt>Date of service</dt><dd class="tnum">${dlong(s.dos)}</dd>
+      <dt>Units</dt><dd class="tnum">${s.units} ${esc(c.unit)}${s.units>1?"s":""} at ${money(c.rate)} = ${money(s.amount)}</dd>
+      <dt>Rendered by</dt><dd>${esc(STAFF[s.staff].name)}, ${esc(STAFF[s.staff].cred)} — ${esc(STAFF[s.staff].role)}</dd>
+      <dt>Site</dt><dd>${esc(s.site)}</dd>
+      <dt>Place of service</dt><dd class="mono s11">${esc(c.pos)}</dd>
+      <dt>Federal match</dt><dd class="s12">${esc(fm.basis)}</dd>
+    </dl>
+    <div class="eyebrow" style="margin-bottom:8px">Documentation required to get paid</div>
+    <div class="col" style="gap:0">
+      ${c.docs.map(d => {
+        const on = s.docs.includes(d);
+        return `<div class="doc-item">
+          <button class="tick ${on?"on":""}" data-act="toggledoc" data-svc="${s.id}" data-doc="${d}"
+                  aria-pressed="${on}" aria-label="${on?"Remove":"Attach"} ${esc(DOCDEF[d])}">${on?ico("check","",11):""}</button>
+          <span class="s12" style="${on?"":"color:var(--warn)"}">${esc(DOCDEF[d])}</span>
+          <span class="topbar-spacer"></span>
+          <span class="s11 dim">${on?"attached":"missing"}</span></div>`;
+      }).join("")}
+    </div>`;
+  openModal(c.name, body, [{label:"Open participant", run:() => go("member", s.member)}, {label:"Done", kind:"primary"}]);
+}
+
+function newServiceModal(memberId){
+  const body = `
+    <div class="grid g2" style="gap:14px">
+      <div class="field"><label for="ns_m">Participant</label>
+        <select id="ns_m">${MEMBERS.map(m => `<option value="${m.id}" ${m.id===memberId?"selected":""}>${esc(mname(m))} — ${esc(PAYERS[m.payer].short)}</option>`).join("")}</select></div>
+      <div class="field"><label for="ns_c">Service</label>
+        <select id="ns_c">${CATALOG.map(c => `<option value="${catKey(c)}">${esc(c.name)} · ${esc(catKey(c))} · ${money(c.rate)}/${esc(c.unit)}</option>`).join("")}</select></div>
+      <div class="field"><label for="ns_d">Date of service</label><input type="date" id="ns_d" value="${TODAY}" max="${TODAY}"></div>
+      <div class="field"><label for="ns_u">Units</label><input type="number" id="ns_u" value="1" min="1" max="500"></div>
+      <div class="field"><label for="ns_s">Rendered by</label>
+        <select id="ns_s">${Object.values(STAFF).filter(s => s.id !== "mvigil").map(s => `<option value="${s.id}">${esc(s.name)}, ${esc(s.cred)}</option>`).join("")}</select></div>
+      <div class="field"><label for="ns_site">Site</label>
+        <select id="ns_site">${ORG.sites.map(s => `<option>${esc(s)}</option>`).join("")}</select></div>
+    </div>
+    <label class="selectable" style="margin-top:14px">
+      <input type="checkbox" id="ns_itu" checked>
+      <span><span class="s12 b6">Delivered under the care coordination agreement with ${esc(ORG.cca.partner)}</span>
+      <span class="s11 dim" style="display:block;margin-top:2px">For AI/AN participants this is what makes the encounter eligible for 100% federal match. Leave it off if there is no I/T/U linkage.</span></span>
+    </label>
+    <div class="banner" style="margin-top:14px">${ico("alert","",17)}
+      <div><div class="banner-t">Documentation is attached after the fact</div>
+      <div class="banner-m">Piñon creates the record with every required document marked missing, then blocks the claim until each one is attached. Nothing reaches a payer half-documented.</div></div></div>`;
+  openModal("Log a delivered service", body, [
+    {label:"Cancel"},
+    {label:"Save service", kind:"primary", run:() => {
+      const key = $("#ns_c").value;
+      const [code, mod] = key.split("-");
+      const o = {
+        id:"SV-" + (2700 + SERVICES.length),
+        member:$("#ns_m").value, code, mod:mod || "",
+        dos:$("#ns_d").value, units:+$("#ns_u").value || 1,
+        staff:$("#ns_s").value, site:$("#ns_site").value, itu:$("#ns_itu").checked,
+        missing:cat(code, mod).docs
+      };
+      S(o);
+      toast(`Logged ${cat(code,mod).name} for ${mname(mem(o.member))} — ${cat(code,mod).docs.length} documents outstanding`);
+      go("services");
+    }}
+  ]);
+}
+
+/* ---------- claim builder ---------- */
+function viewBuild(){
+  let sel = [...SEL].map(svcById).filter(Boolean);
+  if (!sel.length) {
+    const ready = unbilled().filter(s => !cat(s.code,s.mod).docs.some(d => !s.docs.includes(d)));
+    return `<div class="card"><div class="card-body">
+      <div class="banner" style="margin-bottom:16px">${ico("claim","",18)}
+        <div><div class="banner-t">Pick the services to bill</div>
+        <div class="banner-m">A claim carries one participant and one destination plan. Select cleared services on the Services page, or start from a participant below.</div></div></div>
+      <div class="grid g3">${[...new Set(ready.map(s => s.member))].map(mid => {
+        const m = mem(mid), rows = ready.filter(s => s.member === mid);
+        return `<button class="selectable" data-act="quickbuild" data-id="${mid}">
+          <span class="avatar">${m.first[0]}${m.last[0]}</span>
+          <span><span class="s12 b6">${esc(mname(m))}</span>
+          <span class="s11 dim" style="display:block">${rows.length} cleared · ${money(rows.reduce((t,s)=>t+s.amount,0))} → ${esc(PAYERS[m.payer].short)}</span></span></button>`;
+      }).join("")}</div>
+    </div></div>`;
+  }
+
+  const m = mem(sel[0].member);
+  const payerId = m.payer;
+  const findings = scrub(payerId, [...SEL], TODAY);
+  const errs = findings.filter(f => f.level === "err");
+  const warns = findings.filter(f => f.level === "warn");
+  const oks = findings.filter(f => f.level === "ok");
+  const fm = findings.find(f => f.id === "FMAP-01");
+  const total = sel.reduce((t,s) => t + s.amount, 0);
+
+  return `
+  <button class="btn-ghost" data-act="goservices" style="margin-bottom:12px">← Back to services</button>
+  <div class="split">
+    <div class="col" style="gap:16px">
+      <div class="card">
+        <div class="card-head"><h3>Claim lines</h3><span class="topbar-spacer"></span>
+          <span class="tnum s12 b6">${money(total)}</span></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Date</th><th>Service</th><th>Code</th><th class="r">Units</th><th class="r">Charge</th><th></th></tr></thead>
+          <tbody>${sel.map(s => {
+            const c = cat(s.code, s.mod);
+            return `<tr><td class="tnum">${dshort(s.dos)}</td>
+              <td class="s12">${esc(c.name)}</td>
+              <td class="mono s11">${esc(s.code)}${s.mod?`:${esc(s.mod)}`:""}${fm && fm.level==="fmap"?`:UD`:""}</td>
+              <td class="r tnum">${s.units}</td>
+              <td class="r tnum">${money(s.amount)}</td>
+              <td class="r"><button class="btn-ghost s11" data-act="unsel" data-id="${s.id}">remove</button></td></tr>`;
+          }).join("")}</tbody>
+        </table></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">${ico("shield","",16)}<h3>Pre-submission scrub</h3><span class="topbar-spacer"></span>
+          ${errs.length ? `<span class="pill p-bad">${errs.length} blocking</span>` : `<span class="pill p-good"><span class="pd"></span>clean</span>`}
+          ${warns.length ? `<span class="pill p-warn">${warns.length} to review</span>` : ""}</div>
+        <div class="card-body">
+          ${errs.concat(warns).map(renderCheck).join("")}
+          ${errs.length || warns.length ? `<div class="sep"></div>` : ""}
+          <details ${errs.length ? "" : "open"}>
+            <summary class="s12 muted" style="cursor:pointer;margin-bottom:10px">${oks.length} checks passed</summary>
+            ${oks.concat(findings.filter(f => f.level === "fmap")).map(renderCheck).join("")}
+          </details>
+        </div>
+        <div class="card-foot row">
+          <span class="s11 dim">${errs.length
+            ? "Blocking problems must clear before this claim can be sent."
+            : "Every rule the plan will apply has been checked locally."}</span>
+          <span class="topbar-spacer"></span>
+          <button class="btn sm" data-act="preview837">Preview 837P</button>
+          <button class="btn sm primary" data-act="submitclaim" ${errs.length ? "disabled" : ""}>Submit to ${esc(PAYERS[payerId].short)}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col" style="gap:16px">
+      <div class="card">
+        <div class="card-head"><h3>Destination</h3></div>
+        <div class="card-body">
+          <div class="s12 b6">${esc(PAYERS[payerId].name)}</div>
+          <div class="s11 dim" style="margin-bottom:12px">${esc(PAYERS[payerId].line)}</div>
+          <dl class="kv">
+            <dt>Payer ID</dt><dd class="tnum">${esc(PAYERS[payerId].payerId)}</dd>
+            <dt>Channel</dt><dd>${esc(PAYERS[payerId].clearing)}</dd>
+            <dt>Timely filing</dt><dd class="tnum">${PAYERS[payerId].filingDays} days</dd>
+            <dt>Typical payment</dt><dd class="tnum">${PAYERS[payerId].avgPay} days</dd>
+          </dl>
+          <div class="sep"></div>
+          <div class="s11 dim">Chosen from the 271, not from a dropdown. ${m.mcExempt
+            ? "This participant declined managed care, so the claim goes to fee-for-service."
+            : "This participant is enrolled with the plan above for the month of service."}</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Participant</h3></div>
+        <div class="card-body">
+          <div class="row" style="gap:10px;margin-bottom:12px">
+            <span class="avatar">${m.first[0]}${m.last[0]}</span>
+            <span><div class="b6">${esc(mname(m))}</div><div class="mono s11 dim">${esc(m.mid)}</div></span>
+          </div>
+          <dl class="kv">
+            <dt>Diagnosis</dt><dd class="mono s11">${m.needs.map(z => esc(z)).join(", ")}</dd>
+            <dt>Screening</dt><dd class="tnum">${dshort(m.screening)}</dd>
+            <dt>AI/AN</dt><dd>${m.aiAn ? "Yes — " + esc(m.tribe) : "No"}</dd>
+          </dl>
+        </div>
+      </div>
+      ${fm && fm.level === "fmap" ? `<div class="card"><div class="card-body banner b-fmap">
+        ${ico("fmap","",18)}<div><div class="banner-t">${esc(fm.title)}</div>
+        <div class="banner-m">${esc(fm.msg)}</div></div></div></div>` : ""}
+    </div>
+  </div>`;
+}
+
+function renderCheck(f){
+  const cls = f.level === "err" ? "err" : f.level === "warn" ? "warnc" : "";
+  const color = f.level === "err" ? "var(--bad)" : f.level === "warn" ? "var(--warn)" : f.level === "fmap" ? "var(--fmap)" : "var(--good)";
+  const icon = f.level === "err" ? "x" : f.level === "warn" ? "alert" : f.level === "fmap" ? "fmap" : "check";
+  return `<div class="check ${cls}">
+    <span class="check-ico" style="color:${color}">${ico(icon,"",16)}</span>
+    <div style="flex:1">
+      <div class="check-ttl">${esc(f.title)}</div>
+      <div class="check-msg">${esc(f.msg)}</div>
+      ${f.fix ? `<div class="check-msg" style="margin-top:5px"><span class="b6">Fix:</span> ${esc(f.fix)}</div>` : ""}
+      <div class="check-code">${esc(f.id)}${f.code ? " · " + esc(f.code) : ""}</div>
+    </div></div>`;
+}
+
+function submitClaim(){
+  const ids = [...SEL];
+  const sel = ids.map(svcById);
+  const m = mem(sel[0].member);
+  const id = "CLM-2026-0" + (CLAIM_SEQ++);
+  const c = {id, payer:m.payer, svc:ids, status:"submitted", submitted:TODAY};
+  C(c);
+  sel.forEach(s => s.claim = id);
+  SEL.clear();
+  logEdi("837P", "out", PAYERS[c.payer].short, `Claim ${id} — ${mname(m)} — ${money(c.total)}`, build837P(c));
+  toast(`${id} submitted to ${PAYERS[c.payer].short} — ${money(c.total)}`);
+  setTimeout(() => {
+    c.status = "ack"; c.acked = TODAY;
+    logEdi("277CA", "in", PAYERS[c.payer].short, `Acknowledgement for ${id}`, build277CA(c));
+    toast(`277CA received — ${id} accepted for adjudication`);
+    if (route.name === "claim" && route.arg === id) render();
+  }, 1600);
+  go("claim", id);
+}
+
+/* ---------- claims ---------- */
+function viewClaims(){
+  const f = FILTER.claims;
+  const rows = CLAIMS.filter(c => f === "all" ? true
+    : f === "open" ? ["draft","ready","submitted","ack"].includes(c.status)
+    : f === "problem" ? ["denied","appealed"].includes(c.status)
+    : c.status === "paid").sort((a,b) => (b.submitted||"").localeCompare(a.submitted||""));
+  const counts = {
+    all: CLAIMS.length,
+    open: CLAIMS.filter(c => ["draft","ready","submitted","ack"].includes(c.status)).length,
+    problem: CLAIMS.filter(c => ["denied","appealed"].includes(c.status)).length,
+    paid: CLAIMS.filter(c => c.status === "paid").length
+  };
+  return `
+  <div class="grid g4" style="margin-bottom:16px">
+    ${stat("Outstanding", money0(arTotal()), outstanding().length + " claims with the plans", "s-accent")}
+    ${stat("Paid this period", money0(CLAIMS.filter(c=>c.status==="paid").reduce((t,c)=>t+c.paidAmt,0)), CLAIMS.filter(c=>c.status==="paid").length + " remittances posted", "s-good")}
+    ${stat("Denied", money0(denied().reduce((t,c)=>t+c.total,0)), denied().length + " claims to work", denied().length?"s-bad":"s-good")}
+    ${stat("Not yet billed", money0(unbilledTotal()), unbilled().length + " delivered services", "s-warn")}
+  </div>
+  <div class="row wrap" style="margin-bottom:14px">
+    <div class="tabs" style="margin:0;border:none">
+      ${[["all","All"],["open","Open"],["problem","Denied and appealed"],["paid","Paid"]]
+        .map(([k,l]) => `<button class="tab" role="tab" aria-selected="${f===k}" data-act="clmfilter" data-f="${k}">${l} <span class="dim tnum">${counts[k]}</span></button>`).join("")}
+    </div>
+    <span class="topbar-spacer"></span>
+    <button class="btn primary" data-act="gobuild">${ico("claim","",15)} Build a claim</button>
+  </div>
+  <div class="card"><div class="tbl-wrap"><table>
+    <thead><tr><th>Claim</th><th>Participant</th><th>Plan</th><th>Service dates</th><th>Status</th>
+      <th>Age</th><th class="r">Billed</th><th class="r">Paid</th></tr></thead>
+    <tbody>${rows.map(c => {
+      const ageD = c.submitted ? days(c.submitted, c.paidDate || TODAY) : 0;
+      return `<tr class="clickable" data-act="claim" data-id="${c.id}">
+        <td><span class="mono s11 b6">${esc(c.id)}</span>${claimFmap(c)==="full"?`<div>${fmapPill(c)}</div>`:""}</td>
+        <td>${memberChip(mem(c.member))}</td>
+        <td>${payerPill(c.payer)}</td>
+        <td class="tnum s11">${dshort(c.dosFrom)}${c.dosTo!==c.dosFrom?" – "+dshort(c.dosTo):""}</td>
+        <td>${statusPill(c.status)}${c.deny?`<div class="s11" style="color:var(--bad);margin-top:3px">${esc(CARC[c.deny].carc)}</div>`:""}</td>
+        <td class="tnum s12" style="${ageD>60?"color:var(--bad)":ageD>30?"color:var(--warn)":""}">${ageD}d</td>
+        <td class="r tnum">${money(c.total)}</td>
+        <td class="r tnum">${c.paidAmt ? money(c.paidAmt) : `<span class="dim">—</span>`}</td></tr>`;
+    }).join("")}</tbody>
+  </table></div></div>`;
+}
+
+function viewClaim(id){
+  const c = claimById(id);
+  const m = mem(c.member);
+  const p = PAYERS[c.payer];
+  const d = c.deny ? CARC[c.deny] : null;
+  const findings = scrub(c.payer, c.svc, c.submitted);
+  const fm = claimFmap(c);
+
+  const steps = [
+    {t:"Services delivered", d:c.dosFrom === c.dosTo ? dlong(c.dosFrom) : `${dlong(c.dosFrom)} – ${dlong(c.dosTo)}`, m:`${c.lines.length} line${c.lines.length>1?"s":""} · ${money(c.total)}`, on:true},
+    {t:"Scrubbed and built", d:dlong(c.submitted), m:`${findings.filter(f=>f.level==="ok").length} rules passed`, on:true},
+    {t:`837P sent to ${p.short}`, d:dlong(c.submitted), m:`Via ${p.clearing}`, on:true},
+    {t:"277CA acknowledgement", d:c.acked ? dlong(c.acked) : "waiting", m:c.acked ? "Accepted for adjudication" : `${p.short} typically acknowledges within one business day`, on:!!c.acked},
+    {t:d ? "835 remittance — denied" : "835 remittance", d:c.paidDate ? dlong(c.paidDate) : "waiting",
+     m:d ? `${d.carc} · ${d.text}` : c.paidDate ? `${money(c.paidAmt)} · ${esc(c.trace||"")}` : `${p.short} pays in about ${p.avgPay} days`,
+     on:!!c.paidDate, bad:!!d}
+  ];
+  if (c.appealed) steps.push({t:"Appeal filed", d:dlong(c.appealed), m:"Reconsideration requested with supporting documentation", on:true});
+
+  return `
+  <button class="btn-ghost" data-act="goclaims" style="margin-bottom:12px">← All claims</button>
+  <div class="card" style="margin-bottom:16px"><div class="card-body row wrap" style="gap:18px">
+    <div style="flex:1;min-width:240px">
+      <div class="row wrap" style="gap:8px;margin-bottom:8px">${statusPill(c.status)}${fmapPill(c)}</div>
+      <h2 class="serif" style="font-size:26px;font-weight:500">${esc(c.id)}</h2>
+      <div class="s12 muted" style="margin-top:4px">${esc(mname(m))} · ${esc(p.name)}</div>
+    </div>
+    <div class="col" style="gap:4px;text-align:right">
+      <div class="stat-label">Billed</div>
+      <div class="stat-value" style="font-size:24px">${money(c.total)}</div>
+      ${c.paidAmt ? `<div class="s12" style="color:var(--good)">${money(c.paidAmt)} paid ${dshort(c.paidDate)}</div>` : ""}
+    </div>
+    <div class="col" style="gap:7px">
+      <button class="btn" data-act="wire837" data-id="${c.id}">${ico("wire","",15)} 837P</button>
+      ${c.acked ? `<button class="btn" data-act="wire277" data-id="${c.id}">277CA</button>` : ""}
+      ${c.paidDate ? `<button class="btn" data-act="wire835" data-id="${c.id}">835</button>` : ""}
+    </div>
+  </div></div>
+
+  ${d ? `<div class="banner b-bad" style="margin-bottom:16px">${ico("alert","",18)}
+    <div style="flex:1"><div class="banner-t">${esc(d.carc)} · ${esc(d.text)}</div>
+    <div class="banner-m">Remark ${esc(d.rarc)}. ${esc(d.fix)}</div>
+    <div class="row" style="margin-top:10px;gap:8px">${denialActions(c)}</div></div></div>` : ""}
+
+  <div class="split">
+    <div class="col" style="gap:16px">
+      <div class="card">
+        <div class="card-head"><h3>Service lines</h3></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Date</th><th>Service</th><th>Code</th><th class="r">Units</th><th class="r">Charge</th><th class="r">Paid</th></tr></thead>
+          <tbody>${c.lines.map(l => {
+            const ct = cat(l.code, l.mod);
+            return `<tr class="clickable" data-act="service" data-id="${l.id}">
+              <td class="tnum">${dshort(l.dos)}</td>
+              <td class="s12">${esc(ct.name)}<div class="s11 dim">${esc(STAFF[l.staff].name)}, ${esc(STAFF[l.staff].cred)}</div></td>
+              <td class="mono s11">${esc(l.code)}${l.mod?`:${esc(l.mod)}`:""}${fm==="full"?":UD":""}</td>
+              <td class="r tnum">${l.units}</td>
+              <td class="r tnum">${money(l.amount)}</td>
+              <td class="r tnum">${c.status==="paid" ? money(l.amount) : `<span class="dim">—</span>`}</td></tr>`;
+          }).join("")}</tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-head">${ico("shield","",16)}<h3>Scrub record at submission</h3></div>
+        <div class="card-body">${findings.filter(f => f.level !== "ok").map(renderCheck).join("") || ""}
+          <details><summary class="s12 muted" style="cursor:pointer;margin-bottom:10px">${findings.filter(f=>f.level==="ok").length} checks passed</summary>
+          ${findings.filter(f => f.level === "ok").map(renderCheck).join("")}</details></div>
+      </div>
+    </div>
+    <div class="col" style="gap:16px">
+      <div class="card">
+        <div class="card-head"><h3>Lifecycle</h3></div>
+        <div class="card-body"><div class="timeline">
+          ${steps.map(s => `<div class="tl-item">
+            <span class="tl-dot ${s.bad?"bad":s.on?"on":""}"></span>
+            <div class="tl-t">${esc(s.t)}</div>
+            <div class="tl-m">${esc(s.m)}</div>
+            <div class="tl-d">${esc(s.d)}</div></div>`).join("")}
+        </div></div>
+      </div>
+      ${fm === "full" ? `<div class="card"><div class="card-body banner b-fmap">${ico("fmap","",18)}
+        <div><div class="banner-t">100% federal match</div>
+        <div class="banner-m">${esc(fmapFor(c.lines[0]).basis)} Modifier UD is on every line and the claim appears in the tribal reconciliation file.</div></div></div></div>` : ""}
+      <div class="card">
+        <div class="card-head"><h3>Plan</h3></div>
+        <div class="card-body"><dl class="kv">
+          <dt>Payer ID</dt><dd class="tnum">${esc(p.payerId)}</dd>
+          <dt>Channel</dt><dd>${esc(p.clearing)}</dd>
+          <dt>Portal</dt><dd>${esc(p.portal)}</dd>
+          <dt>Timely filing</dt><dd class="tnum">${p.filingDays} days</dd>
+          <dt>Typical payment</dt><dd class="tnum">${p.avgPay} days</dd>
+          ${c.trace ? `<dt>Trace</dt><dd class="tnum">${esc(c.trace)}</dd>` : ""}
+        </dl></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function denialActions(c){
+  const acts = [];
+  if (c.deny === "197") acts.push(`<button class="btn sm" data-act="retroauth" data-id="${c.id}">Request retro-authorization</button>`);
+  if (c.deny === "27") acts.push(`<button class="btn sm" data-act="recheck" data-id="${c.id}">Re-verify eligibility</button>`);
+  if (c.status !== "appealed") acts.push(`<button class="btn sm" data-act="appeal" data-id="${c.id}">${c.deny === "29" ? "File timely-filing appeal" : "Appeal"}</button>`);
+  acts.push(`<button class="btn sm" data-act="wire835" data-id="${c.id}">Read the 835</button>`);
+  return acts.join("");
+}
+
+/* ---------- user stories ----------
+   The prototype exists to answer these. Each one names the screen that
+   answers it, or admits that nothing does yet.                            */
+const STORIES = [
+  {a:"traditional health provider", s:"built", r:"eligibility",
+   need:"know whether the person in front of me has active Medicaid, and which plan owns them this month",
+   so:"I am not delivering care that nobody will pay for",
+   m:"A Stedi 270 goes out per participant or in bulk. Piñon reads coverage status, plan assignment, and the AI/AN indicator straight off the 271."},
+  {a:"traditional health provider", s:"built", r:"member", arg:"M03",
+   need:"know that traditional healing is a covered benefit for this person, and how many encounters are left",
+   so:"I do not find out at encounter twenty-five that the limit was twenty-four",
+   m:"The 271 returns the HRSN package and a running count against each rolling limit. Both are shown on the participant record before anything is delivered."},
+  {a:"traditional health provider", s:"built", r:"rules",
+   need:"bill for my work even though I have no NPI",
+   so:"my credential from the tribal health program is enough to get paid",
+   m:"The practitioner registry holds the tribal credentialing letter. Claims go out under the group NPI with modifier U7, and the scrubber checks for a credential instead of an NPI on those lines."},
+  {a:"traditional health provider", s:"built", r:"services",
+   need:"record what I delivered in under a minute, from a site with no front desk",
+   so:"documentation happens while I remember it, not on a Friday afternoon",
+   m:"Six fields. The service catalog supplies the code, modifier, unit, rate, and the list of documents that will be required."},
+  {a:"traditional health provider", s:"built", r:"services",
+   need:"be told exactly which document is missing before the claim goes out",
+   so:"I am not learning about a paperwork gap ninety days later in a remittance",
+   m:"Each catalog service carries its own documentation requirements. A service cannot join a claim until every one is attached."},
+  {a:"traditional health provider", s:"built", r:"eligibility",
+   need:"have the claim go to the right place when the people I serve have declined managed care",
+   so:"a routing decision I did not make does not read as my coding error",
+   m:"Destination payer is locked from the 271, never chosen from a dropdown. Rule ELIG-02 blocks the claim if the two disagree."},
+  {a:"traditional health provider", s:"built", r:"claims",
+   need:"get a plain answer on whether I was paid, and what to do when I was not",
+   so:"a denial becomes a task instead of a dead end",
+   m:"The full lifecycle is on one page. Every CARC and RARC is translated into the specific next action, with the action available as a button."},
+  {a:"traditional health provider", s:"partial", r:"rules",
+   need:"request a prior authorization without leaving this tool",
+   so:"the six services that need one do not each cost a portal login",
+   m:"Authorizations are tracked, checked, and counted here — but still requested in each plan's portal. The 278 transaction is the next thing to turn on."},
+  {a:"traditional health provider", s:"gap",
+   need:"work at a site with no connectivity and sync when I get back",
+   so:"a remote encounter is recorded at the encounter, not from memory",
+   m:"Not built. Offline capture with a sync queue is the single largest gap between this prototype and field use in Dulce, Zuni, or Shiprock."},
+  {a:"traditional health provider", s:"gap",
+   need:"keep my community's health information under the tribe's control",
+   so:"participating in a state program is not a transfer of data sovereignty",
+   m:"Not built, and it is not a feature — it is an architecture question. Tribal data governance, consent scoped per purpose, and an export the tribe owns outright would all have to be settled before a real deployment."},
+
+  {a:"community health worker", s:"built", r:"today",
+   need:"see everything I have delivered that is not yet on a claim",
+   so:"nothing quietly ages past the filing deadline",
+   m:"The dashboard splits delivered work into cleared and held, in dollars, with the blocking reason on each row."},
+  {a:"community health worker", s:"built", r:"services",
+   need:"screen someone for social needs and have that screening make the rest of the care billable",
+   so:"the assessment is the start of the revenue chain, not paperwork",
+   m:"G0136 is a billable catalog service, and rule SCR-01 requires a screening within twelve months on every downstream claim."},
+  {a:"community health worker", s:"partial", r:"services",
+   need:"arrange food and transport from the same record",
+   so:"one participant does not mean three systems",
+   m:"Both are covered catalog services and both bill from here, but there is no integration with the produce vendor or the transport broker. Today somebody still makes the call."},
+
+  {a:"program director", s:"built", r:"today",
+   need:"see how much delivered care is unbilled, and what is blocking it",
+   so:"I can staff against the actual bottleneck",
+   m:"Unbilled revenue, held revenue, denial rate, and 100% FMAP are the four numbers on the overview, each one clickable through to the work."},
+  {a:"program director", s:"built", r:"reports",
+   need:"know why claims are denied, so the same denial stops recurring",
+   so:"the organization learns instead of re-filing",
+   m:"Denials ranked over twelve months, with the top three mapped to the scrubber rules that now catch them before submission."},
+  {a:"program director", s:"built", r:"fmap",
+   need:"prove which encounters draw 100% federal match",
+   so:"the tribe and the state both see what the agreement is worth",
+   m:"Every AI/AN encounter is tested against the care coordination agreement at the point of delivery, tagged with modifier UD, and rolled into a reconciliation file."},
+  {a:"program director", s:"built", r:"reports",
+   need:"know which plans are slow or difficult to work with",
+   so:"contract conversations start from evidence",
+   m:"Per-plan denial rate, days to payment, and open A/R, with aging bucketed against the ninety-day filing wall."},
+  {a:"program director", s:"gap",
+   need:"account for care we delivered that Medicaid will never pay for",
+   so:"the community-funded share of the work is visible rather than absorbed",
+   m:"Not built. Denied and ineligible services currently just sit denied. A pool to write them into — with its own reporting — is what would make the real cost of the program legible."},
+  {a:"program director", s:"gap",
+   need:"report health outcomes back to the tribe and the state, not only claims",
+   so:"the program is judged on whether people got better",
+   m:"Not built. Claims data alone cannot answer it; this would need screening deltas over time and outcome measures the community agrees are the right ones."},
+
+  {a:"participant", s:"built", r:"eligibility",
+   need:"not be turned away, or billed, because nobody could confirm my coverage",
+   so:"getting food or a healing encounter does not depend on my paperwork luck",
+   m:"Coverage is verified before delivery, and cost sharing is forced to zero on every AI/AN line — a prohibition, not a courtesy."},
+  {a:"participant", s:"gap",
+   need:"know what is shared about me, with whom, and be able to say no",
+   so:"consent is real rather than assumed at intake",
+   m:"Not built. There is no consent record in this prototype beyond a checkbox on traditional healing services, and that is not sufficient."},
+
+  {a:"state or managed care plan", s:"built", r:"claim", arg:"CLM-2026-0434",
+   need:"receive HRSN encounters in a form I can adjudicate and audit",
+   so:"a non-medical benefit can be paid on the same rails as a medical one",
+   m:"A conforming 837P with the Z-code diagnosis, state-assigned modifiers, the care coordination reference, and a line control number that ties every payment back to a documented encounter."}
+];
+const STORY_STATUS = {
+  built:  ["p-good", "Built", "Working in this prototype"],
+  partial:["p-warn", "Partial", "Tracked here, finished elsewhere"],
+  gap:    ["p-neutral", "Not built", "Named honestly, not attempted"]
+};
+
+function viewStories(){
+  const actors = [...new Set(STORIES.map(s => s.a))];
+  const n = k => STORIES.filter(s => s.s === k).length;
+  return `
+  <div class="banner" style="margin-bottom:16px;position:relative;overflow:hidden">
+    <div style="position:absolute;right:-14px;top:-18px;color:var(--accent);opacity:.13;pointer-events:none">${rr(150)}</div>
+    ${ico("rules","",18)}
+    <div style="position:relative"><div class="banner-t">What this prototype is trying to answer</div>
+    <div class="banner-m" style="max-width:74ch">Piñon is scoped from the work a traditional provider or community organization actually has to do in order to deliver an 1115 waiver service and get paid for it. Every story below either names the screen that answers it, or says plainly that nothing does yet — the second list is the more useful one.</div></div></div>
+
+  <div class="grid g3" style="margin-bottom:18px">
+    ${stat("Built and working", n("built"), "Clickable in this prototype", "s-good")}
+    ${stat("Partly answered", n("partial"), "Tracked here, still manual somewhere", "s-warn")}
+    ${stat("Known gaps", n("gap"), "Scoped out, deliberately and visibly", "s-accent")}
+  </div>
+
+  ${actors.map(a => {
+    const rows = STORIES.filter(s => s.a === a);
+    return `<div class="card" style="margin-bottom:16px">
+      <div class="card-head"><h3>As a ${esc(a)}…</h3><span class="topbar-spacer"></span>
+        <span class="s11 dim">${rows.length} stor${rows.length===1?"y":"ies"}</span></div>
+      <div class="card-body col" style="gap:0">
+        ${rows.map((s,i) => {
+          const [cls, label] = STORY_STATUS[s.s];
+          return `<div style="display:flex;gap:14px;padding:14px 0;${i?"border-top:1px solid var(--line)":""}">
+            <div style="flex:none;width:82px"><span class="pill ${cls}">${label}</span></div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:14px;line-height:1.5">I need to <span class="b6">${esc(s.need)}</span>, so that ${esc(s.so)}.</div>
+              <div class="s12 muted" style="margin-top:6px;line-height:1.55;max-width:78ch">${esc(s.m)}</div>
+            </div>
+            <div style="flex:none">${s.r
+              ? `<button class="btn sm" data-act="storygo" data-r="${s.r}" data-arg="${s.arg||""}">Open →</button>`
+              : `<span class="s11 dim">no screen</span>`}</div>
+          </div>`;
+        }).join("")}
+      </div></div>`;
+  }).join("")}
+
+  <div class="card">
+    <div class="card-head"><h3>Where the plumbing stands</h3><span class="topbar-spacer"></span>
+      <span class="s11 dim">Stedi · ${esc(STEDI.env)}</span></div>
+    <div class="card-body">
+      <p class="s12 muted" style="margin-bottom:14px;max-width:72ch;line-height:1.6">Piñon does not talk to plans directly. It calls Stedi, which builds and parses the X12. Eligibility is the transaction already running in production in Oregon; the rest is the sequence to turn on, in order.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Transaction</th><th>What it does</th><th>Status</th><th>Note</th></tr></thead>
+        <tbody>${STEDI.transactions.map(t => `<tr>
+          <td class="mono s12 b6">${esc(t.t)}</td>
+          <td class="s12">${esc(t.n)}</td>
+          <td><span class="pill ${t.status==="live"?"p-good":t.status==="planned"?"p-warn":"p-neutral"}">${esc(t.status)}</span></td>
+          <td class="s11 muted" style="max-width:46ch">${esc(t.note)}</td></tr>`).join("")}</tbody>
+      </table></div>
+    </div>
+  </div>`;
+}
+
+/* ---------- reports ---------- */
+function viewReports(){
+  const denialRows = DENIALS_12M.map(d => ({
+    k: CARC[d.key].carc, v: d.n, sub: money0(d.dollars) + " written off"
+  }));
+  const revRows = REVENUE_12M.map(r => ({k:r.cat, v:r.paid}));
+
+  const unpaid = CLAIMS.filter(c => c.submitted && !["paid"].includes(c.status));
+  const buckets = [
+    {k:"0–14 days", lo:0, hi:14, color:"var(--age-1)"},
+    {k:"15–30 days", lo:15, hi:30, color:"var(--age-2)"},
+    {k:"31–60 days", lo:31, hi:60, color:"var(--age-3)"},
+    {k:"61+ days", lo:61, hi:9999, color:"var(--age-4)"}
+  ].map(b => {
+    const rows = unpaid.filter(c => { const a = days(c.submitted, TODAY); return a >= b.lo && a <= b.hi; });
+    return {k:b.k, v:rows.reduce((t,c) => t + c.total, 0), sub:rows.length + (rows.length===1?" claim":" claims"), color:b.color};
+  });
+
+  const scorecard = Object.values(PAYERS).map(p => {
+    const cs = CLAIMS.filter(c => c.payer === p.id);
+    const paid = cs.filter(c => c.status === "paid");
+    const den = cs.filter(c => ["denied","appealed"].includes(c.status));
+    const adj = paid.length + den.length;
+    return {p, n:cs.length, paid:paid.reduce((t,c)=>t+c.paidAmt,0),
+            rate: adj ? Math.round(den.length/adj*100) : null,
+            avg: paid.length ? Math.round(paid.reduce((t,c)=>t+days(c.submitted,c.paidDate),0)/paid.length) : null,
+            open: cs.filter(c=>["submitted","ack"].includes(c.status)).reduce((t,c)=>t+c.total,0)};
+  }).filter(r => r.n);
+
+  return `
+  <div class="split-even" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-head"><h3>Why claims were denied</h3><span class="topbar-spacer"></span>
+        <span class="s11 dim">trailing 12 months</span></div>
+      <div class="card-body">
+        ${barsH(denialRows, {w:560, label:100, aria:"Denial reasons ranked by number of claims"})}
+        <div class="sep"></div>
+        <div class="col" style="gap:0">${DENIALS_12M.slice(0,3).map(d => `<div class="doc-item">
+          <span class="mono s11 b6" style="color:var(--accent);min-width:64px">${esc(CARC[d.key].carc)}</span>
+          <span class="s12">${esc(CARC[d.key].text)}</span></div>`).join("")}</div>
+        <p class="s11 dim" style="margin-top:12px;line-height:1.55">The top three are all preventable before the claim leaves the building: an authorization that was never requested, a rendering identifier that was never filled in, and coverage that ended without anyone re-checking. Those are exactly the three checks the scrubber runs.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Where the revenue comes from</h3><span class="topbar-spacer"></span>
+        <span class="s11 dim">paid, trailing 12 months</span></div>
+      <div class="card-body">
+        ${barsH(revRows, {w:560, label:150, fmt:money0, aria:"Paid revenue by HRSN service category"})}
+        <div class="sep"></div>
+        <div class="row"><span class="s12 muted">Total paid</span><span class="topbar-spacer"></span>
+          <span class="tnum b6">${money0(REVENUE_12M.reduce((t,r)=>t+r.paid,0))}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="split-even" style="margin-bottom:16px">
+    <div class="card">
+      <div class="card-head"><h3>Accounts receivable aging</h3><span class="topbar-spacer"></span>
+        <span class="s11 dim">${money0(unpaid.reduce((t,c)=>t+c.total,0))} outstanding</span></div>
+      <div class="card-body">
+        ${barsV(buckets, {w:560, h:210, fmt:money0, aria:"Outstanding claim value by age since submission"})}
+        <p class="s11 dim" style="margin-top:6px;line-height:1.55">Darker means older. Anything reaching the fourth bucket is close to the 90-day filing wall, after which the money is gone whether or not the service was delivered.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Plan scorecard</h3></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Plan</th><th class="r">Claims</th><th class="r">Denial rate</th><th class="r">Days to pay</th><th class="r">Open A/R</th></tr></thead>
+        <tbody>${scorecard.map(r => `<tr>
+          <td><div class="s12 b6">${esc(r.p.short)}</div><div class="s11 dim">${esc(r.p.line)}</div></td>
+          <td class="r tnum">${r.n}</td>
+          <td class="r tnum" style="${r.rate>=50?"color:var(--bad)":r.rate>0?"color:var(--warn)":""}">${r.rate===null?"—":r.rate+"%"}</td>
+          <td class="r tnum">${r.avg===null?"—":r.avg+"d"}</td>
+          <td class="r tnum">${r.open?money0(r.open):"—"}</td></tr>`).join("")}</tbody>
+      </table></div>
+      <div class="card-foot s11 dim">Denial rate counts adjudicated claims only. A plan with no adjudicated claims yet shows a dash rather than a flattering zero.</div>
+    </div>
+  </div>`;
+}
+
+/* ---------- tribal FMAP ---------- */
+function viewFmap(){
+  const aiAn = MEMBERS.filter(m => m.aiAn);
+  const qualifying = SERVICES.filter(s => fmapFor(s).ok);
+  const missed = SERVICES.filter(s => mem(s.member).aiAn && !fmapFor(s).ok);
+  const paidQual = CLAIMS.filter(c => c.status === "paid" && claimFmap(c) === "full").reduce((t,c) => t + c.paidAmt, 0);
+  const pipeline = qualifying.filter(s => !s.claim || ["submitted","ack"].includes((claimById(s.claim)||{}).status)).reduce((t,s) => t + s.amount, 0);
+
+  return `
+  <div class="banner b-fmap" style="margin-bottom:16px">${ico("fmap","",18)}
+    <div><div class="banner-t">Why this page exists</div>
+    <div class="banner-m">Services received through an I/T/U facility — or through a written care coordination agreement with one — are matched at 100% federal funds rather than the ordinary rate. The state only gets that match if the claim can be identified as qualifying. Piñon tags each encounter at the point of delivery and produces the file the state needs, so the tribal community is not subsidising the difference out of a limited program budget.</div></div></div>
+
+  <div class="grid g4" style="margin-bottom:16px">
+    ${stat("AI/AN participants", aiAn.length, `${[...new Set(aiAn.map(m=>m.tribe))].length} sovereign nations`, "s-fmap")}
+    ${stat("Qualifying encounters", qualifying.length, `of ${SERVICES.filter(s=>mem(s.member).aiAn).length} AI/AN encounters`, "s-fmap")}
+    ${stat("Matched at 100%, paid", money0(paidQual), "Already remitted and reconciled", "s-good")}
+    ${stat("In the pipeline", money0(pipeline), "Delivered or submitted, not yet paid", "s-accent")}
+  </div>
+
+  ${missed.length ? `<div class="banner b-warn" style="margin-bottom:16px">${ico("alert","",18)}
+    <div><div class="banner-t">${missed.length} AI/AN encounter${missed.length>1?"s":""} without an I/T/U linkage</div>
+    <div class="banner-m">Worth ${money(missed.reduce((t,s)=>t+s.amount,0))}. Each one is either genuinely outside the agreement, or a referral that nobody recorded. The second case is recoverable.</div></div></div>` : ""}
+
+  <div class="split">
+    <div class="card">
+      <div class="card-head"><h3>Reconciliation detail</h3><span class="topbar-spacer"></span>
+        <button class="btn sm" data-act="exportfmap">Export state file</button></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Participant</th><th>Nation</th><th>Encounters</th><th>Basis</th><th class="r">Value</th></tr></thead>
+        <tbody>${aiAn.map(m => {
+          const svcs = SERVICES.filter(s => s.member === m.id);
+          const q = svcs.filter(s => fmapFor(s).ok);
+          const val = q.reduce((t,s) => t + s.amount, 0);
+          return `<tr class="clickable" data-act="member" data-id="${m.id}">
+            <td>${memberChip(m)}</td>
+            <td class="s12">${esc(m.tribe)}</td>
+            <td class="tnum s12">${q.length} of ${svcs.length}</td>
+            <td class="s11 muted">${q.length ? esc(fmapFor(q[0]).basis.split(".")[0] + ".") : `<span class="dim">No linkage recorded</span>`}</td>
+            <td class="r tnum">${val?money(val):`<span class="dim">—</span>`}</td></tr>`;
+        }).join("")}</tbody>
+      </table></div>
+      <div class="card-foot s11 dim">Prototype logic follows CMS State Health Official letter #16-002. Confirm the current policy and the state's file format with NM HCA before relying on this.</div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Care coordination agreement</h3></div>
+      <div class="card-body">
+        <dl class="kv">
+          <dt>Partner</dt><dd>${esc(ORG.cca.partner)}</dd>
+          <dt>Effective</dt><dd class="tnum">${dlong(ORG.cca.effective)}</dd>
+          <dt>Status</dt><dd><span class="pill p-good"><span class="pd"></span>Active</span></dd>
+        </dl>
+        <div class="sep"></div>
+        <p class="s12 muted" style="line-height:1.6">${esc(ORG.cca.scope)}</p>
+        <div class="sep"></div>
+        <div class="eyebrow" style="margin-bottom:8px">What has to be true for each encounter</div>
+        <div class="col" style="gap:0">
+          ${["Participant is AI/AN and Medicaid-eligible",
+             "Referral or care coordination linkage to the I/T/U is recorded",
+             "Encounter date falls inside the agreement term",
+             "Service is a covered HRSN benefit",
+             "Modifier UD and the agreement reference are on the claim"].map(t =>
+            `<div class="doc-item"><span class="tick on">${ico("check","",11)}</span><span class="s12">${esc(t)}</span></div>`).join("")}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- benefits and payers ---------- */
+function viewRules(){
+  return `
+  <div class="tabs" id="rulesTabs">
+    ${[["catalog","Benefit catalog"],["payers","Plans"],["staff","Practitioners"],["docs","Documentation"],["integrations","Integrations"]]
+      .map(([k,l],i) => `<button class="tab" role="tab" aria-selected="${(FILTER.rules||"catalog")===k}" data-act="rulestab" data-f="${k}">${l}</button>`).join("")}
+  </div>
+  ${(FILTER.rules||"catalog") === "catalog" ? `
+  <div class="card"><div class="tbl-wrap"><table>
+    <thead><tr><th>Service</th><th>Code</th><th>Category</th><th class="r">Rate</th><th>Authorization</th><th>Limit</th><th>Documents</th></tr></thead>
+    <tbody>${CATALOG.map(c => `<tr>
+      <td><div class="b6 s12">${esc(c.name)}</div><div class="s11 dim" style="max-width:340px">${esc(c.desc)}</div></td>
+      <td><span class="mono s11 b6">${esc(c.code)}</span>${c.mod?`<div class="mono s11" style="color:var(--fmap)">mod ${esc(c.mod)}</div>`:""}</td>
+      <td><span class="pill p-neutral">${esc(c.cat)}</span>${c.tribal?`<div style="margin-top:3px"><span class="pill p-fmap">tribal</span></div>`:""}</td>
+      <td class="r tnum">${money(c.rate)}<div class="s11 dim">per ${esc(c.unit)}</div></td>
+      <td>${c.auth==="required"?`<span class="pill p-warn">required</span>`
+            :c.auth==="after"?`<span class="pill p-warn">after ${c.authAfter}</span>`
+            :`<span class="pill p-good">none</span>`}</td>
+      <td class="s11 muted">${c.limit.n} ${esc(c.unit)}s<div class="dim">${esc(c.limit.per)}</div></td>
+      <td class="s11 muted">${c.docs.map(d => esc(DOCDEF[d])).join(" · ")}</td></tr>`).join("")}</tbody>
+  </table></div>
+  <div class="card-foot s11 dim">Prototype fee schedule. Codes, modifiers, rates, and limits are illustrative and must be reconciled against the current NM Health Care Authority fee schedule and each plan's contract before any real claim is built. U7, U8, and UD are state-assigned local modifiers used here as placeholders.</div></div>` : ""}
+
+  ${FILTER.rules === "payers" ? `
+  <div class="grid g2">${Object.values(PAYERS).map(p => `
+    <div class="card"><div class="card-head"><h3>${esc(p.short)}</h3><span class="topbar-spacer"></span>
+      <span class="pill ${p.id==="NMFFS"?"p-neutral":"p-info"}">${esc(p.line)}</span></div>
+      <div class="card-body">
+        <div class="s12 muted" style="margin-bottom:12px">${esc(p.name)}</div>
+        <dl class="kv">
+          <dt>Payer ID</dt><dd class="tnum">${esc(p.payerId)}</dd>
+          <dt>Channel</dt><dd>${esc(p.clearing)}</dd>
+          <dt>Portal</dt><dd>${esc(p.portal)}</dd>
+          <dt>Timely filing</dt><dd class="tnum">${p.filingDays} days from date of service</dd>
+          <dt>Typical payment</dt><dd class="tnum">${p.avgPay} days</dd>
+        </dl>
+        ${p.note?`<div class="sep"></div><div class="s11 muted" style="line-height:1.55">${esc(p.note)}</div>`:""}
+      </div></div>`).join("")}</div>` : ""}
+
+  ${FILTER.rules === "staff" ? `
+  <div class="card"><div class="tbl-wrap"><table>
+    <thead><tr><th>Practitioner</th><th>Role</th><th>NPI</th><th>Taxonomy</th><th>Tribal credential</th><th>Billable for</th></tr></thead>
+    <tbody>${Object.values(STAFF).filter(s => s.id !== "mvigil").map(s => `<tr>
+      <td><div class="row" style="gap:9px"><span class="avatar">${s.name.split(" ").map(x=>x[0]).join("")}</span>
+        <span class="b6">${esc(s.name)}, ${esc(s.cred)}</span></div></td>
+      <td class="s12">${esc(s.role)}</td>
+      <td class="tnum">${s.npi ? esc(s.npi) : `<span class="pill p-warn">none</span>`}</td>
+      <td class="tnum s11">${s.taxonomy ? esc(s.taxonomy) : `<span class="dim">—</span>`}</td>
+      <td>${s.tribalCred ? `<span class="pill p-fmap">${esc(s.tribalCred.ref)}</span>
+            <div class="s11 dim" style="margin-top:3px">${esc(s.tribalCred.issuer)} · expires ${dshort(s.tribalCred.expires)}</div>`
+            : `<span class="dim s11">—</span>`}</td>
+      <td class="s11 muted">${CATALOG.filter(c => c.who.includes(s.id)).map(c => esc(c.code)).join(", ")}</td></tr>`).join("")}</tbody>
+  </table></div>
+  <div class="card-foot s11 dim">A traditional healing practitioner will often have no NPI. The claim goes out under the group NPI with the tribal credential held on file here and modifier U7 on the line — which is why the scrubber checks for a credential instead of an NPI on those services.</div></div>` : ""}
+
+  ${FILTER.rules === "docs" ? `
+  <div class="card"><div class="card-body">
+    <p class="s12 muted" style="margin-bottom:16px;max-width:65ch;line-height:1.6">Each requirement below is attached to one or more services in the catalog. A service cannot join a claim until every requirement attached to it is satisfied — which is how a small organization avoids discovering a documentation gap ninety days later in a remittance.</p>
+    <div class="col" style="gap:0">${Object.keys(DOCDEF).map(d => {
+      const users = CATALOG.filter(c => c.docs.includes(d));
+      return `<div class="doc-item"><span class="tick on">${ico("check","",11)}</span>
+        <span style="flex:1"><span class="s12 b6">${esc(DOCDEF[d])}</span>
+        <span class="s11 dim" style="display:block">Required for ${users.length} service${users.length>1?"s":""}: ${users.map(c=>esc(c.code)).join(", ")}</span></span></div>`;
+    }).join("")}</div>
+  </div></div>` : ""}
+
+  ${FILTER.rules === "integrations" ? `
+  <div class="split" style="align-items:start">
+    <div class="card">
+      <div class="card-head"><h3>Stedi — EDI gateway</h3><span class="topbar-spacer"></span>
+        <span class="pill p-neutral">${esc(STEDI.env)}</span></div>
+      <div class="card-body">
+        <p class="s12 muted" style="margin-bottom:16px;max-width:70ch;line-height:1.6">Piñon never opens a connection to a health plan. It sends JSON to Stedi, which builds the X12, delivers it, and parses the answer back into JSON. That is the whole reason a five-person organization can transact with five payers: the integration count is one, not five.</p>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Transaction</th><th>Purpose</th><th>Status</th><th>Note</th></tr></thead>
+          <tbody>${STEDI.transactions.map(t => `<tr>
+            <td class="mono s12 b6">${esc(t.t)}</td>
+            <td class="s12">${esc(t.n)}</td>
+            <td><span class="pill ${t.status==="live"?"p-good":t.status==="planned"?"p-warn":"p-neutral"}">${esc(t.status)}</span></td>
+            <td class="s11 muted" style="max-width:42ch">${esc(t.note)}</td></tr>`).join("")}</tbody>
+        </table></div>
+        <div class="sep"></div>
+        <div class="eyebrow" style="margin-bottom:8px">Endpoints</div>
+        <div class="col" style="gap:0">
+          ${[["Eligibility", STEDI.eligEndpoint, "live"],["Professional claims", STEDI.claimEndpoint, "planned"],["Claim status", STEDI.statusEndpoint, "planned"]]
+            .map(([n,e,s]) => `<div class="doc-item">
+              <span class="s12 b6" style="min-width:140px">${esc(n)}</span>
+              <span class="mono s11 dim" style="flex:1;word-break:break-all">${esc(e)}</span>
+              <span class="pill ${s==="live"?"p-good":"p-warn"}">${s}</span></div>`).join("")}
+        </div>
+      </div>
+      <div class="card-foot s11 dim">Request and response shapes in this prototype are illustrative. Confirm field names and endpoint versions against Stedi's current API reference before writing the real client.</div>
+    </div>
+    <div class="col" style="gap:16px">
+      <div class="card">
+        <div class="card-head"><h3>Per-plan status</h3></div>
+        <div class="card-body col" style="gap:0">
+          ${Object.values(PAYERS).map(p => `<div class="doc-item">
+            <span style="flex:1"><span class="s12 b6">${esc(p.short)}</span>
+            <span class="s11 dim" style="display:block">Trading partner <span class="mono">${esc(p.payerId)}</span></span></span>
+            <span class="pill ${p.elig==="live"?"p-good":"p-warn"}">270/271 ${esc(p.elig)}</span>
+            <span class="pill ${p.claims==="planned"?"p-warn":"p-neutral"}">837P ${esc(p.claims)}</span></div>`).join("")}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Not through Stedi</h3></div>
+        <div class="card-body col" style="gap:0">
+          ${[["Prior authorization","Each plan's own portal. Six of twelve catalog services need one."],
+             ["Produce vendor orders","Phone and email to regional growers. No API exists to integrate with."],
+             ["Transport booking","Arranged directly. The broker relationship is per-plan."],
+             ["Tribal credentialing","Letters held on file here, verified by the tribal health program off-system."]]
+            .map(([n,d]) => `<div class="doc-item"><span style="flex:1">
+              <span class="s12 b6">${esc(n)}</span>
+              <span class="s11 dim" style="display:block;line-height:1.5">${esc(d)}</span></span></div>`).join("")}
+        </div>
+        <div class="card-foot s11 dim">Worth naming out loud: eligibility and claims are the parts with standards behind them. Everything else in an HRSN program is still a phone call.</div>
+      </div>
+    </div>
+  </div>` : ""}`;
+}
+
+/* ---------- edi log ---------- */
+function viewEdi(){
+  return `
+  <p class="s12 muted" style="margin-bottom:14px;max-width:70ch;line-height:1.6">Every exchange with a plan, in the format the plan actually receives it. Open any entry to read the segments with a plain-language note on each one.</p>
+  <div class="card"><div class="tbl-wrap"><table>
+    <thead><tr><th>Transaction</th><th>Direction</th><th>Partner</th><th>Subject</th><th>Segments</th><th class="r"></th></tr></thead>
+    <tbody>${EDILOG.map(w => `<tr class="clickable" data-act="wireopen" data-id="${w.id}">
+      <td><span class="mono s12 b6">${esc(w.type)}</span></td>
+      <td><span class="pill ${w.dir==="out"?"p-accent":"p-info"}">${w.dir==="out"?"outbound":"inbound"}</span></td>
+      <td class="s12">${esc(w.partner)}</td>
+      <td class="s12 muted">${esc(w.subject)}</td>
+      <td class="tnum s12">${w.segs.length}</td>
+      <td class="r"><button class="btn sm" data-act="wireopen" data-id="${w.id}">Read</button></td></tr>`).join("")
+      || `<tr><td colspan="6" class="empty">Nothing on the wire yet. Run an eligibility check or submit a claim.</td></tr>`}</tbody>
+  </table></div></div>`;
+}
+
+/* ---------- walkthrough ---------- */
+function helpModal(){
+  const steps = [
+    ["Open with User stories", "The scope, in the voice of the people doing the work. Twenty-two stories, each one either pointing at a screen or admitting nothing answers it yet. The three <span class='b6'>Not built</span> ones on the provider list are the most honest slide in the deck."],
+    ["Then Eligibility", "Hit <span class='b6'>Verify all</span>. Twelve 270 inquiries go out and twelve 271s come back. Watch Loretta Yazzie and Cheryl Duran — one routes to fee-for-service because she declined managed care, the other comes back terminated."],
+    ["Open a 271", "Click <span class='b6'>X12</span> on any row. The first two panels are the Stedi request and response — the call we already make in Oregon. Below them is the X12 Stedi builds from it. Hover the MSG segments: that free text is where the HRSN package and the AI/AN indicator actually live, because X12 has no standard code for either."],
+    ["Go to Services", `Filter to <span class='b6'>Held for documents</span>. ${money0(blocked().reduce((t,s)=>t+s.amount,0))} of delivered care is sitting behind missing paperwork. Open one and tick the boxes — the row unblocks in place.`],
+    ["Select and build", "Tick a few cleared services for one participant and press <span class='b6'>Build claim</span>. The destination plan is chosen from the 271, not from a dropdown."],
+    ["Read the scrub", "Every rule the plan would apply runs locally first. Try building a claim for Bennie Kaye — his HRSN screening lapsed, and the scrubber stops it rather than letting the plan do it ninety days later."],
+    ["Submit and follow it", "Send the claim. The 837P goes out, a 277CA comes back seconds later, and the claim page shows the whole lifecycle. Open the 837P and hover the SV1 line."],
+    ["Switch to Marisol", "Use the role card at the bottom of the rail. The program director sees denial patterns, A/R aging, plan scorecards, and the tribal FMAP reconciliation."],
+    ["Finish on Tribal FMAP", "This is the part that is specific to Indian Country: encounters delivered under a care coordination agreement with an I/T/U draw 100% federal match, but only if someone tags and reports them."]
+  ];
+  openModal("A ten-minute walkthrough", `
+    <p class="s12 muted" style="margin-bottom:16px;max-width:65ch;line-height:1.6">Piñon is a prototype of the back office a small community organization needs in order to deliver 1115 waiver services and actually get paid for them. Here is a route through it.</p>
+    <div class="timeline">${steps.map(([t,m],i) => `<div class="tl-item">
+      <span class="tl-dot on"></span>
+      <div class="tl-t">${i+1}. ${t}</div>
+      <div class="tl-m">${m}</div></div>`).join("")}</div>
+    <div class="sep"></div>
+    <p class="s11 dim" style="line-height:1.6">Everything here is demonstration data. Codes, modifiers, rates, benefit limits, and plan behaviour are plausible placeholders, not a fee schedule — they would need to be reconciled against NM Health Care Authority guidance and each plan's contract before a single real claim was built.</p>`,
+    [{label:"Start on User stories", kind:"primary", run:() => { setRole("provider"); go("stories"); }}, {label:"Close"}]);
+}
+
+/* ---------- chrome ---------- */
+const TITLES = {
+  stories: () => "User stories",
+  today: () => ROLE === "provider" ? "My day" : "Program overview",
+  members: () => "Participants", member: a => mname(mem(a)),
+  eligibility: () => "Eligibility", services: () => "Services delivered",
+  build: () => "Build a claim", claims: () => "Claims", claim: a => a,
+  reports: () => "Reports", fmap: () => "Tribal FMAP",
+  rules: () => "Benefits and payers", edi: () => "EDI wire log"
+};
+
+function renderNav(){
+  const badges = {services: blocked().length, claims: denied().length};
+  $("#nav").innerHTML = NAVDEF[ROLE].map(n => n.g
+    ? `<div class="nav-group">${esc(n.g)}</div>`
+    : `<button class="nav-item" data-act="nav" data-r="${n.r}" ${route.name === n.r || (n.r==="members"&&route.name==="member") || (n.r==="claims"&&["claim","build"].includes(route.name)) ? 'aria-current="page"' : ""}>
+        ${ico(n.i,"nav-ico")}<span>${esc(n.t)}</span>
+        ${badges[n.r] ? `<span class="nav-badge">${badges[n.r]}</span>` : ""}</button>`).join("");
+  const u = USERS[ROLE];
+  $("#railFoot").innerHTML = `
+    <button class="role-card" data-act="switchrole">
+      <span class="avatar">${u.init}</span>
+      <span style="flex:1"><span class="role-name">${esc(u.name)}</span><span class="role-title">${esc(u.title)}</span></span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 9l4-4 4 4M16 15l-4 4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>`;
+}
+
+function render(){
+  renderNav();
+  $("#crumb").textContent = TITLES[route.name] ? TITLES[route.name](route.arg) : "Piñon";
+  $("#topActions").innerHTML = `
+    <button class="btn sm" data-act="wireall">${ico("wire","",14)} Wire log</button>
+    <button class="btn sm" data-act="help">${ico("help","",14)} Walkthrough</button>`;
+  const v = {
+    stories:viewStories,
+    today:viewToday, members:viewMembers, member:() => viewMember(route.arg),
+    eligibility:viewEligibility, services:viewServices, build:viewBuild,
+    claims:viewClaims, claim:() => viewClaim(route.arg),
+    reports:viewReports, fmap:viewFmap, rules:viewRules, edi:viewEdi
+  }[route.name];
+  $("#page").innerHTML = v ? v() : `<div class="empty">Not found.</div>`;
+  bindTips($("#page"));
+  const mf = $("#mfilter");
+  if (mf) mf.oninput = e => { FILTER.members = e.target.value; const p = e.target.selectionStart; render(); const n = $("#mfilter"); n.focus(); n.setSelectionRange(p,p); };
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-act]");
+  if (!t) return;
+  const a = t.dataset.act, id = t.dataset.id;
+  const A = {
+    nav: () => go(t.dataset.r),
+    switchrole: () => setRole(ROLE === "provider" ? "admin" : "provider"),
+    member: () => go("member", id),
+    claim: () => go("claim", id),
+    service: () => serviceModal(id),
+    gomembers: () => go("members"),
+    goservices: () => go("services"),
+    goclaims: () => go("claims"),
+    goelig: () => go("eligibility"),
+    gobuild: () => go("build"),
+    help: helpModal,
+    storygo: () => {
+      const r = t.dataset.r, arg = t.dataset.arg || null;
+      if (!["member","claim","build"].includes(r) && !NAVDEF[ROLE].some(n => n.r === r)) {
+        ROLE = ROLE === "provider" ? "admin" : "provider";
+        toast(`Switched to ${USERS[ROLE].name} — this story belongs to that role`);
+      }
+      go(r, arg);
+    },
+    svcfilter: () => { FILTER.services = t.dataset.f; render(); },
+    clmfilter: () => { FILTER.claims = t.dataset.f; render(); },
+    rulestab: () => { FILTER.rules = t.dataset.f; render(); },
+    clearsel: () => { SEL.clear(); render(); },
+    unsel: () => { SEL.delete(id); render(); },
+    newservice: () => newServiceModal(id),
+    quickbuild: () => {
+      SEL.clear();
+      unbilled().filter(s => s.member === id && !cat(s.code,s.mod).docs.some(d => !s.docs.includes(d)))
+                .forEach(s => SEL.add(s.id));
+      render();
+    },
+    toggledoc: () => {
+      const s = svcById(t.dataset.svc), d = t.dataset.doc;
+      if (s.docs.includes(d)) s.docs = s.docs.filter(x => x !== d);
+      else { s.docs.push(d); toast(`Attached: ${DOCDEF[d]}`); }
+      serviceModal(s.id);
+      if (["services","today","member"].includes(route.name)) { const m = $("#modal").classList.contains("on"); render(); if (m) serviceModal(s.id); }
+    },
+    elig: () => {
+      const r = runEligibility(id, TODAY);
+      toast(r.active
+        ? `271 received — ${mname(mem(id))} active with ${PAYERS[r.payer].short}${r.mcExempt ? " (fee-for-service)" : ""}`
+        : `271 received — ${mname(mem(id))} coverage ended ${dshort(r.thru)}`);
+      render();
+    },
+    batchelig: () => {
+      MEMBERS.forEach(m => runEligibility(m.id, TODAY));
+      const term = MEMBERS.filter(m => !ELIG[m.id].active).length;
+      const ffs = MEMBERS.filter(m => ELIG[m.id].mcExempt).length;
+      toast(`${MEMBERS.length} 271s received — ${term} terminated, ${ffs} routing to fee-for-service`, 5000);
+      render();
+    },
+    wire270: () => {
+      const e = ELIG[id], m = mem(id), api = stediEligCall(m, e);
+      openDrawer(`Eligibility — ${mname(m)}`, [
+        {dir:"out", label:api.req.label, body:api.req.body, note:api.req.note},
+        {dir:"in", label:api.resp.label, body:api.resp.body, note:api.resp.note},
+        {dir:"out", type:"270", partner:PAYERS[e.payer].short, subject:"X12 built by Stedi", segs:e.x12_270},
+        {dir:"in", type:"271", partner:PAYERS[e.payer].short, subject:"X12 returned by the plan", segs:e.x12_271}
+      ]);
+    },
+    wire837: () => { const c = claimById(id); openDrawer(`837P — ${c.id}`, [{dir:"out", type:"837P", partner:PAYERS[c.payer].short, subject:`${mname(mem(c.member))} · ${money(c.total)}`, segs:build837P(c)}]); },
+    wire277: () => { const c = claimById(id); openDrawer(`277CA — ${c.id}`, [{dir:"in", type:"277CA", partner:PAYERS[c.payer].short, subject:"Claim acknowledgement", segs:build277CA(c)}]); },
+    wire835: () => { const c = claimById(id); openDrawer(`835 — ${c.id}`, [{dir:"in", type:"835", partner:PAYERS[c.payer].short, subject:c.paidAmt?`Remittance ${money(c.paidAmt)}`:"Denial notification", segs:build835(c)}]); },
+    wireopen: () => { const w = EDILOG.find(x => x.id === id); openDrawer(`${w.type} — ${w.subject}`, [w]); },
+    wireall: () => openDrawer("EDI wire log", EDILOG.slice(0,6)),
+    preview837: () => {
+      const ids = [...SEL], sel = ids.map(svcById), m = mem(sel[0].member);
+      const draft = {id:"CLM-2026-0" + CLAIM_SEQ, payer:m.payer, svc:ids, lines:sel, member:m.id,
+        total:+sel.reduce((t,s)=>t+s.amount,0).toFixed(2), submitted:TODAY,
+        dosFrom:sel.map(s=>s.dos).sort()[0], dosTo:sel.map(s=>s.dos).sort().slice(-1)[0], paidAmt:0, status:"draft"};
+      openDrawer("837P preview — not yet sent", [{dir:"out", type:"837P (draft)", partner:PAYERS[m.payer].short, subject:`${mname(m)} · ${money(draft.total)}`, segs:build837P(draft)}]);
+    },
+    submitclaim: submitClaim,
+    sel: () => { t.checked ? SEL.add(id) : SEL.delete(id); render(); },
+    retroauth: () => {
+      const c = claimById(id), l = c.lines[0], ct = cat(l.code, l.mod);
+      AUTHS.push({id:"AU-88" + (410 + AUTHS.length), member:c.member, payer:c.payer, code:l.code, mod:l.mod,
+        num:PAYERS[c.payer].payerId + "-RETRO-" + c.id.slice(-4), units:l.units, used:0,
+        from:l.dos, to:"2026-12-31", status:"active"});
+      c.lines.forEach(x => { if (!x.docs.includes("auth")) x.docs.push("auth"); });
+      toast(`Retro-authorization granted by ${PAYERS[c.payer].short} — the claim can now be corrected and resubmitted`, 5000);
+      render();
+    },
+    recheck: () => {
+      const c = claimById(id), r = runEligibility(c.member, TODAY);
+      toast(r.active ? "Coverage reinstated — resubmit as a corrected claim"
+        : `Still terminated as of ${dshort(r.thru)}. Route these services to the community-funded pool and get the participant into renewal support.`, 6000);
+      render();
+    },
+    appeal: () => {
+      const c = claimById(id);
+      c.status = "appealed"; c.appealed = TODAY;
+      toast(`Appeal filed with ${PAYERS[c.payer].short} for ${c.id}`);
+      render();
+    },
+    exportfmap: () => {
+      const n = SERVICES.filter(s => fmapFor(s).ok).length;
+      toast(`Tribal reconciliation file built — ${n} qualifying encounters, ready for NM HCA`, 4500);
+    }
+  }[a];
+  if (A) { if (a !== "sel") e.preventDefault(); A(); }
+});
+
+/* ---------- boot ---------- */
+$("#protoX").onclick = () => { $("#protobar").style.display = "none"; };
+["M01","M03","M05","M06","M08","M09"].forEach(id => seedElig(id, "2026-08-24"));
+seedElig("M12", "2026-06-30");
+seedElig("M02", "2026-07-05");
+render();
+</script>
