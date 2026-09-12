@@ -290,7 +290,7 @@ input:focus,select:focus,textarea:focus{outline:none; border-color:var(--accent)
 </style>
 
 <div class="protobar" id="protobar">
-  <svg class="rr-mark" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9.6 14.4 1.6 3.4 3.4 2.2 12.4 11.4Z" fill="currentColor" stroke="none"/><ellipse cx="11.6" cy="12.6" rx="4.1" ry="3.1" transform="rotate(-22 11.6 12.6)" fill="currentColor" stroke="none"/><path d="M13.6 10.9 16.6 7.9" stroke-width="2.4"/><circle cx="17.3" cy="7.1" r="2.1" fill="currentColor" stroke="none"/><path d="M19 6.5 23.2 7.5 19 8.3Z" fill="currentColor" stroke="none"/><path d="M16.2 5.4 14.4 3.7M17.3 5 15.9 3M18.3 5.3 17.3 3.3" stroke-width="1.2"/><path d="M11.2 15.3 10.2 18.4 8.7 21" stroke-width="1.5"/><path d="M13.1 15.2 13.9 18.5 15.5 20.9" stroke-width="1.5"/><path d="M7.4 21.4 9.7 21M14.7 21.3 17 20.7" stroke-width="1.25"/></g></svg>
+  <svg class="rr-mark" width="20" height="20" viewBox="0 0 218 190" aria-hidden="true"><path fill="currentColor" d="M86 92C62 74 36 48 14 24L34 6C62 38 104 88 128 120Z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M107 129 99 152 95 169" stroke-width="10"/><path d="M130 130 136 152 144 168" stroke-width="10"/><path d="M95 169 110 173M95 169 107 163M95 169 82 173" stroke-width="6"/><path d="M144 168 159 172M144 168 156 162M144 168 131 172" stroke-width="6"/></g><path fill="currentColor" d="M128 88C113 90 99 96 91 104C83 114 88 127 101 133C116 139 137 135 147 120C154 109 153 96 156 86C159 77 163 70 169 66C180 64 196 66 209 69C198 60 188 53 180 49C176 47 173 44 170 40C166 30 160 20 150 11L154 27C146 19 136 12 125 11C132 23 138 35 141 45C136 52 132 62 129 72C128 79 128 84 128 88Z"/></svg>
   <span><b>Prototype.</b> Demonstration data only — every participant, dollar figure, and billing code here is a fictional placeholder, not a New Mexico fee schedule. Nothing on this page has been verified against NM Health Care Authority guidance or any plan contract.</span>
   <button class="px" id="protoX">Dismiss</button>
 </div>
@@ -299,7 +299,7 @@ input:focus,select:focus,textarea:focus{outline:none; border-color:var(--accent)
   <aside class="rail">
     <div class="brand">
       <div class="brand-mark">
-        <svg class="rr-mark" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--accent-bright)"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9.6 14.4 1.6 3.4 3.4 2.2 12.4 11.4Z" fill="currentColor" stroke="none"/><ellipse cx="11.6" cy="12.6" rx="4.1" ry="3.1" transform="rotate(-22 11.6 12.6)" fill="currentColor" stroke="none"/><path d="M13.6 10.9 16.6 7.9" stroke-width="2.4"/><circle cx="17.3" cy="7.1" r="2.1" fill="currentColor" stroke="none"/><path d="M19 6.5 23.2 7.5 19 8.3Z" fill="currentColor" stroke="none"/><path d="M16.2 5.4 14.4 3.7M17.3 5 15.9 3M18.3 5.3 17.3 3.3" stroke-width="1.2"/><path d="M11.2 15.3 10.2 18.4 8.7 21" stroke-width="1.5"/><path d="M13.1 15.2 13.9 18.5 15.5 20.9" stroke-width="1.5"/><path d="M7.4 21.4 9.7 21M14.7 21.3 17 20.7" stroke-width="1.25"/></g></svg>
+        <svg class="rr-mark" width="24" height="24" viewBox="0 0 218 190" aria-hidden="true" style="color:var(--accent-bright)"><path fill="currentColor" d="M86 92C62 74 36 48 14 24L34 6C62 38 104 88 128 120Z"/><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M107 129 99 152 95 169" stroke-width="10"/><path d="M130 130 136 152 144 168" stroke-width="10"/><path d="M95 169 110 173M95 169 107 163M95 169 82 173" stroke-width="6"/><path d="M144 168 159 172M144 168 156 162M144 168 131 172" stroke-width="6"/></g><path fill="currentColor" d="M128 88C113 90 99 96 91 104C83 114 88 127 101 133C116 139 137 135 147 120C154 109 153 96 156 86C159 77 163 70 169 66C180 64 196 66 209 69C198 60 188 53 180 49C176 47 173 44 170 40C166 30 160 20 150 11L154 27C146 19 136 12 125 11C132 23 138 35 141 45C136 52 132 62 129 72C128 79 128 84 128 88Z"/></svg>
         <span class="brand-name">Piñon</span>
       </div>
       <div class="brand-sub">High Desert Wellness Collective</div>
@@ -1234,15 +1234,16 @@ const ico = (k, cls, sz) => `<svg class="${cls||""}" width="${sz||16}" height="$
 
 /* Greater roadrunner — New Mexico's state bird, and the closest thing this
    program has to a mascot: it covers ground on foot and rarely flies. */
-const RR = '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'
-  + '<path d="M9.6 14.4 1.6 3.4 3.4 2.2 12.4 11.4Z" fill="currentColor" stroke="none"/>'
-  + '<ellipse cx="11.6" cy="12.6" rx="4.1" ry="3.1" transform="rotate(-22 11.6 12.6)" fill="currentColor" stroke="none"/>'
-  + '<path d="M13.6 10.9 16.6 7.9" stroke-width="2.4"/><circle cx="17.3" cy="7.1" r="2.1" fill="currentColor" stroke="none"/>'
-  + '<path d="M19 6.5 23.2 7.5 19 8.3Z" fill="currentColor" stroke="none"/>'
-  + '<path d="M16.2 5.4 14.4 3.7M17.3 5 15.9 3M18.3 5.3 17.3 3.3" stroke-width="1.2"/>'
-  + '<path d="M11.2 15.3 10.2 18.4 8.7 21" stroke-width="1.5"/><path d="M13.1 15.2 13.9 18.5 15.5 20.9" stroke-width="1.5"/>'
-  + '<path d="M7.4 21.4 9.7 21M14.7 21.3 17 20.7" stroke-width="1.25"/></g>';
-const rr = (size, style) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true" style="${style||""}">${RR}</svg>`;
+const RR = '<path fill="currentColor" d="M86 92C62 74 36 48 14 24L34 6C62 38 104 88 128 120Z"/>'
+  + '<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">'
+  + '<path d="M107 129 99 152 95 169" stroke-width="10"/><path d="M130 130 136 152 144 168" stroke-width="10"/>'
+  + '<path d="M95 169 110 173M95 169 107 163M95 169 82 173" stroke-width="6"/>'
+  + '<path d="M144 168 159 172M144 168 156 162M144 168 131 172" stroke-width="6"/></g>'
+  + '<path fill="currentColor" d="M128 88C113 90 99 96 91 104C83 114 88 127 101 133C116 139 137 135 147 120'
+  + 'C154 109 153 96 156 86C159 77 163 70 169 66C180 64 196 66 209 69C198 60 188 53 180 49'
+  + 'C176 47 173 44 170 40C166 30 160 20 150 11L154 27C146 19 136 12 125 11C132 23 138 35 141 45'
+  + 'C136 52 132 62 129 72C128 79 128 84 128 88Z"/>';
+const rr = (size, style) => `<svg width="${size}" height="${size}" viewBox="0 0 218 190" aria-hidden="true" style="${style||""}">${RR}</svg>`;
 
 function toast(msg, ms){
   const el = document.createElement("div");
